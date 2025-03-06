@@ -1,0 +1,20 @@
+server:
+  port: 4000
+  ssl:
+    key-store: ./src/main/resources/ssl/baeldung.p12
+    key-store-password: 123456
+    key-store-type: PKCS12
+    key-alias: baeldung
+    enabled: true
+
+spring:
+  application:
+    name: PasteBinService
+  datasource:
+    url: jdbc:postgresql://localhost:5432/information_security_project
+    username: postgres
+    password: postgress
+  jpa:
+    hibernate:
+      dll-auto: update
+  database-platform: org.hibernate.dialect.PostgreSQLDialect

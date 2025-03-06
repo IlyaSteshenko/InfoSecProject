@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Full Paste</title>
+</head>
+<body>
+  <div th:object="${paste}">
+    <div th:text="${paste.getTitle()}"></div>
+    <div th:text="${paste.getText()}"></div>
+    <div th:text="${paste.getExpirationTime().toString()}"></div>
+  </div>
+</body>
+</html>
