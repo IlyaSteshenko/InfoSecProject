@@ -2,37 +2,44 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Registration</title>
+  <title>"Победа" Авторизация</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-<body>
+  <body>
+    <div class="head">
+      <div class="logo">
+        <div class="logoFirst">Патентное бюро</div>
+        <div class="logoSecond">Победа</div>
+      </div>
+    </div>
 
-<style>
-  * {
-      margin: 0;
-      padding: 0;
-      margin-left: 2px;
-      margin-top: 2px;
-  }
-</style>
+    <form class="loginForm" th:action="@{/registration}" th:method="post" th:object="${user}">
+      <h1>Регистрация</h1>
+      <label for="user">Новый логин</label><br>
+      <input type="text" name="user" id="user" th:field="*{username}"><br>
+      <label for="password">Новый пароль</label><br>
+      <input type="password" name="password" id="password" th:field="*{password}"><br>
+      <label for="email">Электронная почта</label><br>
+      <input type="text" name="email" id="email" th:field="*{email}"><br>
+      <p>Есть учетная запись? <a th:href="@{/login}">Авторизоваться</a></p>
 
-<form th:action="@{/registration}" th:object="${user}" th:method="post">
+      <a th:href="@{/}"><-- Back Home</a>
 
-  <p>Username</p>
-  <input type="text" th:field="*{username}">
-  <br/>
-  <br/>
+      <input type="submit" class="registerButton" value="Зарегистрироваться">
+    </form>
+    <script>
+      let form = document.querySelector(".loginForm")
+      document.addEventListener("mousemove", (event)=>{
+          let coords = form.getClientRects().item(0)
 
-  <p>Password</p>
-  <input type="password" th:field="*{password}">
-  <br/>
-  <br/>
-
-  <p>E-mail</p>
-  <input type="email" th:field="*{email}">
-  <br/>
-  <br/>
-
-  <input type="submit" value="Create" style="width: 150px; height: 30px;">
-</form>
-</body>
+          let centerX = coords.x + coords.width/2;
+          let centerY = coords.y + coords.height/2;
+          let diffX = centerX - event.x;
+          let diffY = centerY - event.y;
+          diffX = 20+10*Math.tanh(diffX/200)
+          diffY = 20+10*Math.tanh(diffY/200)
+          form.style.boxShadow = `#444 ${diffX}px ${diffY}px`
+      })
+    </script>
+  </body>
 </html>

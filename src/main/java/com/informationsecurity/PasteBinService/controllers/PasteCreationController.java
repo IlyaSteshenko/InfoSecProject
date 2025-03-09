@@ -1,7 +1,6 @@
 package com.informationsecurity.PasteBinService.controllers;
 
 import com.informationsecurity.PasteBinService.models.Paste;
-import com.informationsecurity.PasteBinService.models.PasteAddition;
 import com.informationsecurity.PasteBinService.models.UserEntity;
 import com.informationsecurity.PasteBinService.services.PasteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,9 @@ public class PasteCreationController {
 
     @GetMapping
     public String createNewPaste(Model model) {
+
         model.addAttribute("paste", new Paste());
-        model.addAttribute("addition", new PasteAddition());
+        model.addAttribute("userName", getUsername());
 
         return "create_new_paste";
     }
@@ -36,18 +36,23 @@ public class PasteCreationController {
             return "create_new_paste";
         }
         paste.setExpirationTime(LocalDateTime.now());
+        paste.setAuthor(getUsername());
         pasteService.save(paste);
 
         return "redirect:/";
     }
 
-    @PostMapping("/save_changes")
-    public String saveChanges(
-            @ModelAttribute("addition") PasteAddition pasteAddition,
-            @ModelAttribute("paste") Paste paste
-    ) {
-        pasteAddition.setPasteId(paste.getId());
+//    @PostMapping("/save_changes")
+//    public String saveChanges(
+//            @ModelAttribute("addition") PasteAddition pasteAddition,
+//            @ModelAttribute("paste") Paste paste
+//    ) {
+//        pasteAddition.setPasteId(paste.getId());
+//
+//        return "redirect:/create_new_paste";
+//    }
 
-        return "redirect:/create_new_paste";
+    private String getUsername() {
+        return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 }

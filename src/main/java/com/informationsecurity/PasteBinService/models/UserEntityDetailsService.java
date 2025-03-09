@@ -28,11 +28,12 @@ public class UserEntityDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
 
-        return new User(
-                userEntity.getUsername(),
-                userEntity.getPassword(),
-                Collections.singleton(userEntity.getRole())
-        );
+//        return new User(
+//                userEntity.getUsername(),
+//                userEntity.getPassword(),
+//                userEntity.getAuthorities()
+//        );
+        return userEntity;
     }
 
     public List<UserEntity> allUsers() {
@@ -46,17 +47,24 @@ public class UserEntityDetailsService implements UserDetailsService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(role);
+        user.setAccountLocked(false);
         userEntityRepository.save(user);
         return true;
     }
 
-    public Optional<UserEntity> findById(Long id) {
-        return userEntityRepository.findById(id);
+    public void saveAsUser(UserEntity user) {
+        userEntityRepository.save(user);
     }
 
-    public void deleteById(Long id) {
+    public UserEntity findById(Long id) {
+        return userEntityRepository.findUserById(id);
+    }
+
+    public boolean deleteById(Long id) {
         if (userEntityRepository.findById(id).isPresent()) {
             userEntityRepository.deleteById(id);
+            return true;
         }
+        return false;
     }
 }

@@ -1,74 +1,44 @@
-import Patent from "./patent.js";
-import Path from "./path.js";
-import Database from "./database.js";
-
-
-function notifyUser(string) {
-    function fade(notification){
-        const FADE_TIME = 500;
-        notification.classList.add("notificationHidden");
-        setTimeout(()=>{notification.remove();}, FADE_TIME);
+export default class Patent {
+    constructor(name, id, author, date, description) {
+        this.name = name;
+        this.id = id;
+        this.author = author;
+        this.date = date;
+        this.description = description;
     }
-    const EXPIRY_TIME= 5000;
-    let container = document.getElementsByClassName("notificationList")[0];
-    if (container === undefined) {
+    name;
+    id;
+    author;
+    date;
+    description;
+    /**
+     *
+     * @param onClickFunction
+     * функция, которая будет вызвана при нажатии на кнопку
+     * принимает 2 параметра
+     * 1. HTMLDivElement который бы создан
+     * 2. ID патента
+     *
+     * @returns {HTMLDivElement}
+     */
+    generateElement(onClickFunction) {
+        let element = document.createElement("div");
+        element.classList.add("patent");
+        element.id = this.id;
+        element.innerHTML = `
+        <div class="patentHeader">
+            <span class="patentName">${this.name}</span>
+            <span class="patentId">#${this.id}</span>
+        </div>
+        <div class="patentBody">
+            <div class="patentAuthor">${this.author}</div>
+            <div class="patentDate">${this.date}</div>
+            <div class="patentDescription">${this.description}</div>
+        </div>`;
+        if (onClickFunction != null) {
+            element.addEventListener("click", onClickFunction(element, this.id));
+        }
+        return element;
 
-        container = document.createElement("div");
-        container.classList.add("notificationList");
-        document.body.prepend(container);
     }
-    let notification = document.createElement("div");
-    notification.classList.add("notificationHidden", "notification");
-    notification.textContent = string;
-    container.prepend(notification);
-    setTimeout(()=>notification.classList.remove("notificationHidden"), 10);
-    setTimeout(fade,EXPIRY_TIME,notification);
-    notification.addEventListener("click", ()=>{fade(notification)})
 }
-
-function createOnClickID(element, id) {
-    return ()=>Path.initWindow(`Патент#${id}`);
-}
-
-
-
-
-
-
-
-// document.querySelectorAll(".patentHeader").forEach(
-//     function (element, number, ignored) {
-//         element.addEventListener("click", createOnClickID(element));
-//     }
-// ); код из начала создания
-function initCreatePatentButton() {
-    document.querySelectorAll(".create").forEach((elem) => {
-        elem.addEventListener("click", () => {
-            let patent = new Patent("Гойда", 123, "Охлобыстин",
-                "2.1.2020", "Священная война")
-                .generateElement(createOnClickID);
-            document.querySelector(".patentsList").prepend(patent);
-            Path.next("Гойда", () => {
-                notifyUser("Гойда назад, перемога перемога");
-                patent.remove();
-            })
-        });
-    })
-
-}
-
-function DisplayRecentPatents(){
-    let patentListElement = document.querySelector(".patentsList")
-    if (patentListElement === null) {
-        console.log("DisplayRecentPatents не нашел patentsList на странице, я не хочу добавлять проверки, иди чини")
-        return;
-    }
-    patentListElement.replaceChildren();
-    let queryResult = Database.fetchPatentsList();
-    queryResult.forEach((patent)=>patentListElement.prepend(patent.generateElement(createOnClickID)));
-
-}
-window.addEventListener("load", ()=>{
-    DisplayRecentPatents();
-    initCreatePatentButton();
-})

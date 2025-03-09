@@ -24,4 +24,7 @@ public class Paste {
     @Column(name = "expirationtime")
     private LocalDateTime expirationTime;
 
+    @Column(name = "author")
+    private String author;
+
 }

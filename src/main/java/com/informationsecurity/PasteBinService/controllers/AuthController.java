@@ -24,6 +24,11 @@ public class AuthController {
         return "registration";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
     @GetMapping("/registration_admin")
     public String regAdmin(Model model) {
         model.addAttribute("user", new UserEntity());

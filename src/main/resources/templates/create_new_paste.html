@@ -1,34 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+<!--    <script src="scripts/PatentOpen.js" type="module"></script>-->
 </head>
 <body>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            margin-left: 2px;
-            margin-top: 2px;
-        }
-    </style>
+<div class="mainWrapper">
+    <h1>Создать новый патент</h1>
+    <h2 th:text="${userName}">Автор {имя}</h2>
+    <div class="patentFullList">
+        <div class="update" id="uElement">
 
-    <form th:action="@{/create_new_paste}" th:object="${paste}" th:method="post">
+            <form id="uForm" th:object="${paste}" th:method="post" th:action="@{/create_new_paste}">
+                <div class="updateHeaderEdit">
+                    <label for="uName">Название патента</label><br>
 
-        <p>Title</p>
-        <input type="text" th:field="*{title}">
-        <br/>
-        <br/>
+                    <input type="text" name="uName" id="uName" placeholder="" th:field="*{title}" required>
+                </div>
+                <div class="updateBody">
+                    <div class="updateDescriptionEdit">
+                        <label for="uDesk">Описание патента</label><br>
+                        <textarea name="uDesk" id="uDesk" th:field="*{text}" required></textarea>
+                        <input type="submit" value="Опубликовать" id="uSubmit">
+                    </div>
+                </div>
+            </form>
 
-        <p>Text</p>
-        <textarea th:field="*{text}" style="width: 1000px; height: 300px;"/>
-        <br/>
-        <br/>
+        </div>
 
-        <input type="submit" value="Create" style="width: 150px; height: 30px;">
-    </form>
-
+    </div>
+</div>
 </body>
 </html>

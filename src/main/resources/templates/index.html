@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link th:href="@{/css/style.css}" rel="stylesheet" />
-<!--    <script type="module" src="../../../../../frontend/pobeda/scripts/patent.js"></script>-->
-<!--    <script type="module" src="../../../../../frontend/pobeda/scripts/path.js"></script>-->
-    <script type="module" th:href="@{/js/searchAndDescription.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+<!--    <script type="module" th:src="@{/js/hello.js}"></script>-->
+<!--    <script type="module" src="scripts/path.js"></script>-->
+<!--    <script type="module" src="scripts/searchAndDescription.js"></script>-->
 </head>
 <body>
     <div class="notificationList"></div>
@@ -16,63 +16,43 @@
             <div class="logoSecond">Победа</div>
         </div>
         <div class="controls">
+            <div th:if="${authorities.equals('[ADMIN]')}">
+                <a th:href="@{/admin}" class="adminLink">Управление аккаунтами</a>
+            </div>
             <div class="search-container">
                 <label>
-                    <input type="text" th:object="${searchRequest}" class="search-input" placeholder="Введите запрос...">
-                    <input class="search-button" type="submit">
+                    <input type="text" class="search-input" placeholder="Введите запрос...">
+                    <button class="search-button">Искать</button>
                 </label>
             </div>
             <a class="create" th:href="@{/create_new_paste}">Новый патент</a>
-<!--            <div class="settings"><img src="../../../../../frontend/pobeda/img/settings.svg" alt=""></div>-->
+            <div class="settings"><img src="../img/settings.svg" alt=""></div>
         </div>
+    </div>
+
+    <div th:if="${not userName.equals('anonymousUser')}" class="username" th:text="${userName}">
+        <a th:href="@{login}">Войти в аккаунт</a>
+    </div>
+    <div th:if="${userName.equals('anonymousUser')}" class="username-without-before">
+        <a th:href="@{login}">Войти в аккаунт</a>
     </div>
 
     <div class="mainWrapper">
         <h1 id="DataHeader">Последние патенты (новые)</h1>
-        <div th:each="paste : ${pasteList}">
-            <a class="patentList" th:text="${paste.getTitle()}" th:href="@{/paste/{id}(id=${paste.getId()})}"></a>
+        <div class="patentsList">
+            <div th:each="patent : ${pasteList}" class="patent">
+                <a th:href="@{/paste/{id}(id=${patent.getId()})}" class="patentHeader">
+                    <span class="patentName" th:text="${patent.getTitle()}"></span>
+                    <span class="patentId" th:text="${patent.getId()}"></span>
+                </a>
+                <div class="patentBody">
+                    <div class="patentAuthor" th:text="${patent.getAuthor()}">${this.author}</div>
+                    <div class="patentDate" th:text="${patent.getExpirationTime()}"></div>
+                    <div class="patentDescription" th:text="${patent.getText()}"></div>
+                </div>
+            </div>
         </div>
     </div>
 
-</html>
 </body>
-
-<!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns:th="https://www.thymeleaf.org">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>Title</title>-->
-<!--    <link rel="stylesheet" th:href="@{/css/style.css}">-->
-<!--    &lt;!&ndash; <script type="module" src="scripts/patent.js"></script> &ndash;&gt;-->
-<!--    &lt;!&ndash; <script type="module" src="scripts/path.js"></script> &ndash;&gt;-->
-<!--&lt;!&ndash;    <script type="text/javascript" th:src="@{/js/hello.js}"></script>&ndash;&gt;-->
-<!--</head>-->
-<!--<body>-->
-<!--<div class="notificationList"></div>-->
-<!--<div class="head">-->
-<!--    <div class="logo">-->
-<!--        <div class="logoFirst">Патентное бюро</div>-->
-<!--        <div class="logoSecond">Победа</div>-->
-<!--    </div>-->
-<!--    <div class="controls">-->
-<!--        <div class="search-container">-->
-<!--            <label>-->
-<!--                <input type="text" class="search-input" placeholder="Введите запрос...">-->
-<!--                <button class="search-button">Искать</button>-->
-<!--            </label>-->
-<!--        </div>-->
-<!--        <button class="create">Новый патент</button>-->
-<!--&lt;!&ndash;        <div class="settings"><img src="img/settings.svg" alt=""></div>&ndash;&gt;-->
-<!--    </div>-->
-<!--</div>-->
-<!--<div class="username"></div>-->
-<!--<div class="mainWrapper">-->
-
-<!--    <h1 id="DataHeader">Последние патенты (новые)</h1>-->
-<!--    <div class="patentsList">-->
-<!--    </div>-->
-<!--</div>-->
-
-<!--&lt;!&ndash;<script type="text/javascript" th:src="@{/js/hello.js}"></script>&ndash;&gt;-->
-<!--</body>-->
-<!--</html>-->
+</html>

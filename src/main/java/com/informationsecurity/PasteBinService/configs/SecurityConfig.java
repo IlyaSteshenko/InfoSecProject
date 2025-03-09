@@ -11,6 +11,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -26,12 +27,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .csrf(CsrfConfigurer::disable)
                 .authorizeHttpRequests((request) -> {
                     request.requestMatchers("/create_new_paste").hasAnyAuthority("USER", "ADMIN");
-                    request.requestMatchers("/admin", "/registration_admin").hasAuthority("ADMIN");
+                    request.requestMatchers("/admin/**", "/registration_admin").hasAuthority("ADMIN");
                     request.requestMatchers("/registration", "/**").permitAll();
+                    request.requestMatchers(
+                            "/resources/**",
+                            "/static/**",
+                            "/css/**",
+                            "/img/**",
+                            "/js/**"
+                    ).permitAll();
                 })
-                .formLogin(Customizer.withDefaults());
+                .formLogin(loginPage -> loginPage
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/")
+                        .permitAll()
+                );
 
         return httpSecurity.build();
     }

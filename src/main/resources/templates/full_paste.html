@@ -2,13 +2,113 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Full Paste</title>
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <!--    <script type="module" src="scripts/patent.js"></script>-->
+    <!--    <script type="module" src="scripts/path.js"></script>-->
+    <!--    <script type="module" src="scripts/searchAndDescription.js"></script>-->
 </head>
 <body>
-  <div th:object="${paste}">
-    <div th:text="${paste.getTitle()}"></div>
-    <div th:text="${paste.getText()}"></div>
-    <div th:text="${paste.getExpirationTime().toString()}"></div>
-  </div>
+<div class="notificationList"></div>
+<div class="head">
+    <div class="logo">
+        <div class="logoFirst">Патентное бюро</div>
+        <div class="logoSecond">Победа</div>
+    </div>
+    <div class="controls">
+        <div class="search-container">
+            <label>
+                <input type="text" class="search-input" placeholder="Введите запрос...">
+                <button class="search-button">Искать</button>
+            </label>
+        </div>
+        <button class="create">Новый патент</button>
+        <div class="settings"><img src="../img/settings.svg" alt=""></div>
+    </div>
+</div>
+
+<div class="mainWrapper">
+
+    <div class="top-line">
+        <a th:href="@{/}"><-- Back Home</a>
+        <span class="username" th:text="${userName}">Мария Петрова</span>
+    </div>
+
+    <h1>Описание патента</h1>
+    <div class="patentFullList">
+        <div class="patent" id="002">
+            <div class="patentHeader">
+                <span class="patentName" th:text="${paste.getTitle()}">Метод лечения диабета 2 типа</span>
+                <span class="patentId" th:text="'#' + ${paste.getId()}">#002</span>
+            </div>
+            <div class="patentBody">
+                <div class="patentAuthor" th:text="${paste.getAuthor()}">Мария Петрова</div>
+                <div class="patentDate" th:text="${paste.getExpirationTime()}">2023-02-20</div>
+                <div class="patentDescription" th:text="${paste.getText()}">Патент на новый метод лечения диабета 2 типа
+                    с использованием натуральных экстрактов.
+                </div>
+            </div>
+
+        </div>
+
+        <div th:each="add : ${additions}">
+            <div class="update" id="002-1">
+
+                <div class="updateHeader">
+                    <span class="updateId" th:text="${add.getId()}">#002-1</span>
+                    <span class="updateDate" th:text="${add.getAdditionDate()}">
+                        2023-02-25
+                    </span>
+                    <div class="updateName" th:text="${add.getUpdateName()}">
+                        Обновление метода лечения диабета 2 типа
+                    </div>
+                </div>
+                <div class="updateBody">
+                    <div class="updateDescription" th:text="${add.getUpdateText()}">
+                        Уточнены дозировки и добавлены новые компоненты для повышения эффективности лечения.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="update updateHidden updateHiding" id="uElement" th:if="${paste.getAuthor().equals(userName)}">
+            <form id="uForm" th:action="@{/paste/{id}(id=${paste.getId()})}" th:object="${addition}" th:method="post">
+                <div class="updateHeaderEdit">
+                    <div>Добавить дополнение к патенту</div>
+                    <label for="uName">Заголовок дополнения</label><br>
+                    <input th:field="*{updateName}" type="text" id="uName">
+                </div>
+                <div class="updateBody">
+                    <div class="updateDescriptionEdit">
+                        <label for="uDesk">Описание дополнения</label><br>
+                        <textarea th:field="*{updateText}" id="uDesk"></textarea>
+                        <input type="submit" value="Опубликовать" id="uSubmit">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <button class="newUpdateButton" th:if="${paste.getAuthor().equals(userName)}">+</button>
+    </div>
+</div>
+
+<script th:if="${paste.getAuthor().equals(userName)}">
+    function buttonMentality(buttonElement, mainElement) {
+            if (!buttonElement.classList.contains("buttonForClose")) {
+                buttonElement.classList.add("buttonForClose");
+                mainElement.classList.remove("updateHidden")
+                setTimeout(() => mainElement.classList.remove("updateHiding")
+                    , 500)
+            } else {
+                buttonElement.classList.remove("buttonForClose");
+                mainElement.classList.add("updateHiding")
+                setTimeout(() => mainElement.classList.add("updateHidden")
+                    , 500)
+            }
+        }
+        let button = document.querySelector(".newUpdateButton");
+        let mainElement = document.getElementById("uElement");
+        button.addEventListener("click", () => buttonMentality(button,mainElement))
+</script>
 </body>
 </html>
