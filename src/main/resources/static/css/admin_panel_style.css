@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --radius: 1.5em;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.line-table {
+    margin: 15px;
+    width: inherit;
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.line {
+    width: calc(100% - 16px);
+    height: 60px;
+    background-color: #ebebeb;
+
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: var(--radius);
+
+    display: flex;
+    flex-direction: row;
+}
+
+.item {
+    height: inherit;
+}
+
+.id {
+    width: 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.name, .password, .email{
+    width: 25%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-wrap: anywhere;
+}
+
+.password {
+    overflow-wrap:anywhere;
+}
+
+.ban, .delete {
+    width: 10%;
+}
+
+.font {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.btn {
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+
+    background-color: #456fd2;
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+}
+
+.form {
+    height: inherit;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title-text {
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 30px;
+}
+
+.border-wrap {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.border {
+    width: calc(100% - 70px);
+    border: solid;
+}
+
+.functions {
+    width: calc(100% - 16px);
+    height: 60px;
+    padding: 8px;
+
+    display: flex;
+    flex-direction: raw;
+    justify-content: space-around;
+}
+
+.function-el {
+    width: 100%;
+    height: inherit;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.function {
+    width: calc(100% - 20px);
+    height: inherit;
+    background-color: #456fd2;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+
+    border-radius: 20px;
+}
