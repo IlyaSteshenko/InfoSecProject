@@ -4,6 +4,7 @@ import com.informationsecurity.PasteBinService.models.UserEntity;
 import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@AllArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private UserEntityDetailsService userEntityDetailsService;
+    private final UserEntityDetailsService userEntityDetailsService;
 
     @GetMapping("/registration")
     public String registration(Model model) {
