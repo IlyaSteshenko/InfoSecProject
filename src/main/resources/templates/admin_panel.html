@@ -54,10 +54,10 @@
 <body>
 <div class="notificationList"></div>
 <div class="head">
-    <div class="logo">
+    <a class="logo" th:href="@{/}">
         <div class="logoFirst">Патентное бюро</div>
         <div class="logoSecond">Победа</div>
-    </div>
+    </a>
     <div class="controls">
         <a th:href="@{/admin}" class="adminLink">Управление аккаунтами</a>
         <div class="search-container">
@@ -74,7 +74,9 @@
 <div class="mainWrapper">
 
     <h1 id="DataHeader">Список пользователей</h1>
-    <form style="justify-self: right; margin-bottom: 5px"><label for="usersSearch">Искать по логину</label><br><input type="text" name="usersSearch" id="usersSearch">
+    <form style="justify-self: right; margin-bottom: 5px" th:method="post" th:action="@{/admin/search}">
+        <label for="usersSearch">Искать по логину</label><br>
+        <input type="text" name="usersSearch" id="usersSearch">
         <input type="submit" value="Искать">
     </form>
 
@@ -88,25 +90,27 @@
             <th>Удаление пользователя (опасно)</th>
         </tr>
         </thead>
-        <tbody th:each="user : ${users}">
-            <tr>
+        <tbody>
+            <tr th:each="user : ${users}">
                 <td th:text="${user.getUsername()}">Diversant</td>
                 <td th:text="${user.getEmail()}">dimas55@sigma.edu</td>
 
                 <td>
                     <div th:if="${not user.isAccountLocked()}">
                         <form th:object="${user}" th:action="@{/admin/user/{id}/ban(id=${user.getId()})}" th:method="post">
-                                <label for="4535_Banned" class="fill">
+<!--                                <label for="4535_Banned" class="fill">-->
+<!--                                    <input type="submit" th:value="${user.isAccountLocked()}">-->
                                     <input type="submit" name="4535_Banned" id="4535_Banned" th:value="${user.isAccountLocked()}">
-                                </label>
+<!--                                </label>-->
                         </form>
                     </div>
 
                     <div th:if="${user.isAccountLocked()}">
                         <form th:object="${user}" th:action="@{/admin/user/{id}/unban(id=${user.getId()})}" th:method="post">
-                                <label for="4536_Banned" class="fill">
-                                    <input type="submit" name="4535_Banned" id="4536_Banned" th:value="${user.isAccountLocked()}">
-                                </label>
+<!--                                <label for="4536_Banned" class="fill">-->
+<!--                                    <input type="submit" name="4536_Banned" id="4536_Banned" th:value="${user.isAccountLocked()}">-->
+                                    <input type="submit" th:value="${user.isAccountLocked()}">
+<!--                                </label>-->
                         </form>
                     </div>
                 </td>

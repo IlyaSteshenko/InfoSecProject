@@ -42,16 +42,6 @@ public class PasteCreationController {
         return "redirect:/";
     }
 
-//    @PostMapping("/save_changes")
-//    public String saveChanges(
-//            @ModelAttribute("addition") PasteAddition pasteAddition,
-//            @ModelAttribute("paste") Paste paste
-//    ) {
-//        pasteAddition.setPasteId(paste.getId());
-//
-//        return "redirect:/create_new_paste";
-//    }
-
     private String getUsername() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }

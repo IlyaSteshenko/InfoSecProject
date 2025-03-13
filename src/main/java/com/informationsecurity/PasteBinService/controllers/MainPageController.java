@@ -2,14 +2,10 @@ package com.informationsecurity.PasteBinService.controllers;
 
 import com.informationsecurity.PasteBinService.models.Addition;
 import com.informationsecurity.PasteBinService.models.Paste;
-import com.informationsecurity.PasteBinService.models.UserEntity;
-import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
 import com.informationsecurity.PasteBinService.services.AdditionService;
 import com.informationsecurity.PasteBinService.services.PasteService;
 import com.informationsecurity.PasteBinService.services.SecurityContextService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,37 +14,26 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Controller
+@AllArgsConstructor
 public class MainPageController {
 
-    @Autowired
     private PasteService pasteService;
-
-    @Autowired
-    private UserEntityDetailsService userEntityDetailsService;
-
-    @Autowired
     private SecurityContextService contextService;
-
-    @Autowired
     private AdditionService additionService;
+    private SecurityContextService securityContextService;
 
     @GetMapping("/")
     public String mainPage(Model model) {
 
-        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        String userName = securityContextService.getUsername();
 
         model.addAttribute("pasteList", pasteService.getAll());
         model.addAttribute("userName", userName);
         model.addAttribute("authorities", contextService.getAuthorities());
-
-//        Addition addition = new Addition();
-//        addition.setPasteId(1);
-//        addition.setAdditionDate(LocalDateTime.now());
-//        addition.setUpdateName("Name");
-//        addition.setUpdateText("Text");
-//        additionService.save(addition);
 
         return "index";
     }
@@ -59,10 +44,15 @@ public class MainPageController {
             Model model
     ) {
         Paste paste = pasteService.findById(id);
+        List<Addition> additions = additionService.findAdditionsWithPasteId(id);
+
         model.addAttribute("paste", paste);
+        model.addAttribute("pasteTime", DateTimeFormatter.ofPattern("hh:mm:ss dd-MM-yyyy").format(paste.getExpirationTime()));
         model.addAttribute("userName", contextService.getUsername());
         model.addAttribute("addition", new Addition());
-        model.addAttribute("additions", additionService.findAdditionsWithPasteId(id));
+        model.addAttribute("additions", additions);
+        model.addAttribute("addTime", DateTimeFormatter.ofPattern("hh:mm:ss dd-MM-yyyy"));
+        model.addAttribute("index", 1);
 
         return "full_paste";
     }

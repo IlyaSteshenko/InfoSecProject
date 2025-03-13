@@ -5,11 +5,11 @@ import com.informationsecurity.PasteBinService.models.UserEntity;
 import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
 import com.informationsecurity.PasteBinService.services.SecurityContextService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -82,6 +82,18 @@ public class AdminController {
         user.setRole(Role.ADMIN);
         userEntityDetailsService.saveAsUser(user);
 
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/search")
+    public String searchUser(@RequestBody String searchString) {
+        List<UserEntity> userEntityList = userEntityDetailsService.allUsers();
+        List<UserEntity> resultList = new ArrayList<>();
+        for (UserEntity user : userEntityList) {
+            if (user.getUsername().contains(searchString)) {
+                resultList.add(user);
+            }
+        }
         return "redirect:/admin";
     }
 

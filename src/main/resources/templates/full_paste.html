@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
-    <!--    <script type="module" src="scripts/patent.js"></script>-->
-    <!--    <script type="module" src="scripts/path.js"></script>-->
-    <!--    <script type="module" src="scripts/searchAndDescription.js"></script>-->
 </head>
 <body>
 <div class="notificationList"></div>
@@ -31,7 +28,12 @@
 
     <div class="top-line">
         <a th:href="@{/}"><-- Back Home</a>
-        <span class="username" th:text="${userName}">Мария Петрова</span>
+        <div th:if="${not userName.equals('anonymousUser')}" class="username" th:text="${userName}">
+            <a th:href="@{/login}">Войти в аккаунт</a>
+        </div>
+        <div th:if="${userName.equals('anonymousUser')}" class="username-without-before">
+            <a th:href="@{/login}">Войти в аккаунт</a>
+        </div>
     </div>
 
     <h1>Описание патента</h1>
@@ -43,7 +45,7 @@
             </div>
             <div class="patentBody">
                 <div class="patentAuthor" th:text="${paste.getAuthor()}">Мария Петрова</div>
-                <div class="patentDate" th:text="${paste.getExpirationTime()}">2023-02-20</div>
+                <div class="patentDate" th:text="${pasteTime}">2023-02-20</div>
                 <div class="patentDescription" th:text="${paste.getText()}">Патент на новый метод лечения диабета 2 типа
                     с использованием натуральных экстрактов.
                 </div>
@@ -51,12 +53,13 @@
 
         </div>
 
-        <div th:each="add : ${additions}">
+<!--        Дополнения-->
+        <div th:each="add, state : ${additions}">
             <div class="update" id="002-1">
 
                 <div class="updateHeader">
-                    <span class="updateId" th:text="${add.getId()}">#002-1</span>
-                    <span class="updateDate" th:text="${add.getAdditionDate()}">
+                    <span class="updateId" th:text="'#' + ${paste.getId()} + '-' + ${state.count}">#002-1</span>
+                    <span class="updateDate" th:text="${addTime.format(add.getAdditionDate())}">
                         2023-02-25
                     </span>
                     <div class="updateName" th:text="${add.getUpdateName()}">
@@ -71,6 +74,7 @@
             </div>
         </div>
 
+<!--        Форма для дополнения-->
         <div class="update updateHidden updateHiding" id="uElement" th:if="${paste.getAuthor().equals(userName)}">
             <form id="uForm" th:action="@{/paste/{id}(id=${paste.getId()})}" th:object="${addition}" th:method="post">
                 <div class="updateHeaderEdit">
