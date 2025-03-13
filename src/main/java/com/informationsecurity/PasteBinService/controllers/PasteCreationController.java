@@ -1,8 +1,8 @@
 package com.informationsecurity.PasteBinService.controllers;
 
 import com.informationsecurity.PasteBinService.models.Paste;
-import com.informationsecurity.PasteBinService.models.UserEntity;
 import com.informationsecurity.PasteBinService.services.PasteService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -16,10 +16,10 @@ import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/create_new_paste")
+@AllArgsConstructor
 public class PasteCreationController {
 
-    @Autowired
-    private PasteService pasteService;
+    private final PasteService pasteService;
 
     @GetMapping
     public String createNewPaste(Model model) {
