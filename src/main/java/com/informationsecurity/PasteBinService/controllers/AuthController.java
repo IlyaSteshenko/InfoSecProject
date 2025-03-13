@@ -2,16 +2,9 @@ package com.informationsecurity.PasteBinService.controllers;
 
 import com.informationsecurity.PasteBinService.models.UserEntity;
 import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
-import com.informationsecurity.PasteBinService.services.SecurityContextService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextHolderStrategy;
-import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
-@AllArgsConstructor
 public class AuthController {
 
+    @Autowired
     private UserEntityDetailsService userEntityDetailsService;
-    private SecurityContextService securityContextService;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -53,8 +45,6 @@ public class AuthController {
         if (!userEntityDetailsService.saveUser(user, false)) {
             return "registration";
         }
-
-        securityContextService.authorizeUser(user, request, response);
 
         return "redirect:/";
     }
