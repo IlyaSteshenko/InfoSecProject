@@ -1,11 +1,9 @@
 package com.informationsecurity.PasteBinService.services;
 
 import com.informationsecurity.PasteBinService.models.UserEntity;
-import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;

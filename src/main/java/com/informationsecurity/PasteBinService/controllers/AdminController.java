@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -87,13 +86,14 @@ public class AdminController {
 
     @PostMapping("/search")
     public String searchUser(@RequestBody String searchString) {
-        List<UserEntity> userEntityList = userEntityDetailsService.allUsers();
-        List<UserEntity> resultList = new ArrayList<>();
-        for (UserEntity user : userEntityList) {
-            if (user.getUsername().contains(searchString)) {
-                resultList.add(user);
-            }
-        }
+//        List<UserEntity> userEntityList = userEntityDetailsService.allUsers();
+//        List<UserEntity> resultList = new ArrayList<>();
+//        for (UserEntity user : userEntityList) {
+//            if (user.getUsername().contains(searchString)) {
+//                resultList.add(user);
+//            }
+//        }
+        System.out.println(searchString);
         return "redirect:/admin";
     }
 

@@ -11,19 +11,21 @@
 <body>
     <div class="notificationList"></div>
     <div class="head">
-        <div class="logo">
+        <a class="logo" th:href="@{/}">
             <div class="logoFirst">Патентное бюро</div>
             <div class="logoSecond">Победа</div>
-        </div>
+        </a>
         <div class="controls">
             <div th:if="${authorities.equals('[ADMIN]')}">
                 <a th:href="@{/admin}" class="adminLink">Управление аккаунтами</a>
             </div>
             <div class="search-container">
-                <label>
-                    <input type="text" class="search-input" placeholder="Введите запрос...">
-                    <button class="search-button">Искать</button>
-                </label>
+                <form th:action="@{/search}" th:method="post">
+                    <label>
+                        <input name="search" type="text" class="search-input" placeholder="Введите запрос...">
+                    </label>
+                    <button class="search-button" type="submit">Искать</button>
+                </form>
             </div>
             <a class="create" th:href="@{/create_new_paste}">Новый патент</a>
             <a class="settings" th:href="@{/logout}"><img src="../img/settings.svg" alt=""></a>
@@ -47,7 +49,7 @@
                 </a>
                 <div class="patentBody">
                     <div class="patentAuthor" th:text="${patent.getAuthor()}">${this.author}</div>
-                    <div class="patentDate" th:text="${patent.getExpirationTime()}"></div>
+                    <div class="patentDate" th:text="${pasteTime.getTimeFormat(patent.getExpirationTime())}"></div>
                     <div class="patentDescription" th:text="${patent.getText()}"></div>
                 </div>
             </div>

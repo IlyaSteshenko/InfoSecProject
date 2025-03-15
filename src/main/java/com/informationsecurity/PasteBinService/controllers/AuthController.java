@@ -2,6 +2,7 @@ package com.informationsecurity.PasteBinService.controllers;
 
 import com.informationsecurity.PasteBinService.models.UserEntity;
 import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
+import com.informationsecurity.PasteBinService.services.SecurityContextService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ public class AuthController {
 
     @Autowired
     private UserEntityDetailsService userEntityDetailsService;
+
+    @Autowired
+    private SecurityContextService securityContextService;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -45,6 +49,8 @@ public class AuthController {
         if (!userEntityDetailsService.saveUser(user, false)) {
             return "registration";
         }
+
+        securityContextService.authorizeUser(user, request, response);
 
         return "redirect:/";
     }

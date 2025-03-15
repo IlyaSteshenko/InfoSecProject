@@ -59,7 +59,7 @@
 
                 <div class="updateHeader">
                     <span class="updateId" th:text="'#' + ${paste.getId()} + '-' + ${state.count}">#002-1</span>
-                    <span class="updateDate" th:text="${addTime.format(add.getAdditionDate())}">
+                    <span class="updateDate" th:text="${addTime.getTimeFormat(add.getAdditionDate())}">
                         2023-02-25
                     </span>
                     <div class="updateName" th:text="${add.getUpdateName()}">

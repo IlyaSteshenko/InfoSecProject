@@ -25,4 +25,7 @@ public class PasteService {
         return pasteRepository.findPasteById(id);
     }
 
+    public List<Paste> findPatentsWithText(String searchText) {
+        return pasteRepository.findPatentsWithText(searchText);
+    }
 }

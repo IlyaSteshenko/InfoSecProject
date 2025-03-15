@@ -3,7 +3,6 @@ package com.informationsecurity.PasteBinService.controllers;
 import com.informationsecurity.PasteBinService.models.Paste;
 import com.informationsecurity.PasteBinService.services.PasteService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
