@@ -69,9 +69,55 @@ html{
 .settings{
     margin-right: 20px;
 }
+
+.sideMenu{
+    display: flex;
+    opacity: 0;
+    position: absolute;
+    right: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-top: 20px;
+    padding: 0;
+    background-color: #EED2661A;
+    flex-direction: column;
+    transition: all ease 0.2s;
+    width: 0;
+    overflow: hidden;
+}
+.sideMenu>a{
+    border-bottom: 1px solid var(--border-color);
+    display: inline-flex;
+    align-items: center;
+    column-gap: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.sideMenu>a:hover{
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+.sideMenu>a>img{
+    width: 20px;
+    aspect-ratio: 1/1;
+}
+.sideMenu>a:last-child{
+    border-bottom: none;
+}
+
+.settings.visible > .sideMenu{
+    display: flex;
+    opacity: 1;
+    width: 150px;
+    padding: 10px;
+}
 .settings>img{
     aspect-ratio: 1/1;
     height: 50px;
+    transition: ease-in 0.2s all;
+}
+.settings-rotated{
+    transform: rotate(90deg);
 }
 
 .create{
