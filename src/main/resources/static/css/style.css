@@ -40,7 +40,7 @@ html{
     overflow: hidden;
     background-repeat: no-repeat;
     background-size: 100px;
-    ;
+    text-decoration: none;
 }
 .logoFirst{
     color: var(--logo-text-color); /* Светло-серый цвет */
@@ -189,6 +189,7 @@ html{
 .patentName{
     font: 25px var(--patent-header-text-color);
     font-family: "fantasy", sans-serif;
+    word-break: break-all;
 }
 .patentDate{
 
@@ -201,6 +202,8 @@ html{
     font: 20px var(--patent-descriprion-text-color);
     font-family: "Segoe UI", sans-serif;
     padding: 10px;
+    word-break: break-all;
+    white-space: pre-wrap
 }
 .patentHeader{
     padding: 10px;

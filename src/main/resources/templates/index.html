@@ -31,7 +31,7 @@
             <div class="settings" tabindex="-1" >
                 <img src="../img/settings.svg" alt="">
                 <div class="sideMenu">
-                    <a th:href="@{/profile/{id}(id=${})}" th:if="${not userName.equals('anonymousUser')}">
+                    <a th:href="@{/profile/{id}(id=${user.getId()})}" th:if="${not userName.equals('anonymousUser')}">
                         <img src="../img/profile.svg" alt="">
                         <span>Профиль</span>
                     </a>
@@ -74,9 +74,6 @@
     <div th:if="${not userName.equals('anonymousUser')}" class="username" th:text="${userName}">
         <a th:href="@{login}">Войти в аккаунт</a>
     </div>
-    <div th:if="${userName.equals('anonymousUser')}" class="username-without-before">
-        <a th:href="@{login}">Войти в аккаунт</a>
-    </div>
 
     <div class="mainWrapper">
         <h1 id="DataHeader">Последние патенты (новые)</h1>
@@ -89,7 +86,7 @@
                 <div class="patentBody">
                     <div class="patentAuthor" th:text="${patent.getAuthor()}">${this.author}</div>
                     <div class="patentDate" th:text="${pasteTime.getTimeFormat(patent.getExpirationTime())}"></div>
-                    <div class="patentDescription" th:text="${patent.getText()}"></div>
+                    <div class="patentDescription" th:text="${textFormater.format(patent.getText())}"></div>
                 </div>
             </div>
         </div>

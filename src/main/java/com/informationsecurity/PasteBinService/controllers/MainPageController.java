@@ -1,10 +1,8 @@
 package com.informationsecurity.PasteBinService.controllers;
 
 import com.informationsecurity.PasteBinService.models.*;
-import com.informationsecurity.PasteBinService.services.AdditionService;
-import com.informationsecurity.PasteBinService.services.PasteService;
-import com.informationsecurity.PasteBinService.services.SecurityContextService;
-import com.informationsecurity.PasteBinService.services.TimeFormatService;
+import com.informationsecurity.PasteBinService.repositories.UserEntityRepository;
+import com.informationsecurity.PasteBinService.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +23,9 @@ public class MainPageController {
     private final SecurityContextService securityContextService;
     private final UserEntityDetailsService userEntityDetailsService;
     private final TimeFormatService timeFormatService;
+    private final UserEntityRepository userEntityRepository;
+    private final TextFormatService textFormatService;
+
     private final String timeFormat = "hh:mm:ss dd MM yyyy";
 
     @GetMapping("/")
@@ -35,7 +36,8 @@ public class MainPageController {
         model.addAttribute("pasteList", pasteService.getAll());
         model.addAttribute("userName", userName);
         model.addAttribute("authorities", contextService.getAuthorities());
-        model.addAttribute("pasteTime", timeFormatService);
+        model.addAttribute("pasteTime", timeFormatService)
+                .addAttribute("textFormater", textFormatService);
 
         if (!userName.equals("anonymousUser")) {
             model.addAttribute(
@@ -54,13 +56,14 @@ public class MainPageController {
         Paste paste = pasteService.findById(id);
         List<Addition> additions = additionService.findAdditionsWithPasteId(id);
 
-        model.addAttribute("paste", paste);
-        model.addAttribute("pasteTime", timeFormatService.getTimeFormat(paste.getExpirationTime()));
-        model.addAttribute("userName", contextService.getUsername());
-        model.addAttribute("addition", new Addition());
-        model.addAttribute("additions", additions);
-        model.addAttribute("addTime", timeFormatService);
-        model.addAttribute("index", 1);
+        model
+                .addAttribute("paste", paste)
+                .addAttribute("pasteTime", timeFormatService.getTimeFormat(paste.getExpirationTime()))
+                .addAttribute("userName", contextService.getUsername())
+                .addAttribute("addition", new Addition())
+                .addAttribute("additions", additions)
+                .addAttribute("addTime", timeFormatService)
+                .addAttribute("index", 1);
 
         return "full_paste";
     }
@@ -94,7 +97,15 @@ public class MainPageController {
         model.addAttribute("userName", userName);
         model.addAttribute("authorities", contextService.getAuthorities());
         model.addAttribute("pasteTime", timeFormatService);
-        model.addAttribute("pasteList", pastes);
+        model.addAttribute("pasteList", pastes)
+                .addAttribute("textFormater", textFormatService);
+
+        if (!userName.equals("anonymousUser")) {
+            model.addAttribute(
+                    "user",
+                    userEntityDetailsService.loadUserByUsername(userName));
+        }
+
         return "index";
     }
 }
