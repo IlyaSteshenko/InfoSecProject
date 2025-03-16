@@ -1,7 +1,6 @@
 package com.informationsecurity.PasteBinService.controllers;
 
 import com.informationsecurity.PasteBinService.models.*;
-import com.informationsecurity.PasteBinService.repositories.UserEntityRepository;
 import com.informationsecurity.PasteBinService.services.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,10 +23,10 @@ public class MainPageController {
     private final SecurityContextService securityContextService;
     private final UserEntityDetailsService userEntityDetailsService;
     private final TimeFormatService timeFormatService;
-    private final UserEntityRepository userEntityRepository;
+//     private final UserEntityRepository userEntityRepository;
     private final TextFormatService textFormatService;
 
-    private final String timeFormat = "hh:mm:ss dd MM yyyy";
+//     private final String timeFormat = "hh:mm:ss dd MM yyyy";
 
     @GetMapping("/")
     public String mainPage(Model model) {
@@ -36,10 +35,11 @@ public class MainPageController {
         List<Paste> pastes = pasteService.getAll();
         Collections.reverse(pastes);
 
-        model.addAttribute("pasteList", pastes);
-        model.addAttribute("userName", userName);
-        model.addAttribute("authorities", contextService.getAuthorities());
-        model.addAttribute("pasteTime", timeFormatService)
+        model
+                .addAttribute("pasteList", pastes)
+                .addAttribute("userName", userName)
+                .addAttribute("authorities", contextService.getAuthorities())
+                .addAttribute("pasteTime", timeFormatService)
                 .addAttribute("textFormater", textFormatService);
 
         if (!userName.equals("anonymousUser")) {
