@@ -28,7 +28,46 @@
                 </form>
             </div>
             <a class="create" th:href="@{/create_new_paste}">Новый патент</a>
-            <a class="settings" th:href="@{/logout}"><img src="../img/settings.svg" alt=""></a>
+            <div class="settings" tabindex="-1" >
+                <img src="../img/settings.svg" alt="">
+                <div class="sideMenu">
+                    <a th:href="@{/profile/{id}(id=${})}" th:if="${not userName.equals('anonymousUser')}">
+                        <img src="../img/profile.svg" alt="">
+                        <span>Профиль</span>
+                    </a>
+                    <a th:href="@{/logout}" th:if="${not userName.equals('anonymousUser')}">
+                        <img src="../img/logout.svg" alt="">
+                        <span>Выйти</span>
+                    </a>
+                    <a th:href="@{/login}" th:if="${userName.equals('anonymousUser')}">
+                        <img src="../img/login.svg" alt="">
+                        <span>Войти</span>
+                    </a>
+
+
+                </div>
+            </div>
+            <script>
+                const settings = document.querySelector('.settings');
+                const image = document.querySelector('.settings>img');
+                image.addEventListener('click', () => {
+                    if (image.classList.contains('settings-rotated')) {
+                        image.classList.remove('settings-rotated');
+
+                        settings.classList.remove('visible');
+                    } else {
+                        settings.classList.add('visible');
+                        image.classList.add('settings-rotated');
+                    }
+                }, true);
+                settings.addEventListener('focusout', (event) => {
+                    if (settings.contains(event.relatedTarget)) return;
+                    if (image.classList.contains('settings-rotated')) {
+                        image.classList.remove('settings-rotated');
+                        settings.classList.remove('visible');
+                    }
+                }, true)
+            </script>
         </div>
     </div>
 
