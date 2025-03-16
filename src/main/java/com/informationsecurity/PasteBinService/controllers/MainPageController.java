@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -32,8 +33,10 @@ public class MainPageController {
     public String mainPage(Model model) {
 
         String userName = securityContextService.getUsername();
+        List<Paste> pastes = pasteService.getAll();
+        Collections.reverse(pastes);
 
-        model.addAttribute("pasteList", pasteService.getAll());
+        model.addAttribute("pasteList", pastes);
         model.addAttribute("userName", userName);
         model.addAttribute("authorities", contextService.getAuthorities());
         model.addAttribute("pasteTime", timeFormatService)
