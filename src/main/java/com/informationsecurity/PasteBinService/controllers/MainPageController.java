@@ -88,12 +88,12 @@ public class MainPageController {
         return "redirect:/paste/" + id;
     }
 
-    @PostMapping("/search")
+    @GetMapping("/search")
     public String searchPatents(
-            Model model,
-            @RequestBody String search
+            @RequestParam("query") String search,
+            Model model
     ) {
-        String searchString = URLDecoder.decode(search.substring(7), StandardCharsets.UTF_8);
+        String searchString = URLDecoder.decode(search, StandardCharsets.UTF_8);
         List<Paste> pastes = pasteService.findPatentsWithText(searchString);
         String userName = securityContextService.getUsername();
 

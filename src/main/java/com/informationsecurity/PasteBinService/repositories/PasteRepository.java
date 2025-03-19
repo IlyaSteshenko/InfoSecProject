@@ -16,4 +16,7 @@ public interface PasteRepository extends JpaRepository<Paste, Long> {
             " OR p.text LIKE %:searchText%" +
             " OR p.author LIKE %:searchText%")
     List<Paste> findPatentsWithText(@Param("searchText") String searchText);
+
+    @Query("SELECT p FROM Paste p WHERE p.author = :authorName")
+    List<Paste> findPatentsByAuthor(@Param("authorName") String authorName);
 }

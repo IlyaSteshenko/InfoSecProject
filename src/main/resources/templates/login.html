@@ -14,12 +14,12 @@
   </div>
 </div>
 
-<form class="loginForm" th:action="@{/login}" method="post">
+<form class="loginForm" th:action="@{/login}" th:method="post" th:object="${user}">
   <h1>Авторизация</h1>
   <label for="user">Логин</label><br>
-  <input type="text" name="username" id="user"><br>
+  <input type="text" name="username" id="user" th:field="*{username}"><br>
   <label for="password">Пароль</label><br>
-  <input type="password" name="password" id="password"><br>
+  <input type="password" name="password" id="password" th:field="*{password}"><br>
   <p>Нет учетной записи? <a th:href="@{/registration}">Зарегистрироваться</a></p>
 
   <a th:href="@{/}"><-- Back Home</a>

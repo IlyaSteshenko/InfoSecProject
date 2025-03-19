@@ -4,7 +4,7 @@ import com.informationsecurity.PasteBinService.models.Role;
 import com.informationsecurity.PasteBinService.models.UserEntity;
 import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
 import com.informationsecurity.PasteBinService.services.SecurityContextService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +13,11 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
+@AllArgsConstructor
 public class AdminController {
 
-    @Autowired
-    private UserEntityDetailsService userEntityDetailsService;
-
-    @Autowired
-    private SecurityContextService contextService;
+    private final UserEntityDetailsService userEntityDetailsService;
+    private final SecurityContextService contextService;
 
     @GetMapping
     private String showAdminPanel(Model model) {

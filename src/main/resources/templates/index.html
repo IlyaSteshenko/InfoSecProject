@@ -20,9 +20,9 @@
                 <a th:href="@{/admin}" class="adminLink">Управление аккаунтами</a>
             </div>
             <div class="search-container">
-                <form th:action="@{/search}" th:method="post">
+                <form th:action="@{/search}" th:method="get">
                     <label>
-                        <input name="search" type="text" class="search-input" placeholder="Введите запрос...">
+                        <input name="query" type="text" class="search-input" placeholder="Введите запрос...">
                     </label>
                     <button class="search-button" type="submit">Искать</button>
                 </form>

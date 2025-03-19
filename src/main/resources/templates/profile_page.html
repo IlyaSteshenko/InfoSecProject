@@ -5,8 +5,13 @@
     <title>Profile</title>
 </head>
 <body>
-    <h2 th:text="'Hello, ' + ${user.getUsername()}">Hello, user</h2>
     <a th:href="@{/}"><-- Back Home</a>
-    <p th:text="${text}"></p>
+    <h2 th:text="'Hello, ' + ${user.getUsername()}">Hello, user</h2>
+    <h2 th:text="'Почта: ' + ${user.getEmail()}"></h2>
+    <div th:each="patent : ${patents}">
+        <h2 th:text="${patent.getTitle()}"></h2>
+        <h2 th:text="${patent.getText()}"></h2>
+        <h2 th:text="${patent.getExpirationTime()}"></h2>
+    </div>
 </body>
 </html>

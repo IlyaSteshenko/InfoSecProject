@@ -1,5 +1,6 @@
 package com.informationsecurity.PasteBinService.controllers;
 
+import com.informationsecurity.PasteBinService.models.UserEntity;
 import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
 import com.informationsecurity.PasteBinService.services.PasteService;
 import lombok.AllArgsConstructor;
@@ -22,9 +23,10 @@ public class UserProfileController {
             Model model,
             @PathVariable("id") Long id
     ) {
+        UserEntity user = userEntityDetailsService.findById(id);
         model
-                .addAttribute("user", userEntityDetailsService.findById(id))
-                .addAttribute("text", pasteService.getAll().get(8).getText());
+                .addAttribute("user", user)
+                .addAttribute("patents", pasteService.findPatentsByAuthor(user.getUsername()));
         return "profile_page";
     }
 

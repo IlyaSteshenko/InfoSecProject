@@ -28,4 +28,8 @@ public class PasteService {
     public List<Paste> findPatentsWithText(String searchText) {
         return pasteRepository.findPatentsWithText(searchText);
     }
+
+    public List<Paste> findPatentsByAuthor(String authorName) {
+        return pasteRepository.findPatentsByAuthor(authorName);
+    }
 }
