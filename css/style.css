@@ -10,6 +10,8 @@
     --patent-descriprion-text-color: black;
     --patent-id-color: #007BFF;
     --side-menu-color: #EED2661A;
+    --cards-front-color: #FFFFFFFE;
+    --cards-back-color: #000000;
 }
 
 @font-face {
@@ -338,9 +340,13 @@ html {
 .patent {
     display: flex;
     flex-direction: column;
-    border: solid var(--border-color) 1px;
+    /*border: solid var(--border-color) 1px;*/
     border-radius: 10px;
+    padding: 2px;
 
+    background: var(--cards-back-color)
+    no-repeat radial-gradient(circle, rgba(255,205,0,1) 2%, rgba(255,50,50,1) 10%, rgba(0,0,0,1) 22%);
+    background-position: 200px 0, 0 0;
 }
 
 .patentName {
@@ -372,15 +378,21 @@ html {
     padding: 10px;
     text-decoration: none;
     color: CanvasText;
+    background: var(--cards-front-color);
+    border-radius: 8px 8px 0 0;
 }
 
 .patentBody {
-    border-top: solid 1px var(--border-color);
+    /*border-top: solid 1px var(--border-color);*/
+    margin-top: 2px;
+    background: var(--cards-front-color);
+    border-radius: 0 0 8px 8px;
 }
 
 .patentId {
     font-size: 22px;
     color: var(--patent-id-color);
+
 }
 
 .patentAuthor {
