@@ -43,27 +43,7 @@
 
                 </div>
             </div>
-            <script>
-                const settings = document.querySelector('.settings');
-                const image = document.querySelector('.settings>img');
-                image.addEventListener('click', () => {
-                    if (image.classList.contains('settings-rotated')) {
-                        image.classList.remove('settings-rotated');
 
-                        settings.classList.remove('visible');
-                    } else {
-                        settings.classList.add('visible');
-                        image.classList.add('settings-rotated');
-                    }
-                }, true);
-                settings.addEventListener('focusout', (event) => {
-                    if (settings.contains(event.relatedTarget)) return;
-                    if (image.classList.contains('settings-rotated')) {
-                        image.classList.remove('settings-rotated');
-                        settings.classList.remove('visible');
-                    }
-                }, true)
-            </script>
         </div>
     </div>
     <div class="accordionMenu">
@@ -72,6 +52,10 @@
         <div>321</div>
     </div>
     <script>
+        const settings = document.querySelector('.settings');
+        const image = document.querySelector('.settings>img');
+
+
         const AMenu = document.querySelector(".accordionMenu");
         const SideMenu = document.querySelector(".sideMenu");
         const Controls = document.querySelector(".controls");
@@ -91,7 +75,46 @@
         }
         let mode = "full"; // "compact"
         switchMenuFunc();
-        window.addEventListener("resize", switchMenuFunc, passive=true)
+        window.addEventListener("resize", switchMenuFunc, passive=true);
+
+        function animCloseAMenu(){
+            AMenu.style.removeProperty("height");
+            AMenu.style.removeProperty('border-top-width')
+            setTimeout(()=>{
+                AMenu.classList.remove('visible')
+
+            }, 500)
+        }
+        function animOpenAMenu(){
+            AMenu.classList.add('visible');
+
+            AMenu.style.height = AMenu.scrollHeight.toString()+"px";
+            AMenu.style.borderTopWidth = "3px";
+        }
+
+        image.addEventListener('click', () => {
+            if (image.classList.contains('settings-rotated')) {
+                image.classList.remove('settings-rotated');
+                // Если клик по актив
+                settings.classList.remove('visible');
+                animCloseAMenu();
+                //AMenu.classList.remove('visible');
+
+            } else {
+                settings.classList.add('visible');
+                // Если клик по пассив
+                animOpenAMenu();
+                image.classList.add('settings-rotated');
+            }
+        }, true);
+        settings.addEventListener('focusout', (event) => {
+            if (settings.contains(event.relatedTarget)) return;
+            if (image.classList.contains('settings-rotated')) {
+                image.classList.remove('settings-rotated');
+                settings.classList.remove('visible');
+                animCloseAMenu();
+            }
+        }, true)
     </script>
     <div class="username">rise</div>
 

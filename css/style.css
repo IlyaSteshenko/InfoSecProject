@@ -160,6 +160,9 @@ html {
 }
 
 @media (max-width: 1024px) {
+    .sideMenu{
+        display: none !important;
+    }
     .accordionMenu > .adminLink {
         border-radius: 0;
         background: none;
@@ -193,6 +196,10 @@ html {
     .accordionMenu > .create {
         border-radius: 0;
         background: none;
+    }
+    .accordionMenu.visible {
+        display: flex;
+        flex: none;
     }
 
     .rbb {
@@ -289,12 +296,14 @@ html {
 .accordionMenu {
     background: var(--head-background-color);
     width: 100%;
-    display: flex;
     flex-direction: column;
-    height: fit-content;
     justify-content: space-between;
-    border-top: solid #777777;
-    /*13452434tertuh6u78q3ujsrn htureddcjhmn*/
+    border-top: solid 0 #777777;
+
+    display: none;
+    height: 0;
+    overflow: hidden;
+    transition: height ease 500ms, border-top-width linear 100ms;
 }
 
 .accordionMenu > * {
@@ -310,14 +319,6 @@ html {
     border-right-style: solid;
 }
 
-.AMenuCollapsed {
-    height: 0;
-    overflow: hidden;
-}
-
-.AMenuHidden {
-    display: none;
-}
 
 .mainWrapper {
     padding: 20px;
