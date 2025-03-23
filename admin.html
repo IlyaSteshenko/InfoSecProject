@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        table.users {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .users>thead>tr>th, .users>tbody>tr>td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+
+        }
+        .users>thead>tr>th {
+            cursor: pointer; /* Указатель при наведении на заголовок */
+            background-color: #f2f2f2;
+        }
+        .users>thead>tr>th:hover {
+            background-color: #ddd; /* Изменение цвета при наведении */
+        }
+
+        .sort-arrow {
+
+        }
+
+        .sort-arrow.up::before {
+            content: '↑';
+        }
+
+        .sort-arrow.down::before {
+            content: '↓';
+        }
+        .fill{
+            height: 100%;
+            width: 100%;
+        }
+        input[type="checkbox"]:checked::after{
+            content: "(да)";
+            margin-left: 15px;
+        }
+        input[type="checkbox"]::after{
+            content: "(нет)";
+            margin-left: 15px;
+        }
+        .users>tbody>tr:hover{
+            background: #EEE;
+        }
+    </style>
+</head>
+<body>
+<div class="notificationList"></div>
+<div class="head">
+    <a class="logo" href="index.html">
+        <div class="logoFirst">Патентное бюро</div>
+        <div class="logoSecond">Победа</div>
+    </a>
+    <div class="controls">
+        <a href="admin.html" class="adminLink">Управление аккаунтами</a>
+        <div class="search-container">
+            <label>
+                <input type="text" class="search-input" placeholder="Введите запрос...">
+                <button class="search-button">Искать</button>
+            </label>
+        </div>
+        <button class="create">Новый патент</button>
+        <div class="settings"><img src="img/settings.svg" alt=""></div>
+    </div>
+</div>
+<div class="username">rise</div>
+<div class="mainWrapper">
+
+    <h1 id="DataHeader">Список пользователей</h1>
+    <form style="justify-self: right; margin-bottom: 5px" method="post" action="https://192.168.0.103:4000/admin/search">
+        <label for="usersSearch">Искать по логину</label><br>
+        <input type="text" name="usersSearch" id="usersSearch">
+        <input type="submit" value="Искать">
+    </form>
+
+    <table id="userListTable" class="users">
+        <thead>
+        <tr>
+            <th onclick="sortTable(0)" class="sort-arrow up">Логин</th>
+            <th onclick="sortTable(1)" class="sort-arrow">Почта</th>
+            <th>Заблокирован?</th>
+            <th>Администратор?</th>
+            <th>Удаление пользователя (опасно)</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>rise</td>
+                <td>qwerty</td>
+
+                <td>
+                    <div>
+                        <form action="https://192.168.0.103:4000/admin/user/1/ban" method="post">
+<!--                                <label for="4535_Banned" class="fill">-->
+<!--                                    <input type="submit" th:value="${user.isAccountLocked()}">-->
+                                    <input type="submit" name="4535_Banned" id="4535_Banned" value="false">
+<!--                                </label>-->
+                        </form>
+                    </div>
+
+                    
+                </td>
+
+                <td>
+                    
+
+                    <div>
+                        <form action="https://192.168.0.103:4000/admin/user/1/change_to_user" method="post">
+                            <label for="4535_Admin" class="fill">
+                                <input type="submit" name="4535_Admin" id="4536_Admin" value="true">
+                            </label>
+                        </form>
+                    </div>
+                </td>
+
+                <td>
+                    <form method="post" action="https://192.168.0.103:4000/admin/user/1/delete">
+                        <input type="submit" class="deleteUserButton" value="Удалить Пользователя">
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>Ilya</td>
+                <td>ex.ex@ex.com</td>
+
+                <td>
+                    <div>
+                        <form action="https://192.168.0.103:4000/admin/user/2/ban" method="post">
+<!--                                <label for="4535_Banned" class="fill">-->
+<!--                                    <input type="submit" th:value="${user.isAccountLocked()}">-->
+                                    <input type="submit" name="4535_Banned" id="4535_Banned" value="false">
+<!--                                </label>-->
+                        </form>
+                    </div>
+
+                    
+                </td>
+
+                <td>
+                    <div>
+                        <form action="https://192.168.0.103:4000/admin/user/2/change_to_admin" method="post">
+                            <label for="4535_Admin" class="fill">
+                                <input type="submit" name="4535_Admin" id="4535_Admin" value="false">
+                            </label>
+                        </form>
+                    </div>
+
+                    
+                </td>
+
+                <td>
+                    <form method="post" action="https://192.168.0.103:4000/admin/user/2/delete">
+                        <input type="submit" class="deleteUserButton" value="Удалить Пользователя">
+                    </form>
+                </td>
+            </tr>
+            <tr>
+                <td>Ploxoi_Chel</td>
+                <td>aa@wws.ff</td>
+
+                <td>
+                    <div>
+                        <form action="https://192.168.0.103:4000/admin/user/4/ban" method="post">
+<!--                                <label for="4535_Banned" class="fill">-->
+<!--                                    <input type="submit" th:value="${user.isAccountLocked()}">-->
+                                    <input type="submit" name="4535_Banned" id="4535_Banned" value="false">
+<!--                                </label>-->
+                        </form>
+                    </div>
+
+                    
+                </td>
+
+                <td>
+                    <div>
+                        <form action="https://192.168.0.103:4000/admin/user/4/change_to_admin" method="post">
+                            <label for="4535_Admin" class="fill">
+                                <input type="submit" name="4535_Admin" id="4535_Admin" value="false">
+                            </label>
+                        </form>
+                    </div>
+
+                    
+                </td>
+
+                <td>
+                    <form method="post" action="https://192.168.0.103:4000/admin/user/4/delete">
+                        <input type="submit" class="deleteUserButton" value="Удалить Пользователя">
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        function sortTable(columnIndex) {
+            const table = document.getElementById("userListTable");
+            const tbody = table.tBodies[0];
+            const rows = Array.from(tbody.rows);
+            const isAscending = tbody.dataset.sortOrder === "asc";
+
+            // Переключение стрелочек
+            const headers = Array.from(table.tHead.rows.item(0).cells);
+            headers.forEach((element)=>{
+                element.classList.remove("sort-arrow","up","down");
+            });
+
+            if (isAscending) headers[columnIndex].classList.add("sort-arrow","up");
+            else headers[columnIndex].classList.add("sort-arrow","down");
+
+            // Сортировка строк
+            rows.sort((a, b) => {
+                const aText = a.cells[columnIndex].textContent.trim();
+                const bText = b.cells[columnIndex].textContent.trim();
+
+                return isAscending
+                    ? aText.localeCompare(bText)
+                    : bText.localeCompare(aText);
+            });
+
+            // Удаление старых строк и добавление отсортированных
+            rows.forEach(row => tbody.appendChild(row));
+
+            // Переключение порядка сортировки
+            tbody.dataset.sortOrder = isAscending ? "desc" : "asc";
+        }
+    </script>
+</div>
+
+
+</body>
+</html>

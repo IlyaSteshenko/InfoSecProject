@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>"Победа" Авторизация</title>
+  <link rel="stylesheet" href="css/style.css">
+<!--  <script type="module" th:src="@{/js/notifications.js}"></script>-->
+</head>
+<body>
+<div class="head">
+  <div class="logo">
+    <div class="logoFirst">Патентное бюро</div>
+    <div class="logoSecond">Победа</div>
+  </div>
+</div>
+
+<form class="loginForm" action="login.html" method="post">
+  <h1>Авторизация</h1>
+  <label for="user">Логин</label><br>
+  <input type="text" name="username" id="user" value=""><br>
+  <label for="password">Пароль</label><br>
+  <input type="password" name="password" id="password" value=""><br>
+  <p>Нет учетной записи? <a href="registration.html">Зарегистрироваться</a></p>
+
+  <a href="index.html"><-- Back Home</a>
+
+  <input type="submit" value="Войти">
+</form>
+
+
+
+
+
+<script>
+  let form = document.querySelector(".loginForm")
+  document.addEventListener("mousemove", (event)=>{
+      let coords = form.getClientRects().item(0)
+
+      let centerX = coords.x + coords.width/2;
+      let centerY = coords.y + coords.height/2;
+      let diffX = centerX - event.x;
+      let diffY = centerY - event.y;
+      diffX = 20+10*Math.tanh(diffX/200)
+      diffY = 20+10*Math.tanh(diffY/200)
+      form.style.boxShadow = `#444 ${diffX}px ${diffY}px`
+  })
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" transform=" translate(-63, 50) rotate(30, 100, 100)">
+    <!-- Решетка rotate(30, 100, 100) -->
+    <line x1="60" y1="0" x2="60" y2="180" stroke="#B0B0B0" stroke-width="8"/>
+    <line x1="120" y1="0" x2="120" y2="180" stroke="#B0B0B0" stroke-width="8"/>
+    <line x1="0" y1="60" x2="180" y2="60" stroke="#B0B0B0" stroke-width="8"/>
+    <line x1="0" y1="120" x2="180" y2="120" stroke="#B0B0B0" stroke-width="8"/>
+
+    <!-- Зеленые галочки (O) -->
+    <text x="30" y="40" font-size="40" fill="green" font-style="italic" text-anchor="middle" dominant-baseline="middle">✔</text>
+    <text x="90" y="40" font-size="40" fill="green" font-style="italic" text-anchor="middle" dominant-baseline="middle">✔</text>
+
+    <!-- Красные крестики (X) -->
+    <text x="150" y="40" font-size="40" fill="red" font-style="italic" text-anchor="middle" dominant-baseline="middle">✖</text>
+    <text x="90" y="100" font-size="40" fill="red" font-style="italic" text-anchor="middle" dominant-baseline="middle">✖</text>
+    <text x="30" y="160" font-size="40" fill="red" font-style="italic" text-anchor="middle" dominant-baseline="middle">✖</text>
+
+    <!-- Пустые ячейки -->
+
+</svg>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+<!--    <script src="scripts/PatentOpen.js" type="module"></script>-->
+</head>
+<body>
+
+<div class="mainWrapper">
+    <h1>Создать новый патент</h1>
+    <a href="index.html"><-- Back Home</a>
+    <h2>rise</h2>
+    <div class="patentFullList">
+        <div class="update" id="uElement">
+
+            <form id="uForm" method="post" action="create_new_paste.html">
+                <div class="updateHeaderEdit">
+                    <label for="uName">Название патента</label><br>
+
+                    <input type="text" name="title" id="uName" placeholder="" required value="">
+                </div>
+                <div class="updateBody">
+                    <div class="updateDescriptionEdit">
+                        <label for="uDesk">Описание патента</label><br>
+                        <textarea name="text" id="uDesk" required></textarea>
+                        <input type="submit" value="Опубликовать" id="uSubmit">
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

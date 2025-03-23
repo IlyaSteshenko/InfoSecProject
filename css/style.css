@@ -1,0 +1,705 @@
+:root {
+    --head-background-color: #333; /* Темно-серый фон */
+    --logo-text-color: #dbdbdb; /* Белый цвет текста */
+    --subheading-color: #FFFFFF; /* Светло-серый цвет подзаголовка */
+    --border-color: #222; /* Цвет обводки */
+    --heading-font: 'Georgia', serif; /* Шрифт для заголовка */
+    --subheading-font: 'Arial', sans-serif; /* Шрифт для подзаголовка */
+    --patent-header-text-color: black;
+    --patent-date-text-color: grey;
+    --patent-descriprion-text-color: black;
+    --patent-id-color: #007BFF;
+    --side-menu-color: #EED2661A;
+}
+
+@font-face {
+    font-family: 'NotoSans';
+    src: url('../fonts/NotoSans-VariableFont_wdth,wght.ttf') format('truetype');
+
+}
+
+@font-face {
+    font-family: 'NotoSans Italic';
+    src: url('../fonts/NotoSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'NotoSerif';
+    src: url('../fonts/NotoSerif-VariableFont_wdth,wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'NotoSerif Italic';
+    src: url('../fonts/NotoSerif-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+}
+
+.NotoSans {
+    font-family: "NotoSans";
+}
+
+.NotoSansItalic {
+    font-family: "NotoSans Italic";
+}
+
+.NotoSerif {
+    font-family: "NotoSerif";
+}
+
+.NotoSerifItalic {
+    font-family: "NotoSerif Italic";
+}
+
+* {
+    font-family: "NotoSans", sans-serif;
+}
+
+
+.head {
+    background: var(--head-background-color);
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: fit-content;
+    justify-content: space-between;
+}
+
+body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+.logo {
+    padding-left: 10px;
+    padding-right: 10px;
+    height: 100%;
+    min-width: 200px;
+    background-position: left 10px bottom -30px;
+    background-image: url("../img/pobeda.svg");
+    overflow: hidden;
+    background-repeat: no-repeat;
+    background-size: 100px;
+    text-decoration: none;
+}
+
+.logoFirst {
+    color: var(--logo-text-color); /* Светло-серый цвет */
+    font-family: 'NotoSans', sans-serif; /* Шрифт NotoSans */
+    font-size: 24px; /* Размер шрифта меньше, чем у заголовка */
+    text-align: center; /* Выравнивание по центру */
+    margin: 10px 40px 10px 10px; /* Отступы сверху и снизу */
+    text-shadow: -1px -1px 0 var(--border-color),
+    1px -1px 0 var(--border-color),
+    -1px 1px 0 var(--border-color),
+    1px 1px 0 var(--border-color); /* Обводка темно-серым цветом */
+
+}
+
+.logoSecond {
+    color: var(--subheading-color); /* Белый цвет */
+    font-family: 'NotoSerif Italic', serif; /* Шрифт NotoSans */
+    font-size: 36px; /* Размер шрифта */
+    text-align: right; /* Выравнивание по центру */
+    text-shadow: -1px -1px 0 var(--border-color),
+    1px -1px 0 var(--border-color),
+    -1px 1px 0 var(--border-color),
+    1px 1px 0 var(--border-color) /* Обводка темно-серым цветом */
+}
+
+.settings {
+    margin-right: 20px;
+}
+
+.sideMenu {
+    display: flex;
+    opacity: 0;
+    position: absolute;
+    right: 5px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-top: 20px;
+    padding: 0;
+    background-color: var(--side-menu-color);
+    flex-direction: column;
+    transition: all ease 0.2s;
+    width: 0;
+    overflow: hidden;
+}
+
+.sideMenuItem {
+    border-bottom: 1px solid var(--border-color);
+    display: inline-flex;
+    align-items: center;
+    column-gap: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    color: CanvasText;
+}
+
+.sideMenuItem:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.sideMenuItem > img {
+    width: 20px;
+    aspect-ratio: 1/1;
+}
+
+.sideMenuItem:last-child {
+    border-bottom: none;
+}
+
+@media (max-width: 1024px) {
+    .accordionMenu > .adminLink {
+        border-radius: 0;
+        background: none;
+        color: Canvas;
+    }
+
+    .accordionMenu > .adminLink:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .accordionMenu > .search-container {
+        border-right: none !important;
+        order: -1;
+        width: 100%;
+        margin: 0;
+    }
+
+    .accordionMenu > .search-container > .search-form {
+        display: inline-flex;
+        width: 100%;
+    }
+
+    .accordionMenu > .search-container > .search-form > .search-input {
+        border: none;
+        outline: none;
+        width: 100%;
+        background: var(--heading-font);
+        color: Canvas;
+    }
+
+    .accordionMenu > .create {
+        border-radius: 0;
+        background: none;
+    }
+
+    .rbb {
+        border-right-color: deepskyblue;
+    }
+
+    .rbg {
+        border-right-color: lawngreen;
+    }
+
+    .rbm {
+        border-right-color: magenta;
+    }
+
+    .rbr {
+        border-right-color: red;
+    }
+
+    .search-form > .search-button {
+        border-radius: 0;
+    }
+
+    .rbb, .rbg, .rbm, .rbr {
+        padding-left: 10px;
+    }
+}
+
+.settings.visible > .sideMenu {
+    display: flex;
+    opacity: 1;
+    width: 150px;
+    padding: 10px;
+}
+
+.settings > img {
+    aspect-ratio: 1/1;
+    height: 50px;
+    transition: ease-in 0.2s all;
+}
+
+.settings-rotated {
+    transform: rotate(90deg);
+}
+
+.create {
+    background: lawngreen;
+    padding: 8px;
+    border-radius: 1000px;
+    font-family: sans-serif;
+    font-size: 18px;
+    text-decoration: none;
+    color: CanvasText;
+}
+
+.create:active {
+    background: yellowgreen;
+}
+
+.controls {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-container {
+    display: flex; /* Используем Flexbox для выравнивания */
+    justify-content: center; /* Центрируем содержимое */
+    margin: 20px; /* Отступы вокруг контейнера */
+}
+
+.search-input {
+    padding: 10px; /* Внутренний отступ для текстового поля */
+    font-size: 16px; /* Размер шрифта */
+    border: 1px solid #ccc; /* Граница текстового поля */
+    border-radius: 4px; /* Закругленные углы */
+    width: 150px; /* Ширина текстового поля */
+}
+
+.search-button {
+    padding: 10px 15px; /* Внутренние отступы для кнопки */
+    font-size: 16px; /* Размер шрифта */
+    border: none; /* Убираем границу */
+    border-radius: 4px; /* Закругленные углы */
+    background-color: #007BFF; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    cursor: pointer; /* Указатель при наведении */
+    margin-left: 10px; /* Отступ слева от кнопки */
+}
+
+.search-button:hover {
+    background-color: #0056b3; /* Цвет фона кнопки при наведении */
+}
+
+.accordionMenu {
+    background: var(--head-background-color);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    justify-content: space-between;
+    border-top: solid #777777;
+    /*13452434tertuh6u78q3ujsrn htureddcjhmn*/
+}
+
+.accordionMenu > * {
+    border-bottom: #777777 1px solid;
+    color: Canvas;
+    transition: border-right-width linear 50ms;
+}
+
+.accordionMenu > *:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    border-right-width: 25px;
+    border-right-style: solid;
+}
+
+.AMenuCollapsed {
+    height: 0;
+    overflow: hidden;
+}
+
+.AMenuHidden {
+    display: none;
+}
+
+.mainWrapper {
+    padding: 20px;
+    height: 100%;
+    /*width: 80%;*/
+    max-width: 900px;
+
+}
+
+.patentsList {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+.patent {
+    display: flex;
+    flex-direction: column;
+    border: solid var(--border-color) 1px;
+    border-radius: 10px;
+
+}
+
+.patentName {
+    font-size: 22px;
+    color: var(--patent-header-text-color);
+    /*font-family: "fantasy", sans-serif;*/
+    word-break: break-all;
+}
+
+.patentDate {
+
+    font-size: 20px;
+    color: var(--patent-date-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
+
+    margin-left: 25px;
+}
+
+.patentDescription {
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
+    padding: 10px;
+    word-break: break-all;
+    white-space: pre-wrap
+}
+
+.patentHeader {
+    padding: 10px;
+    text-decoration: none;
+    color: CanvasText;
+}
+
+.patentBody {
+    border-top: solid 1px var(--border-color);
+}
+
+.patentId {
+    font-size: 22px;
+    color: var(--patent-id-color);
+}
+
+.patentAuthor {
+    padding: 10px;
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Roboto", sans-serif;*/
+}
+
+.patentAuthor::before {
+    font-size: 18px;
+    color: var(--patent-descriprion-text-color);
+    content: "Владелец патента: ";
+    /*font-family: "Roboto", sans-serif;*/
+
+}
+
+.notification {
+    padding: 10px;
+    margin: 5px;
+    min-width: 70px;
+    font-size: 20px;
+    background-color: #EEEE00;
+    border: 4px solid #CCCC00;
+    border-radius: 10px;
+    transition: opacity 500ms;
+}
+
+.notificationHidden {
+    opacity: 0;
+}
+
+.notificationList {
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: right;
+}
+
+.patentFullList {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+}
+
+.update {
+    display: flex;
+    flex-direction: column;
+    border: solid var(--border-color) 1px;
+    border-radius: 10px;
+
+}
+
+.updateName {
+    font-size: 22px;
+    color: var(--patent-header-text-color);
+    /*font-family: "fantasy", sans-serif;*/
+}
+
+.updateDate {
+
+    font-size: 18px;
+    color: var(--patent-date-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
+
+    margin-left: 25px;
+}
+
+.updateDescription {
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
+    padding: 10px;
+}
+
+.updateHeader {
+    padding: 10px;
+}
+
+.updateHeader::before {
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Roboto", sans-serif;*/
+    content: "Обновление";
+}
+
+.updateBody {
+    border-top: solid 1px var(--border-color);
+}
+
+.updateId {
+    font-size: 20px;
+    color: var(--patent-id-color);
+}
+
+.updateAuthor {
+    padding: 10px;
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Roboto", sans-serif;*/
+}
+
+.updateAuthor::before {
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    content: "Владелец патента: ";
+    /*font-family: "Roboto", sans-serif;*/
+
+}
+
+.newUpdateButton {
+    background-color: var(--patent-date-text-color);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    align-self: center;
+    transition: all 500ms ease;
+}
+
+.newUpdateButton:hover {
+    background-color: var(--border-color);
+    cursor: pointer;
+}
+
+.newUpdateButton:active {
+    background-color: darkolivegreen;
+}
+
+.buttonForClose {
+    background-color: darkred;
+    transform: rotate(135deg);
+}
+
+.buttonForClose:hover {
+    background-color: crimson;
+    cursor: pointer;
+}
+
+.updateHeaderEdit {
+    padding: 10px;
+    font-size: 25px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Roboto", sans-serif;*/
+}
+
+.updateHeaderEdit > label {
+    font-size: 20px;
+}
+
+.updateHeaderEdit > input[type="text"] {
+    font-size: 20px;
+    width: calc(100% - 20px);
+    padding: 5px;
+}
+
+.updateDescriptionEdit {
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
+    padding: 10px;
+}
+
+.updateDescriptionEdit > textarea {
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
+    width: calc(100% - 10px);
+    height: 300px;
+    resize: none;
+}
+
+.updateDescriptionEdit > input[type="submit"] {
+    font-size: 15px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
+    width: 150px;
+    height: 40px;
+    background-color: chartreuse;
+}
+
+.updateDescriptionEdit > input[type="submit"]:hover {
+
+    background-color: green;
+    cursor: pointer;
+}
+
+#uElement {
+    transition: all 500ms ease;
+    overflow: hidden;
+}
+
+.updateHiding {
+
+    height: 10px;
+}
+
+.updateHidden {
+    display: none;
+}
+
+.username::before {
+    content: "Здравствуйте, ";
+}
+
+.username {
+    /*font: 20px SansSerif sans-serif;*/
+    text-align: right;
+    padding: 20px;
+    width: 80%;
+    max-width: 900px;
+    height: fit-content;
+}
+
+.username-without-before {
+    /*font: 20px SansSerif sans-serif;*/
+    text-align: right;
+    padding: 20px;
+    /*width: 80%;*/
+    max-width: 900px;
+    height: fit-content;
+}
+
+.loginForm {
+    font-size: 18px;
+    padding: 10px;
+    border: solid 1px;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 10px;
+    box-shadow: #444 10px 10px;
+    align-self: center;
+    margin-top: 90px
+}
+
+.loginForm > input[type="text"], .loginForm > input[type="password"], .loginForm > input[type="email"] {
+    height: 30px;
+    width: calc(100% - 10px);
+    border-radius: 5px;
+    font: 20px Georgia;
+}
+
+.loginForm > label > input[type="checkbox"] {
+    zoom: 1.6;
+
+}
+
+.loginForm > label {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.loginForm > input[type="submit"] {
+    height: 40px;
+    width: 200px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: #009AFF;
+
+}
+
+.loginForm > input[type="submit"]:hover {
+    background-color: #0065a8;
+    cursor: pointer;
+}
+
+.loginForm > input.registerButton {
+    background-color: #00ff0b;
+}
+
+.loginForm > input.registerButton:hover {
+    background-color: #00af0a;
+    cursor: pointer;
+}
+
+.deleteUserButton {
+    background-color: #ffbf80;
+
+}
+
+.deleteUserButton:hover {
+    background-color: darkred;
+    cursor: pointer;
+    color: #fff;
+}
+
+.saveEdited {
+    border: 1px solid #777;
+    padding: 8px;
+    margin-top: 10px;
+}
+
+.saveEdited:hover {
+    background-color: #AAA;
+    cursor: pointer;
+}
+
+.adminLink {
+    padding: 10px;
+    background-color: azure;
+    border-radius: 5px;
+    text-decoration: none;
+    color: CanvasText;
+}
+
+.adminLink:hover {
+    background-color: cadetblue;
+}
+
+.top-line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
