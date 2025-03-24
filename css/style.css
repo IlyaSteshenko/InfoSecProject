@@ -15,11 +15,11 @@
     --cards-front-color: Canvas;
     --cards-front-hovered: #FFFFFF50;
     --cards-back-color: #AAAAAA;
-    --cards-mouse-gradient: no-repeat radial-gradient(circle, rgba(131,58,180,1) 10%, rgba(253,29,29,1) 29%, rgba(252,176,69,1) 46%);
+    --cards-mouse-gradient: no-repeat radial-gradient(circle, rgba(131, 58, 180, 1) 10%, rgba(253, 29, 29, 1) 29%, rgba(252, 176, 69, 1) 46%, rgba(252, 176, 69, 1) 60%, rgba(0, 0, 0, 0) 60%);
     --color-scheme: dark;
     --primary-text-color: CanvasText;
     --secondary-text-color: gray;
-    --cards-shadow:  #FFFFFF20 0 0 50px;
+    --cards-shadow: #FFFFFF20 0 0 50px;
 }
 
 @font-face {
@@ -44,19 +44,19 @@
 }
 
 .NotoSans {
-    font-family: "NotoSans";
+    font-family: "NotoSans", sans-serif;
 }
 
 .NotoSansItalic {
-    font-family: "NotoSans Italic";
+    font-family: "NotoSans Italic", sans-serif;
 }
 
 .NotoSerif {
-    font-family: "NotoSerif";
+    font-family: "NotoSerif", sans-serif;
 }
 
 .NotoSerifItalic {
-    font-family: "NotoSerif Italic";
+    font-family: "NotoSerif Italic", sans-serif;
 }
 
 * {
@@ -172,9 +172,10 @@ html {
 }
 
 @media (max-width: 1024px) {
-    .sideMenu{
+    .sideMenu {
         display: none !important;
     }
+
     .accordionMenu > .adminLink {
         border-radius: 0;
         background: none;
@@ -202,13 +203,14 @@ html {
         outline: none;
         width: 100%;
         background: var(--heading-font);
-        color: Canvas;
+        color: var(--primary-text-color);
     }
 
     .accordionMenu > .create {
         border-radius: 0;
         background: none;
     }
+
     .accordionMenu.visible {
         display: flex;
         flex: none;
@@ -237,13 +239,17 @@ html {
     .rbb, .rbg, .rbm, .rbr {
         padding-left: 10px;
     }
-    .patentsList>.patent{
+
+    .patentsList > .patent {
         width: 100%;
     }
+
 }
-.patentFullList>.patent{
+
+.patentFullList > .patent {
     width: 100%;
 }
+
 .settings.visible > .sideMenu {
     display: flex;
     opacity: 1;
@@ -339,7 +345,7 @@ html {
 
 .mainWrapper {
     padding: 20px;
-    height: 100%;
+    /*height: 100%;*/
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -363,10 +369,9 @@ html {
     border-radius: 10px;
     padding: 2px;
 
-    background: var(--cards-back-color)
-    var(--cards-mouse-gradient);
+    background: var(--cards-back-color) var(--cards-mouse-gradient);
     background-size: 600px 600px;
-    background-position: 200px 0, 0 0;
+    background-position: -600px 0, 0 0;
     box-shadow: var(--cards-shadow);
     box-sizing: border-box;
 }
@@ -475,10 +480,9 @@ html {
     border-radius: 10px;
     padding: 2px;
 
-    background: var(--cards-back-color)
-    var(--cards-mouse-gradient);
+    background: var(--cards-back-color) var(--cards-mouse-gradient);
     background-size: 600px 600px;
-    background-position: -1000px 0, 0 0;
+    background-position: -600px 0, 0 0;
     box-shadow: var(--cards-shadow);
     box-sizing: border-box;
 }
@@ -527,6 +531,10 @@ html {
     background: var(--cards-front-color);
     border-radius: 0 0 8px 8px;
     height: 100%;
+}
+
+form > .updateBody {
+    height: inherit;
 }
 
 .updateId {
@@ -620,7 +628,7 @@ html {
 
 .updateDescriptionEdit > input[type="submit"] {
     font-size: 15px;
-    color: var(--patent-descriprion-text-color);
+    color: black;
     /*font-family: "Segoe UI", sans-serif;*/
     width: 150px;
     height: 40px;
@@ -634,14 +642,14 @@ html {
 }
 
 #uElement {
-    transition: all 500ms ease;
+    transition: height 500ms ease;
     overflow: hidden;
 }
 
-.updateHiding {
-
-    height: 10px;
+.uCollapsed {
+    height: 0;
 }
+
 
 .updateHidden {
     display: none;
@@ -706,7 +714,7 @@ html {
     border: none;
     border-radius: 5px;
     background-color: #009AFF;
-
+    color: black;
 }
 
 .loginForm > input[type="submit"]:hover {
@@ -724,12 +732,12 @@ html {
 }
 
 .deleteUserButton {
-    background-color: #ffbf80;
+    background-color: darkred;
 
 }
 
 .deleteUserButton:hover {
-    background-color: darkred;
+    background-color: brown;
     cursor: pointer;
     color: #fff;
 }
@@ -764,7 +772,7 @@ html {
     justify-content: space-between;
 }
 
-.pages{
+.pages {
     margin: 40px 20px 20px;
     /*border: var(--border-color) 1px solid;*/
     border-radius: 10px;
@@ -772,20 +780,63 @@ html {
     background-color: var(--amenu-background-color);
     align-self: center;
 }
-.pageUnit{
+
+.pageUnit {
     padding: 10px;
     border-right: #777777 1px solid;
     /*border: white 1px solid;*/
 }
-.pageUnit:hover{
+
+.pageUnit:hover {
     background-color: #77777750;
 }
-.pageUnit:last-child{
+
+.pageUnit:last-child {
     border-right: none;
     border-bottom-right-radius: 10px;
     border-top-right-radius: 10px;
 }
-.pageUnit:first-child{
+
+.pageUnit:first-child {
     border-bottom-left-radius: 10px;
     border-top-left-radius: 10px;
+}
+
+.mainColumn {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.mainColumn > .patentFullList {
+    width: 50%;
+}
+
+
+.updateElementFollowing {
+    position: sticky;
+    top: 20px;
+}
+@media (max-width: 1024px) {
+    .mainColumn {
+        flex-direction: column;
+    }
+
+    .mainColumn > .patentFullList {
+        width: 100%;
+    }
+    .updateElementFollowing {
+        position: static;
+    }
+}
+.editProfileButton:hover{
+    background-color: #777777;
+    cursor: pointer;
+}
+.editProfileButton{
+    border:none;
+    border-radius: 4px;
+
 }

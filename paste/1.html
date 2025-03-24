@@ -50,6 +50,7 @@
     <div class="username">rise</div>
 
     <h1>Описание патента</h1>
+    <div class="mainColumn">
     <div class="patentFullList">
         <div class="patent" id="002">
             <div class="patentHeader">
@@ -95,8 +96,12 @@
             </div>
         </div>
 
-        <!--        Форма для дополнения-->
-        <div class="update updateHidden updateHiding" id="uElement">
+
+        
+    </div>
+    <div class="patentFullList updateElementFollowing">
+          <!--Форма для дополнения-->
+        <div class="update updateHidden uCollapsed" id="uElement">
             <form id="uForm" action="/paste/1" method="post">
                 <div class="updateHeaderEdit">
                     <div>Добавить дополнение к патенту</div>
@@ -114,19 +119,18 @@
             </form>
         </div>
         <button class="newUpdateButton">+</button>
-        
     </div>
+</div>
 </div>
 <script>
     function buttonMentality(buttonElement, mainElement) {
         if (!buttonElement.classList.contains("buttonForClose")) {
             buttonElement.classList.add("buttonForClose");
-            mainElement.classList.remove("updateHidden")
-            setTimeout(() => mainElement.classList.remove("updateHiding")
-                , 500)
+            mainElement.classList.remove("updateHidden");
+            mainElement.style.height = mainElement.scrollHeight+'px';
         } else {
             buttonElement.classList.remove("buttonForClose");
-            mainElement.classList.add("updateHiding")
+            mainElement.style.removeProperty("height")
             setTimeout(() => mainElement.classList.add("updateHidden")
                 , 500)
         }

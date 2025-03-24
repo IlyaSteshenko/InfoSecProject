@@ -3,26 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="css/style.css">
     <style>
         table.users {
             width: 100%;
             border-collapse: collapse;
         }
         .users>thead>tr>th, .users>tbody>tr>td {
-            border: 1px solid #ddd;
+            border: 1px solid #ddd8;
             padding: 8px;
             text-align: left;
 
         }
         .users>thead>tr>th {
             cursor: pointer; /* Указатель при наведении на заголовок */
-            background-color: #f2f2f2;
+            background-color: #f2f2f280;
         }
         .users>thead>tr>th:hover {
-            background-color: #ddd; /* Изменение цвета при наведении */
+            background-color: #ddd6; /* Изменение цвета при наведении */
         }
+        .btn-default:hover{
+            background-color: #777777;
+            cursor: pointer;
+        }
+        .btn-default{
+            border:none;
+            border-radius: 4px;
 
+        }
         .sort-arrow {
 
         }
@@ -47,9 +54,10 @@
             margin-left: 15px;
         }
         .users>tbody>tr:hover{
-            background: #EEE;
+            background: #EEE3;
         }
     </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <div class="notificationList"></div>
@@ -96,7 +104,7 @@
     <form style="justify-self: right; margin-bottom: 5px" method="post" action="https://192.168.0.103:4000/admin/search">
         <label for="usersSearch">Искать по логину</label><br>
         <input type="text" name="usersSearch" id="usersSearch">
-        <input type="submit" value="Искать">
+        <input type="submit" class="btn-default" value="Искать">
     </form>
 
     <table id="userListTable" class="users">
@@ -119,7 +127,7 @@
                         <form action="https://192.168.0.103:4000/admin/user/1/ban" method="post">
 <!--                                <label for="4535_Banned" class="fill">-->
 <!--                                    <input type="submit" th:value="${user.isAccountLocked()}">-->
-                                    <input type="submit" name="4535_Banned" id="4535_Banned" value="false">
+                                    <input class="btn-default" type="submit" name="4535_Banned" id="1_Banned" value="false">
 <!--                                </label>-->
                         </form>
                     </div>
@@ -132,8 +140,8 @@
 
                     <div>
                         <form action="https://192.168.0.103:4000/admin/user/1/change_to_user" method="post">
-                            <label for="4535_Admin" class="fill">
-                                <input type="submit" name="4535_Admin" id="4536_Admin" value="true">
+                            <label for="2_Admin" class="fill">
+                                <input class="btn-default" type="submit" name="4535_Admin" id="2_Admin" value="true">
                             </label>
                         </form>
                     </div>
@@ -141,7 +149,7 @@
 
                 <td>
                     <form method="post" action="https://192.168.0.103:4000/admin/user/1/delete">
-                        <input type="submit" class="deleteUserButton" value="Удалить Пользователя">
+                        <input type="submit" class="deleteUserButton btn-default" value="Удалить Пользователя">
                     </form>
                 </td>
             </tr>
@@ -154,7 +162,7 @@
                         <form action="https://192.168.0.103:4000/admin/user/2/ban" method="post">
 <!--                                <label for="4535_Banned" class="fill">-->
 <!--                                    <input type="submit" th:value="${user.isAccountLocked()}">-->
-                                    <input type="submit" name="4535_Banned" id="4535_Banned" value="false">
+                                    <input class="btn-default" type="submit" name="4535_Banned" id="3_Banned" value="false">
 <!--                                </label>-->
                         </form>
                     </div>
@@ -165,8 +173,8 @@
                 <td>
                     <div>
                         <form action="https://192.168.0.103:4000/admin/user/2/change_to_admin" method="post">
-                            <label for="4535_Admin" class="fill">
-                                <input type="submit" name="4535_Admin" id="4535_Admin" value="false">
+                            <label for="4_Admin" class="fill">
+                                <input class="btn-default" type="submit" name="4535_Admin" id="4_Admin" value="false">
                             </label>
                         </form>
                     </div>
@@ -176,7 +184,7 @@
 
                 <td>
                     <form method="post" action="https://192.168.0.103:4000/admin/user/2/delete">
-                        <input type="submit" class="deleteUserButton" value="Удалить Пользователя">
+                        <input type="submit" class="btn-default deleteUserButton" value="Удалить Пользователя">
                     </form>
                 </td>
             </tr>
@@ -189,7 +197,7 @@
                         <form action="https://192.168.0.103:4000/admin/user/4/ban" method="post">
 <!--                                <label for="4535_Banned" class="fill">-->
 <!--                                    <input type="submit" th:value="${user.isAccountLocked()}">-->
-                                    <input type="submit" name="4535_Banned" id="4535_Banned" value="false">
+                                    <input class="btn-default" type="submit" name="4535_Banned" id="4535_Banned" value="false">
 <!--                                </label>-->
                         </form>
                     </div>
@@ -201,7 +209,7 @@
                     <div>
                         <form action="https://192.168.0.103:4000/admin/user/4/change_to_admin" method="post">
                             <label for="4535_Admin" class="fill">
-                                <input type="submit" name="4535_Admin" id="4535_Admin" value="false">
+                                <input class=" btn-default" type="submit" name="4535_Admin" id="4535_Admin" value="false">
                             </label>
                         </form>
                     </div>
@@ -211,7 +219,7 @@
 
                 <td>
                     <form method="post" action="https://192.168.0.103:4000/admin/user/4/delete">
-                        <input type="submit" class="deleteUserButton" value="Удалить Пользователя">
+                        <input  type="submit" class="deleteUserButton btn-default" value="Удалить Пользователя">
                     </form>
                 </td>
             </tr>

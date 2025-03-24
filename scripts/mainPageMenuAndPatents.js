@@ -46,8 +46,8 @@ function radiancePointer(bgObject) {
             (coords === null) ||
             (coords.x - event.x > 400) ||
             (coords.y - event.y > 400) ||
-            (coords.x + coords.height - event.x < -400) ||
-            (coords.y + coords.width - event.y < -400)
+            (coords.x + coords.width - event.x < -400) ||
+            (coords.y + coords.height - event.y < -400)
         ){
             if (bgObject.style.hasOwnProperty("background-position")){
                 bgObject.style.removeProperty("background-position")
@@ -92,3 +92,20 @@ function focusoutHandler(event){
 }
 header.addEventListener('focusout', (event) => {focusoutHandler(event);}, true)
 AMenu.addEventListener('focusout', (event) => {focusoutHandler(event);}, true)
+
+const editProfileButton = document.querySelector(".editProfileButton");
+if (editProfileButton !== null){
+const editProfileForm = document.getElementById("profileEdit");
+const textAbout = document.getElementById("textAbout");
+const aboutSaved = document.getElementById("aboutSaved");
+const toggleEditProfile = ()=>{
+    if(editProfileForm.classList.contains("updateHidden")){
+        editProfileForm.classList.remove("updateHidden");
+        textAbout.value = aboutSaved.innerText;
+    }
+    else{
+        editProfileForm.classList.add("updateHidden")
+    }
+}
+    editProfileButton.addEventListener("click",()=>{toggleEditProfile()} , passive=true)
+}
