@@ -8,31 +8,46 @@
 <body>
 <div class="notificationList"></div>
 <div class="head">
-    <div class="logo">
+    <a class="logo" href="/index.html">
         <div class="logoFirst">Патентное бюро</div>
         <div class="logoSecond">Победа</div>
-    </div>
+    </a>
     <div class="controls">
+        <a href="/admin.html" class="adminLink rbb">Управление аккаунтами</a>
         <div class="search-container">
-            <label>
-                <input type="text" class="search-input" placeholder="Введите запрос...">
-                <button class="search-button">Искать</button>
-            </label>
+            <form action="https://192.168.0.103:4000/search" method="get" class="search-form">
+
+
+                <input name="query" type="text" class="search-input" placeholder="Введите запрос...">
+
+                <button class="search-button" type="submit">Искать</button>
+            </form>
         </div>
-        <button class="create">Новый патент</button>
-        <div class="settings"><img src="../img/settings.svg" alt=""></div>
+        <a class="create rbg" href="/create_new_paste.html">Новый патент</a>
+        <div class="settings" tabindex="-1">
+            <img src="/img/settings.svg" alt="">
+            <div class="sideMenu">
+                <a href="/profile/1.html" class="sideMenuItem rbm">
+                    <img src="/img/profile.svg" alt="">
+                    <span>Профиль</span>
+                </a>
+                <a href="/logout.html" class="sideMenuItem rbr">
+                    <img src="/img/logout.svg" alt="">
+                    <span>Выйти</span>
+                </a>
+
+
+            </div>
+        </div>
+
     </div>
+</div>
+<div class="accordionMenu">
 </div>
 
 <div class="mainWrapper">
 
-    <div class="top-line">
-        <a href="../index.html"><-- Back Home</a>
-        
-        <div class="username-without-before">
-            <a href="../login.html">Войти в аккаунт</a>
-        </div>
-    </div>
+    <div class="username">rise</div>
 
     <h1>Описание патента</h1>
     <div class="patentFullList">
@@ -66,16 +81,60 @@
             </div>
 
         </div>
+        <div>
+            <div class="update" id="002-1">
 
-<!--        Дополнения-->
-        
+                <div class="updateHeader">
+                    <span class="updateId">#1-1</span>
+                    <span class="updateDate">24 марта 2025, 04:33</span>
+                    <div class="updateName">Гооооооооол</div>
+                </div>
+                <div class="updateBody">
+                    <div class="updateDescription">ДААААААААААААААААААА</div>
+                </div>
+            </div>
+        </div>
 
-<!--        Форма для дополнения-->
-        
+        <!--        Форма для дополнения-->
+        <div class="update updateHidden updateHiding" id="uElement">
+            <form id="uForm" action="/paste/1" method="post">
+                <div class="updateHeaderEdit">
+                    <div>Добавить дополнение к патенту</div>
+                    <label for="uName">Заголовок дополнения</label><br>
+                    <input type="text" id="uName" name="updateName" value="">
+                </div>
+                <div class="updateBody">
+                    <div class="updateDescriptionEdit">
+                        <label for="uDesk">Описание дополнения</label><br>
+                        <textarea id="uDesk" name="updateText"></textarea>
+                        <input type="submit" value="Опубликовать" id="uSubmit">
+                    </div>
+                </div>
+
+            </form>
+        </div>
+        <button class="newUpdateButton">+</button>
         
     </div>
 </div>
-
-
+<script>
+    function buttonMentality(buttonElement, mainElement) {
+        if (!buttonElement.classList.contains("buttonForClose")) {
+            buttonElement.classList.add("buttonForClose");
+            mainElement.classList.remove("updateHidden")
+            setTimeout(() => mainElement.classList.remove("updateHiding")
+                , 500)
+        } else {
+            buttonElement.classList.remove("buttonForClose");
+            mainElement.classList.add("updateHiding")
+            setTimeout(() => mainElement.classList.add("updateHidden")
+                , 500)
+        }
+    }
+    let button = document.querySelector(".newUpdateButton");
+    let mainElement = document.getElementById("uElement");
+    button.addEventListener("click", () => buttonMentality(button,mainElement))
+</script>
+<script src="/scripts/mainPageMenuAndPatents.js"></script>
 </body>
 </html>

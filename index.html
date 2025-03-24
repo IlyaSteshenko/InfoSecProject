@@ -4,168 +4,101 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="css/style.css">
-<!--    <script type="module" th:src="@{/js/hello.js}"></script>-->
-<!--    <script type="module" src="scripts/path.js"></script>-->
-<!--    <script type="module" src="scripts/searchAndDescription.js"></script>-->
+    <!--    <script type="module" th:src="@{/js/hello.js}"></script>-->
+    <!--    <script type="module" src="scripts/path.js"></script>-->
+    <!--    <script type="module" src="scripts/searchAndDescription.js"></script>-->
 </head>
 <body>
-    <div class="notificationList"></div>
-    <div class="head">
-        <a class="logo" href="index.html">
-            <div class="logoFirst">Патентное бюро</div>
-            <div class="logoSecond">Победа</div>
-        </a>
-        <div class="controls">
-                <a href="admin.html" class="adminLink rbb">Управление аккаунтами</a>
-            <div class="search-container">
-                <form action="https://192.168.0.103:4000/search" method="get" class="search-form">
+<div class="notificationList"></div>
+<div class="head">
+    <a class="logo" href="index.html">
+        <div class="logoFirst">Патентное бюро</div>
+        <div class="logoSecond">Победа</div>
+    </a>
+    <div class="controls">
+        <a href="admin.html" class="adminLink rbb">Управление аккаунтами</a>
+        <div class="search-container">
+            <form action="https://192.168.0.103:4000/search" method="get" class="search-form">
 
 
-                        <input name="query" type="text" class="search-input" placeholder="Введите запрос...">
+                <input name="query" type="text" class="search-input" placeholder="Введите запрос...">
 
-                    <button class="search-button" type="submit">Искать</button>
-                </form>
-            </div>
-            <a class="create rbg" href="create_new_paste.html">Новый патент</a>
-            <div class="settings" tabindex="-1" >
-                <img src="img/settings.svg" alt="">
-                <div class="sideMenu">
-                    <a href="profile/1.html" class="sideMenuItem rbm">
-                        <img src="img/profile.svg" alt="">
-                        <span>Профиль</span>
-                    </a>
-                    <a href="logout.html" class="sideMenuItem rbr">
-                        <img src="img/logout.svg" alt="">
-                        <span>Выйти</span>
-                    </a>
-                    
-
-
-                </div>
-            </div>
-
+                <button class="search-button" type="submit">Искать</button>
+            </form>
         </div>
-    </div>
-    <div class="accordionMenu">
-        <div>123</div>
-        <div>321</div>
-        <div>321</div>
-    </div>
-
-    <div class="username">rise</div>
-
-    <div class="mainWrapper">
-        <h1 id="DataHeader" class="NotoSans">Последние патенты (новые)</h1>
-        <div class="patentsList">
-            <div class="patent">
-                <a href="paste/2.html" class="patentHeader">
-                    <span class="patentName">падать</span>
-                    <span class="patentId">2</span>
+        <a class="create rbg" href="create_new_paste.html">Новый патент</a>
+        <div class="settings" tabindex="-1">
+            <img src="img/settings.svg" alt="">
+            <div class="sideMenu">
+                <a href="profile/1.html" class="sideMenuItem rbm">
+                    <img src="img/profile.svg" alt="">
+                    <span>Профиль</span>
                 </a>
-                <div class="patentBody">
-                    <div class="patentAuthor">rise</div>
-                    <div class="patentDate">13 марта 2025, 05:30</div>
-                    <div class="patentDescription">PostgreSQL Elephant Logo
-Home
-About
-Download
-Documentation
+                <a href="logout.html" class="sideMenuItem rbr">
+                    <img src="img/logout.svg" alt="">
+                    <span>Выйти</span>
+                </a>
+
+
+            </div>
+        </div>
+
+    </div>
 </div>
+<div class="accordionMenu">
+</div>
+
+<div class="username">rise</div>
+
+<div class="mainWrapper">
+    <h1 id="DataHeader" class="NotoSans">Последние патенты (новые)</h1>
+    <div class="patentsList">
+        <div class="patent">
+            <a href="paste/2.html" class="patentHeader">
+                <span class="patentName">падать</span>
+                <span class="patentId">2</span>
+            </a>
+            <div class="patentBody">
+                <div class="patentAuthor">rise</div>
+                <div class="patentDate">13 марта 2025, 05:30</div>
+                <div class="patentDescription">PostgreSQL Elephant Logo
+                    Home
+                    About
+                    Download
+                    Documentation
                 </div>
             </div>
-            <div class="patent">
-                <a href="paste/1.html" class="patentHeader">
-                    <span class="patentName">Устройство для автоматического полива растений с использованием датчиков влажности и солнечной энергии</span>
-                    <span class="patentId">1</span>
-                </a>
-                <div class="patentBody">
-                    <div class="patentAuthor">rise</div>
-                    <div class="patentDate">13 марта 2025, 02:45</div>
-                    <div class="patentDescription">Область техники:
-Настоящее изобретение относится к системам автоматического полива растений и может быть использовано в сельском хозяйстве, садоводстве и в домашних условиях для ухода за растениями.
+        </div>
+        <div class="patent">
+            <a href="paste/1.html" class="patentHeader">
+                <span class="patentName">Устройство для автоматического полива растений с использованием датчиков влажности и солнечной энергии</span>
+                <span class="patentId">1</span>
+            </a>
+            <div class="patentBody">
+                <div class="patentAuthor">rise</div>
+                <div class="patentDate">13 марта 2025, 02:45</div>
+                <div class="patentDescription">Область техники:
+                    Настоящее изобретение относится к системам автоматического полива растений и может быть использовано
+                    в сельском хозяйстве, садоводстве и в домашних условиях для ухода за растениями.
 
-</div>
                 </div>
             </div>
         </div>
     </div>
-    <script>
-        const settings = document.querySelector('.settings');
-        const image = document.querySelector('.settings>img');
-
-
-        const AMenu = document.querySelector(".accordionMenu");
-        const SideMenu = document.querySelector(".sideMenu");
-        const Controls = document.querySelector(".controls");
-        const ControlsContent = document.querySelectorAll(".controls>a, .controls>.search-container");
-        const ExcludeReplacing = document.querySelectorAll(".settings")
-        const SMenuContent = document.querySelectorAll(".sideMenu>*");
-        const switchMenuFunc = ()=>{
-            if(window.innerWidth < 1024 && mode !== "compact"){
-                AMenu.replaceChildren(...ControlsContent, ...SMenuContent);
-                mode = "compact";
-            }
-            else if(window.innerWidth >= 1024 && mode !== "full"){
-                SideMenu.replaceChildren(...SMenuContent);
-                Controls.replaceChildren(...ControlsContent, ...ExcludeReplacing)
-                mode = "full";
-            }
-        }
-        let mode = "full"; // "compact"
-        switchMenuFunc();
-        window.addEventListener("resize", switchMenuFunc, passive=true);
-
-        function animCloseAMenu(){
-            AMenu.style.removeProperty("height");
-            AMenu.style.removeProperty('border-top-width')
-            setTimeout(()=>{
-                AMenu.classList.remove('visible')
-
-            }, 500)
-        }
-        function animOpenAMenu(){
-            AMenu.classList.add('visible');
-
-            AMenu.style.height = AMenu.scrollHeight.toString()+"px";
-            AMenu.style.borderTopWidth = "3px";
-        }
-
-        function radiancePointer(bgObject){
-            window.addEventListener("mousemove", (event)=>{
-                let coords = bgObject.getClientRects().item(0);
-                let x = coords.x + coords.width/2;
-                let y = coords.y + coords.height/2;
-                let cx = event.x;
-                let cy = event.y;
-                bgObject.style.backgroundPosition = `${cx - x}px ${cy - y}px, 0 0`
-            }, passive=true)
-        }
-
-        document.querySelectorAll(".patent").entries().forEach((each)=>radiancePointer(each[1]));
-
-        image.addEventListener('click', () => {
-            if (image.classList.contains('settings-rotated')) {
-                image.classList.remove('settings-rotated');
-                // Если клик по актив
-                settings.classList.remove('visible');
-                animCloseAMenu();
-                //AMenu.classList.remove('visible');
-
-            } else {
-                settings.classList.add('visible');
-                // Если клик по пассив
-                animOpenAMenu();
-                image.classList.add('settings-rotated');
-            }
-        }, true);
-        settings.addEventListener('focusout', (event) => {
-            if (settings.contains(event.relatedTarget)) return;
-            if (image.classList.contains('settings-rotated')) {
-                image.classList.remove('settings-rotated');
-                settings.classList.remove('visible');
-                animCloseAMenu();
-            }
-        }, true)
-    </script>
+    <table class="pages">
+        <tbody>
+        <tr>
+            <td class="pageUnit"><a href="" class="pageLink">В начало</a></td>
+            <td class="pageUnit"><a href="" class="pageLink"><<</a></td>
+            <td class="pageUnit"><a href="" class="pageLink">1</a></td>
+            <td class="pageUnit"><a href="" class="pageLink">2</a></td>
+            <td class="pageUnit"><a href="" class="pageLink">3</a></td>
+            <td class="pageUnit"><a href="" class="pageLink">>></a></td>
+            <td class="pageUnit"><a href="" class="pageLink">В конец</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="scripts/mainPageMenuAndPatents.js"></script>
 </body>
 </html>

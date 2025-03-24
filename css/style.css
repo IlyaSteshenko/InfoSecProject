@@ -1,17 +1,25 @@
 :root {
     --head-background-color: #333; /* Темно-серый фон */
+    --amenu-background-color: #222;
     --logo-text-color: #dbdbdb; /* Белый цвет текста */
     --subheading-color: #FFFFFF; /* Светло-серый цвет подзаголовка */
     --border-color: #222; /* Цвет обводки */
     --heading-font: 'Georgia', serif; /* Шрифт для заголовка */
     --subheading-font: 'Arial', sans-serif; /* Шрифт для подзаголовка */
-    --patent-header-text-color: black;
-    --patent-date-text-color: grey;
-    --patent-descriprion-text-color: black;
+
+    --patent-header-text-color: var(--primary-text-color);
+    --patent-date-text-color: var(--secondary-text-color);
+    --patent-descriprion-text-color: var(--primary-text-color);
     --patent-id-color: #007BFF;
-    --side-menu-color: #EED2661A;
-    --cards-front-color: #FFFFFFFE;
-    --cards-back-color: #000000;
+    --side-menu-color: #EED26640;
+    --cards-front-color: Canvas;
+    --cards-front-hovered: #FFFFFF50;
+    --cards-back-color: #AAAAAA;
+    --cards-mouse-gradient: no-repeat radial-gradient(circle, rgba(131,58,180,1) 10%, rgba(253,29,29,1) 29%, rgba(252,176,69,1) 46%);
+    --color-scheme: dark;
+    --primary-text-color: CanvasText;
+    --secondary-text-color: gray;
+    --cards-shadow:  #FFFFFF20 0 0 50px;
 }
 
 @font-face {
@@ -72,11 +80,13 @@ body {
     height: 100%;
     display: flex;
     flex-direction: column;
+    background-color: Canvas;
 }
 
 html {
     width: 100%;
     height: 100%;
+    color-scheme: var(--color-scheme);
 }
 
 .logo {
@@ -168,7 +178,7 @@ html {
     .accordionMenu > .adminLink {
         border-radius: 0;
         background: none;
-        color: Canvas;
+        color: var(--primary-text-color);
     }
 
     .accordionMenu > .adminLink:hover {
@@ -227,8 +237,13 @@ html {
     .rbb, .rbg, .rbm, .rbr {
         padding-left: 10px;
     }
+    .patentsList>.patent{
+        width: 100%;
+    }
 }
-
+.patentFullList>.patent{
+    width: 100%;
+}
 .settings.visible > .sideMenu {
     display: flex;
     opacity: 1;
@@ -253,7 +268,7 @@ html {
     font-family: sans-serif;
     font-size: 18px;
     text-decoration: none;
-    color: CanvasText;
+    color: black;
 }
 
 .create:active {
@@ -296,7 +311,7 @@ html {
 }
 
 .accordionMenu {
-    background: var(--head-background-color);
+    background: var(--amenu-background-color);
     width: 100%;
     flex-direction: column;
     justify-content: space-between;
@@ -310,7 +325,7 @@ html {
 
 .accordionMenu > * {
     border-bottom: #777777 1px solid;
-    color: Canvas;
+    color: var(--primary-text-color);
     transition: border-right-width linear 50ms;
 }
 
@@ -325,28 +340,35 @@ html {
 .mainWrapper {
     padding: 20px;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
     /*width: 80%;*/
-    max-width: 900px;
+    /*max-width: 900px;*/
 
 }
 
 .patentsList {
     display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 10px;
 }
 
 .patent {
     display: flex;
+    width: calc(50% - 5px);
     flex-direction: column;
     /*border: solid var(--border-color) 1px;*/
     border-radius: 10px;
     padding: 2px;
 
     background: var(--cards-back-color)
-    no-repeat radial-gradient(circle, rgba(255,205,0,1) 2%, rgba(255,50,50,1) 10%, rgba(0,0,0,1) 22%);
+    var(--cards-mouse-gradient);
+    background-size: 600px 600px;
     background-position: 200px 0, 0 0;
+    box-shadow: var(--cards-shadow);
+    box-sizing: border-box;
 }
 
 .patentName {
@@ -387,7 +409,12 @@ html {
     margin-top: 2px;
     background: var(--cards-front-color);
     border-radius: 0 0 8px 8px;
+    height: 100%;
 }
+
+/*.patent:hover>.patentBody, .patent:hover>.patentHeader{*/
+/*    background: var(--cards-front-hovered);*/
+/*}*/
 
 .patentId {
     font-size: 22px;
@@ -444,9 +471,16 @@ html {
 .update {
     display: flex;
     flex-direction: column;
-    border: solid var(--border-color) 1px;
+    /*border: solid var(--border-color) 1px;*/
     border-radius: 10px;
+    padding: 2px;
 
+    background: var(--cards-back-color)
+    var(--cards-mouse-gradient);
+    background-size: 600px 600px;
+    background-position: -1000px 0, 0 0;
+    box-shadow: var(--cards-shadow);
+    box-sizing: border-box;
 }
 
 .updateName {
@@ -473,7 +507,12 @@ html {
 
 .updateHeader {
     padding: 10px;
+    text-decoration: none;
+    color: CanvasText;
+    background: var(--cards-front-color);
+    border-radius: 8px 8px 0 0;
 }
+
 
 .updateHeader::before {
     font-size: 20px;
@@ -484,6 +523,10 @@ html {
 
 .updateBody {
     border-top: solid 1px var(--border-color);
+    margin-top: 2px;
+    background: var(--cards-front-color);
+    border-radius: 0 0 8px 8px;
+    height: 100%;
 }
 
 .updateId {
@@ -541,7 +584,11 @@ html {
 .updateHeaderEdit {
     padding: 10px;
     font-size: 25px;
+    text-decoration: none;
+    background: var(--cards-front-color);
+    border-radius: 8px 8px 0 0;
     color: var(--patent-descriprion-text-color);
+
     /*font-family: "Roboto", sans-serif;*/
 }
 
@@ -607,9 +654,9 @@ html {
 .username {
     /*font: 20px SansSerif sans-serif;*/
     text-align: right;
-    padding: 20px;
-    width: 80%;
-    max-width: 900px;
+    padding: 20px 200px 20px 20px;
+    /*width: 80%;*/
+    /*max-width: 900px;*/
     height: fit-content;
 }
 
@@ -703,7 +750,7 @@ html {
     background-color: azure;
     border-radius: 5px;
     text-decoration: none;
-    color: CanvasText;
+    color: black;
 }
 
 .adminLink:hover {
@@ -715,4 +762,30 @@ html {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.pages{
+    margin: 40px 20px 20px;
+    /*border: var(--border-color) 1px solid;*/
+    border-radius: 10px;
+    border-collapse: collapse;
+    background-color: var(--amenu-background-color);
+    align-self: center;
+}
+.pageUnit{
+    padding: 10px;
+    border-right: #777777 1px solid;
+    /*border: white 1px solid;*/
+}
+.pageUnit:hover{
+    background-color: #77777750;
+}
+.pageUnit:last-child{
+    border-right: none;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.pageUnit:first-child{
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
 }

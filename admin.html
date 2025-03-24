@@ -59,17 +59,36 @@
         <div class="logoSecond">Победа</div>
     </a>
     <div class="controls">
-        <a href="admin.html" class="adminLink">Управление аккаунтами</a>
+        <a href="admin.html" class="adminLink rbb">Управление аккаунтами</a>
         <div class="search-container">
-            <label>
-                <input type="text" class="search-input" placeholder="Введите запрос...">
-                <button class="search-button">Искать</button>
-            </label>
+            <form action="https://192.168.0.103:4000/search" method="get" class="search-form">
+
+
+                <input name="query" type="text" class="search-input" placeholder="Введите запрос...">
+
+                <button class="search-button" type="submit">Искать</button>
+            </form>
         </div>
-        <button class="create">Новый патент</button>
-        <div class="settings"><img src="img/settings.svg" alt=""></div>
+        <a class="create rbg" href="create_new_paste.html">Новый патент</a>
+        <div class="settings" tabindex="-1">
+            <img src="img/settings.svg" alt="">
+            <div class="sideMenu">
+                <a href="profile/1.html" class="sideMenuItem rbm">
+                    <img src="img/profile.svg" alt="">
+                    <span>Профиль</span>
+                </a>
+                <a href="logout.html" class="sideMenuItem rbr">
+                    <img src="img/logout.svg" alt="">
+                    <span>Выйти</span>
+                </a>
+
+
+            </div>
+        </div>
+
     </div>
 </div>
+<div class="accordionMenu"></div>
 <div class="username">rise</div>
 <div class="mainWrapper">
 
@@ -234,6 +253,6 @@
     </script>
 </div>
 
-
+<script src="scripts/mainPageMenuAndPatents.js"></script>
 </body>
 </html>
