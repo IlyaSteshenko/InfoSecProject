@@ -47,8 +47,11 @@ public class AdminController {
 
     // Блокирование пользователя
     @PostMapping("/user/{id}/ban")
-    public String banUser(@PathVariable(name = "id") Long id) {
+    public String banUser(
+            @PathVariable(name = "id") Long id
+    ) {
         UserEntity user = userEntityDetailsService.findById(id);
+
         user.setAccountLocked(true);
         userEntityDetailsService.saveAsUser(user);
 

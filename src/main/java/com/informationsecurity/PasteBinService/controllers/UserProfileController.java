@@ -24,6 +24,7 @@ public class UserProfileController {
             @PathVariable("id") Long id
     ) {
         UserEntity user = userEntityDetailsService.findById(id);
+
         model
                 .addAttribute("user", user)
                 .addAttribute("patents", pasteService.findPatentsByAuthor(user.getUsername()));

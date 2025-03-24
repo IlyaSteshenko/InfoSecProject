@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @AllArgsConstructor
@@ -23,20 +25,63 @@ public class MainPageController {
     private final SecurityContextService securityContextService;
     private final UserEntityDetailsService userEntityDetailsService;
     private final TimeFormatService timeFormatService;
-//     private final UserEntityRepository userEntityRepository;
     private final TextFormatService textFormatService;
-
-//     private final String timeFormat = "hh:mm:ss dd MM yyyy";
+    private Map<Integer, List<Paste>> pastesMap;
 
     @GetMapping("/")
     public String mainPage(Model model) {
 
         String userName = securityContextService.getUsername();
+
         List<Paste> pastes = pasteService.getAll();
         Collections.reverse(pastes);
 
+
+        // Вот эту хуйню я писал в пол первого ночи, поэтому
+        // просьба не хуесосить меня за этот кусок кода =).
+
+        // Если вкратце, этот код делит все посты по страницам,
+        // каждая страница содержит максимум 5 постов
+        /* //=================== |< Шедеврокод >| ===================// */
+        /**/ int pagesCount = pastes.size() / 5 + 1;                  /**/
+        /**/ int counter = 0;                                         /**/
+        /**/ for (int i = 1; i <= pagesCount; i++) {                  /**/
+        /**/     List<Paste> pagePastes = new ArrayList<>();          /**/
+        /**/     int iterator = Math.min(pastes.size() - counter, 5); /**/
+        /**/     for (int j = 0; j < iterator; j++) {                 /**/
+        /**/         pagePastes.add(pastes.get(counter));             /**/
+        /**/         counter++;                                       /**/
+        /**/     }                                                    /**/
+        /**/     pastesMap.put(i, pagePastes);                        /**/
+        /**/ }                                                        /**/
+        /* //=================== |< Шедеврокод >| ===================// */
+
         model
-                .addAttribute("pasteList", pastes)
+                .addAttribute("pasteList", pastesMap.get(1))
+                .addAttribute("userName", userName)
+                .addAttribute("authorities", contextService.getAuthorities())
+                .addAttribute("pasteTime", timeFormatService)
+                .addAttribute("textFormater", textFormatService);
+
+        if (!userName.equals("anonymousUser")) {
+            model.addAttribute(
+                    "user",
+                    userEntityDetailsService.loadUserByUsername(userName));
+        }
+
+        return "index";
+    }
+
+    @GetMapping("/page")
+    public String nextPage(
+            @RequestParam("q") int pageNum,
+            Model model
+    ) {
+        String userName = securityContextService.getUsername();
+        List<Paste> nextPagePastes = pastesMap.get(pageNum);
+
+        model
+                .addAttribute("pasteList", nextPagePastes)
                 .addAttribute("userName", userName)
                 .addAttribute("authorities", contextService.getAuthorities())
                 .addAttribute("pasteTime", timeFormatService)

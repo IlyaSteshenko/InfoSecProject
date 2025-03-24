@@ -1,6 +1,7 @@
 package com.informationsecurity.PasteBinService.configs;
 
 import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,16 +28,12 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
-    private UserEntityDetailsService userEntityDetailsService;
-
-    @Autowired
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
-
-    @Autowired
-    private UserEntityDetailsService userService;
+    private final UserEntityDetailsService userEntityDetailsService;
+    private final AuthenticationFilter authenticationFilter;
+    private final UserEntityDetailsService userService;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -47,7 +44,14 @@ public class SecurityConfig {
     ) throws Exception {
         httpSecurity
                 .csrf(CsrfConfigurer::disable)
-                .cors(CorsConfigurer::disable)
+                .cors(cors -> cors.configurationSource(request -> {
+                        var corsConfiguration = new CorsConfiguration();
+                        corsConfiguration.setAllowedOriginPatterns(List.of("*"));
+                        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                        corsConfiguration.setAllowedHeaders(List.of("*"));
+                        corsConfiguration.setAllowCredentials(true);
+                        return corsConfiguration;
+                }))
                 .authorizeHttpRequests((request) -> {
                     request.requestMatchers("/create_new_paste", "/profile/**").hasAnyAuthority("USER", "ADMIN");
                     request.requestMatchers("/admin/**", "/registration_admin").hasAuthority("ADMIN");
@@ -68,7 +72,7 @@ public class SecurityConfig {
                 .sessionManagement(manager -> manager
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .securityContext(context -> context
                         .securityContextRepository(securityContextRepository));
 

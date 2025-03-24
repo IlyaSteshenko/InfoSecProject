@@ -1,21 +1,16 @@
 package com.informationsecurity.PasteBinService.controllers;
 
-import com.informationsecurity.PasteBinService.models.SignInRequest;
-import com.informationsecurity.PasteBinService.models.SignUpRequest;
 import com.informationsecurity.PasteBinService.models.UserEntity;
 import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
-import com.informationsecurity.PasteBinService.services.AuthenticationService;
 import com.informationsecurity.PasteBinService.services.SecurityContextService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,7 +18,6 @@ public class AuthController {
 
     private final UserEntityDetailsService userEntityDetailsService;
     private final SecurityContextService securityContextService;
-    private final AuthenticationService authenticationService;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -38,27 +32,27 @@ public class AuthController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String login(
-            @ModelAttribute("user") UserEntity user,
-            HttpServletRequest request,
-            HttpServletResponse response
-    ) {
-
-        if (response.getStatus() == 403) {
-            return "redirect:/login";
-        }
-
-        UserEntity authorizedUser = (UserEntity) userEntityDetailsService.loadUserByUsername(user.getUsername());
-
-        SignInRequest signInRequest = new SignInRequest();
-        signInRequest.setUsername(user.getUsername());
-        signInRequest.setPassword(user.getPassword());
-
-        securityContextService.authorizeUser(authorizedUser, request, response);
-
-        return "redirect:/";
-    }
+//    @PostMapping("/login")
+//    public String login(
+//            @ModelAttribute("user") UserEntity user,
+//            HttpServletRequest request,
+//            HttpServletResponse response
+//    ) {
+//
+//        if (response.getStatus() == 403) {
+//            return "redirect:/login";
+//        }
+//
+//        UserEntity authorizedUser = (UserEntity) userEntityDetailsService.loadUserByUsername(user.getUsername());
+//
+//        SignInRequest signInRequest = new SignInRequest();
+//        signInRequest.setUsername(user.getUsername());
+//        signInRequest.setPassword(user.getPassword());
+//
+//        securityContextService.authorizeUser(authorizedUser, request, response);
+//
+//        return "redirect:/";
+//    }
 
     @GetMapping("/registration_admin")
     public String regAdmin(Model model) {
@@ -77,12 +71,12 @@ public class AuthController {
             return "registration";
         }
 
-        SignUpRequest signUpRequest = new SignUpRequest();
-        signUpRequest.setUsername(user.getUsername());
-        signUpRequest.setPassword(user.getPassword());
-        signUpRequest.setEmail(user.getEmail());
-
-        securityContextService.authorizeUser(user, request, response);
+//        SignUpRequest signUpRequest = new SignUpRequest();
+//        signUpRequest.setUsername(user.getUsername());
+//        signUpRequest.setPassword(user.getPassword());
+//        signUpRequest.setEmail(user.getEmail());
+//
+//        securityContextService.authorizeUser(user, request, response);
 
         return "redirect:/";
     }
