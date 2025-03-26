@@ -33,6 +33,9 @@ public class UserEntity implements UserDetails {
     @Column(name = "islocked")
     private boolean isAccountLocked;
 
+    @Column(name = "description")
+    private String description;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(role);

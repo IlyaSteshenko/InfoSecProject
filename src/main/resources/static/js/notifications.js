@@ -20,6 +20,7 @@ export default class Notifications {
         let notification = document.createElement("div");
         notification.classList.add("notificationHidden", "notification");
         notification.textContent = string;
+        notification.style.color = 'black'
         container.prepend(notification);
         setTimeout(() => notification.classList.remove("notificationHidden"), 10);
         setTimeout(fade, EXPIRY_TIME, notification);

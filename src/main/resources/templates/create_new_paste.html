@@ -4,11 +4,50 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="../css/style.css">
 <!--    <script src="scripts/PatentOpen.js" type="module"></script>-->
 </head>
 <body>
+<div class="head">
+    <a class="logo" th:href="@{/}">
+        <div class="logoFirst">Патентное бюро</div>
+        <div class="logoSecond">Победа</div>
+    </a>
+    <div class="controls">
+<!--        <div th:if="${authorities.equals('[ADMIN]')}">-->
+<!--            <a th:href="@{/admin}" class="adminLink">Управление аккаунтами</a>-->
+<!--        </div>-->
+        <div class="search-container">
+            <form th:action="@{/search}" method="get" class="search-form">
 
+
+                <input name="query" type="text" class="search-input" placeholder="Введите запрос...">
+
+                <button class="search-button" type="submit">Искать</button>
+            </form>
+        </div>
+        <a class="create rbg" th:href="@{/create_new_paste}">Новый патент</a>
+        <div class="settings" tabindex="-1">
+            <img src="../img/settings.svg" alt="">
+            <div class="sideMenu">
+                <a class="sideMenuItem rbm" th:href="@{/profile/{id}(id=${user.getId()})}" th:if="${not userName.equals('anonymousUser')}">
+                    <img src="../img/profile.svg" alt="">
+                    <span>Профиль</span>
+                </a>
+                <a class="sideMenuItem rbr" th:href="@{/logout}" th:if="${not userName.equals('anonymousUser')}">
+                    <img src="../img/logout.svg" alt="">
+                    <span>Выйти</span>
+                </a>
+                <a class="sideMenuItem rbr" th:href="@{/login}" th:if="${userName.equals('anonymousUser')}">
+                    <img src="../img/login.svg" alt="">
+                    <span>Войти</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="accordionMenu"></div>
 <div class="mainWrapper">
     <h1>Создать новый патент</h1>
     <a th:href="@{/}"><-- Back Home</a>
@@ -35,5 +74,6 @@
 
     </div>
 </div>
+<script src="../js/mainPageMenuAndPatents.js"></script>
 </body>
 </html>

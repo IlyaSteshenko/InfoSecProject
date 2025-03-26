@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityContextService {
 
-//    @Autowired
-//    private SecurityContextRepository securityContextRepository;
+    @Autowired
+    private SecurityContextRepository securityContextRepository;
 
     public String getUsername() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
@@ -25,24 +25,24 @@ public class SecurityContextService {
         return SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString();
     }
 
-//    public void authorizeUser(
-//            UserEntity user,
-//            HttpServletRequest request,
-//            HttpServletResponse response
-//    ) {
-//        SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
-//                .getContextHolderStrategy();
-//
-//        SecurityContext context = securityContextHolderStrategy.createEmptyContext();
-//        context.setAuthentication(
-//                new UsernamePasswordAuthenticationToken(
-//                        user.getUsername(),
-//                        user.getPassword(),
-//                        user.getAuthorities()
-//                )
-//        );
-//        securityContextHolderStrategy.setContext(context);
-//        securityContextRepository.saveContext(context, request, response);
-//    }
+    public void authorizeUser(
+            UserEntity user,
+            HttpServletRequest request,
+            HttpServletResponse response
+    ) {
+        SecurityContextHolderStrategy securityContextHolderStrategy = SecurityContextHolder
+                .getContextHolderStrategy();
+
+        SecurityContext context = securityContextHolderStrategy.createEmptyContext();
+        context.setAuthentication(
+                new UsernamePasswordAuthenticationToken(
+                        user.getUsername(),
+                        user.getPassword(),
+                        user.getAuthorities()
+                )
+        );
+        securityContextHolderStrategy.setContext(context);
+        securityContextRepository.saveContext(context, request, response);
+    }
 
 }

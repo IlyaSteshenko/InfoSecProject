@@ -1,7 +1,9 @@
 package com.informationsecurity.PasteBinService.controllers;
 
 import com.informationsecurity.PasteBinService.models.Paste;
+import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
 import com.informationsecurity.PasteBinService.services.PasteService;
+import com.informationsecurity.PasteBinService.services.SecurityContextService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -19,12 +21,23 @@ import java.time.LocalDateTime;
 public class PasteCreationController {
 
     private final PasteService pasteService;
+    private final SecurityContextService securityContextService;
+    private final UserEntityDetailsService userEntityDetailsService;
 
     @GetMapping
     public String createNewPaste(Model model) {
 
-        model.addAttribute("paste", new Paste());
-        model.addAttribute("userName", getUsername());
+        String userName = securityContextService.getUsername();
+
+        model
+                .addAttribute("paste", new Paste())
+                .addAttribute("userName", getUsername());
+
+        if (!userName.equals("anonymousUser")) {
+            model.addAttribute(
+                    "user",
+                    userEntityDetailsService.loadUserByUsername(userName));
+        }
 
         return "create_new_paste";
     }
@@ -36,6 +49,7 @@ public class PasteCreationController {
         }
         paste.setExpirationTime(LocalDateTime.now());
         paste.setAuthor(getUsername());
+        paste.setAuthorId(userEntityDetailsService.findByName(getUsername()).getId());
         pasteService.save(paste);
 
         return "redirect:/";

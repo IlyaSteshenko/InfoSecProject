@@ -32,7 +32,6 @@ import java.util.List;
 public class SecurityConfig {
 
     private final UserEntityDetailsService userEntityDetailsService;
-    private final AuthenticationFilter authenticationFilter;
     private final UserEntityDetailsService userService;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -53,9 +52,9 @@ public class SecurityConfig {
                         return corsConfiguration;
                 }))
                 .authorizeHttpRequests((request) -> {
-                    request.requestMatchers("/create_new_paste", "/profile/**").hasAnyAuthority("USER", "ADMIN");
+                    request.requestMatchers("/create_new_paste").hasAnyAuthority("USER", "ADMIN");
                     request.requestMatchers("/admin/**", "/registration_admin").hasAuthority("ADMIN");
-                    request.requestMatchers("/registration", "/**").permitAll();
+                    request.requestMatchers("/registration", "/**", "/profile/**").permitAll();
                     request.requestMatchers(
                             "/resources/**",
                             "/static/**",
@@ -72,7 +71,6 @@ public class SecurityConfig {
                 .sessionManagement(manager -> manager
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .securityContext(context -> context
                         .securityContextRepository(securityContextRepository));
 

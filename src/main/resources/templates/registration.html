@@ -5,41 +5,42 @@
   <title>"Победа" Авторизация</title>
   <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
-  <body>
-    <div class="head">
-      <div class="logo">
-        <div class="logoFirst">Патентное бюро</div>
-        <div class="logoSecond">Победа</div>
-      </div>
-    </div>
+<body>
+<div class="head">
+  <div class="logo">
+    <div class="logoFirst">Патентное бюро</div>
+    <div class="logoSecond">Победа</div>
+  </div>
+</div>
 
-    <form class="loginForm" th:action="@{/registration}" th:method="post" th:object="${user}">
-      <h1>Регистрация</h1>
-      <label for="user">Новый логин</label><br>
-      <input type="text" name="user" id="user" th:field="*{username}"><br>
-      <label for="password">Новый пароль</label><br>
-      <input type="password" name="password" id="password" th:field="*{password}"><br>
-      <label for="email">Электронная почта</label><br>
-      <input type="email" name="email" id="email" th:field="*{email}"><br>
-      <p>Есть учетная запись? <a th:href="@{/login}">Авторизоваться</a></p>
+<form class="loginForm" th:action="@{/registration}" th:method="post" th:object="${user}">
+  <h1>Регистрация</h1>
+  <label for="user">Новый логин</label><br>
+  <input type="text" name="user" id="user" th:field="*{username}"><br>
+  <label for="password">Новый пароль</label><br>
+  <input type="password" name="password" id="password" th:field="*{password}"><br>
+  <label for="email">Электронная почта</label><br>
+  <input type="email" name="email" id="email" th:field="*{email}"><br>
+  <p>Есть учетная запись? <a th:href="@{/login}">Авторизоваться</a></p>
 
-      <a th:href="@{/}"><-- Back Home</a>
+  <a th:href="@{/}"><-- Back Home</a>
 
-      <input type="submit" class="registerButton" value="Зарегистрироваться">
-    </form>
-    <script>
-      let form = document.querySelector(".loginForm")
-      document.addEventListener("mousemove", (event)=>{
-          let coords = form.getClientRects().item(0)
+  <input type="submit" class="registerButton" value="Зарегистрироваться">
+</form>
+<script>
+  let form = document.querySelector(".loginForm")
+  document.addEventListener("mousemove", (event)=>{
+      let coords = form.getClientRects().item(0)
 
-          let centerX = coords.x + coords.width/2;
-          let centerY = coords.y + coords.height/2;
-          let diffX = centerX - event.x;
-          let diffY = centerY - event.y;
-          diffX = 20+10*Math.tanh(diffX/200)
-          diffY = 20+10*Math.tanh(diffY/200)
-          form.style.boxShadow = `#444 ${diffX}px ${diffY}px`
-      })
-    </script>
-  </body>
+      let centerX = coords.x + coords.width/2;
+      let centerY = coords.y + coords.height/2;
+      let diffX = centerX - event.x;
+      let diffY = centerY - event.y;
+      diffX = 20+10*Math.tanh(diffX/200)
+      diffY = 20+10*Math.tanh(diffY/200)
+      form.style.boxShadow = `#444 ${diffX}px ${diffY}px`
+  })
+</script>
+<script src="../js/mainPageMenuAndPatents.js"></script>
+</body>
 </html>

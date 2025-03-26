@@ -1,15 +1,70 @@
-:root{
+:root {
     --head-background-color: #333; /* Темно-серый фон */
+    --amenu-background-color: #222;
     --logo-text-color: #dbdbdb; /* Белый цвет текста */
     --subheading-color: #FFFFFF; /* Светло-серый цвет подзаголовка */
     --border-color: #222; /* Цвет обводки */
     --heading-font: 'Georgia', serif; /* Шрифт для заголовка */
     --subheading-font: 'Arial', sans-serif; /* Шрифт для подзаголовка */
-    --patent-header-text-color: black;
-    --patent-date-text-color: grey;
-    --patent-descriprion-text-color: black;
+
+    --patent-header-text-color: var(--primary-text-color);
+    --patent-date-text-color: var(--secondary-text-color);
+    --patent-descriprion-text-color: var(--primary-text-color);
+    --patent-id-color: #007BFF;
+    --side-menu-color: #EED26640;
+    --cards-front-color: Canvas;
+    --cards-front-hovered: #FFFFFF50;
+    --cards-back-color: #AAAAAA;
+    --cards-mouse-gradient: no-repeat radial-gradient(circle, rgba(131, 58, 180, 1) 10%, rgba(253, 29, 29, 1) 29%, rgba(252, 176, 69, 1) 46%, rgba(252, 176, 69, 1) 60%, rgba(0, 0, 0, 0) 60%);
+    --color-scheme: dark;
+    --primary-text-color: CanvasText;
+    --secondary-text-color: gray;
+    --cards-shadow: #FFFFFF20 0 0 50px;
 }
-.head{
+
+@font-face {
+    font-family: 'NotoSans';
+    src: url('../fonts/NotoSans-VariableFont_wdth,wght.ttf') format('truetype');
+
+}
+
+@font-face {
+    font-family: 'NotoSans Italic';
+    src: url('../fonts/NotoSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'NotoSerif';
+    src: url('../fonts/NotoSerif-VariableFont_wdth,wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'NotoSerif Italic';
+    src: url('../fonts/NotoSerif-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+}
+
+.NotoSans {
+    font-family: "NotoSans", sans-serif;
+}
+
+.NotoSansItalic {
+    font-family: "NotoSans Italic", sans-serif;
+}
+
+.NotoSerif {
+    font-family: "NotoSerif", sans-serif;
+}
+
+.NotoSerifItalic {
+    font-family: "NotoSerif Italic", sans-serif;
+}
+
+* {
+    font-family: "NotoSans", sans-serif;
+}
+
+
+.head {
     background: var(--head-background-color);
     width: 100%;
     display: flex;
@@ -18,59 +73,64 @@
     height: fit-content;
     justify-content: space-between;
 }
-body{
+
+body {
     margin: 0;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-}
-html{
-    width: 100%;
-    height: 100%;
+    background-color: Canvas;
 }
 
-.logo{
+html {
+    width: 100%;
+    height: 100%;
+    color-scheme: var(--color-scheme);
+}
+
+.logo {
     padding-left: 10px;
     padding-right: 10px;
     height: 100%;
     min-width: 200px;
     background-position: left 10px bottom -30px;
-    background-image:  url("../img/pobeda.svg");
+    background-image: url("../img/pobeda.svg");
     overflow: hidden;
     background-repeat: no-repeat;
     background-size: 100px;
     text-decoration: none;
 }
-.logoFirst{
+
+.logoFirst {
     color: var(--logo-text-color); /* Светло-серый цвет */
-    font-family: 'Arial', sans-serif; /* Шрифт Arial */
+    font-family: 'NotoSans', sans-serif; /* Шрифт NotoSans */
     font-size: 24px; /* Размер шрифта меньше, чем у заголовка */
     text-align: center; /* Выравнивание по центру */
     margin: 10px 40px 10px 10px; /* Отступы сверху и снизу */
-    text-shadow:
-        -1px -1px 0 var(--border-color),
-        1px -1px 0 var(--border-color),
-        -1px 1px 0 var(--border-color),
-        1px 1px 0 var(--border-color); /* Обводка темно-серым цветом */
+    text-shadow: -1px -1px 0 var(--border-color),
+    1px -1px 0 var(--border-color),
+    -1px 1px 0 var(--border-color),
+    1px 1px 0 var(--border-color); /* Обводка темно-серым цветом */
 
 }
-.logoSecond{
+
+.logoSecond {
     color: var(--subheading-color); /* Белый цвет */
-    font-family: 'Georgia', serif; /* Шрифт Georgia */
+    font-family: 'NotoSerif Italic', serif; /* Шрифт NotoSans */
     font-size: 36px; /* Размер шрифта */
     text-align: right; /* Выравнивание по центру */
-    text-shadow:
-            -1px -1px 0 var(--border-color),
-            1px -1px 0 var(--border-color),
-            -1px 1px 0 var(--border-color),
-            1px 1px 0 var(--border-color) /* Обводка темно-серым цветом */
+    text-shadow: -1px -1px 0 var(--border-color),
+    1px -1px 0 var(--border-color),
+    -1px 1px 0 var(--border-color),
+    1px 1px 0 var(--border-color) /* Обводка темно-серым цветом */
 }
-.settings{
+
+.settings {
     margin-right: 20px;
 }
 
-.sideMenu{
+.sideMenu {
     display: flex;
     opacity: 0;
     position: absolute;
@@ -79,64 +139,154 @@ html{
     border-radius: 4px;
     margin-top: 20px;
     padding: 0;
-    background-color: #EED2661A;
+    background-color: var(--side-menu-color);
     flex-direction: column;
     transition: all ease 0.2s;
     width: 0;
     overflow: hidden;
 }
-.sideMenu>a{
+
+.sideMenuItem {
     border-bottom: 1px solid var(--border-color);
     display: inline-flex;
     align-items: center;
     column-gap: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
+    text-decoration: none;
+    color: CanvasText;
 }
-.sideMenu>a:hover{
+
+.sideMenuItem:hover {
     background-color: rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
-.sideMenu>a>img{
+
+.sideMenuItem > img {
     width: 20px;
     aspect-ratio: 1/1;
 }
-.sideMenu>a:last-child{
+
+.sideMenuItem:last-child {
     border-bottom: none;
 }
 
-.settings.visible > .sideMenu{
+@media (max-width: 1024px) {
+    .sideMenu {
+        display: none !important;
+    }
+
+    .accordionMenu > .adminLink {
+        border-radius: 0;
+        background: none;
+        color: var(--primary-text-color);
+    }
+
+    .accordionMenu > .adminLink:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    .accordionMenu > .search-container {
+        border-right: none !important;
+        order: -1;
+        width: 100%;
+        margin: 0;
+    }
+
+    .accordionMenu > .search-container > .search-form {
+        display: inline-flex;
+        width: 100%;
+    }
+
+    .accordionMenu > .search-container > .search-form > .search-input {
+        border: none;
+        outline: none;
+        width: 100%;
+        background: var(--heading-font);
+        color: var(--primary-text-color);
+    }
+
+    .accordionMenu > .create {
+        border-radius: 0;
+        background: none;
+    }
+
+    .accordionMenu.visible {
+        display: flex;
+        flex: none;
+    }
+
+    .rbb {
+        border-right-color: deepskyblue;
+    }
+
+    .rbg {
+        border-right-color: lawngreen;
+    }
+
+    .rbm {
+        border-right-color: magenta;
+    }
+
+    .rbr {
+        border-right-color: red;
+    }
+
+    .search-form > .search-button {
+        border-radius: 0;
+    }
+
+    .rbb, .rbg, .rbm, .rbr {
+        padding-left: 10px;
+    }
+
+    .patentsList > .patent {
+        width: 100%;
+    }
+
+}
+
+.patentFullList > .patent {
+    width: 100%;
+}
+
+.settings.visible > .sideMenu {
     display: flex;
     opacity: 1;
     width: 150px;
     padding: 10px;
 }
-.settings>img{
+
+.settings > img {
     aspect-ratio: 1/1;
     height: 50px;
     transition: ease-in 0.2s all;
 }
-.settings-rotated{
+
+.settings-rotated {
     transform: rotate(90deg);
 }
 
-.create{
+.create {
     background: lawngreen;
     padding: 8px;
     border-radius: 1000px;
-    font-family:  sans-serif;
+    font-family: sans-serif;
     font-size: 18px;
     text-decoration: none;
-    color: #000;
+    color: black;
 }
-.create:active{
+
+.create:active {
     background: yellowgreen;
 }
-.controls{
+
+.controls {
     display: inline-flex;
     gap: 10px;
     align-items: center;
 }
+
 .search-container {
     display: flex; /* Используем Flexbox для выравнивания */
     justify-content: center; /* Центрируем содержимое */
@@ -166,83 +316,148 @@ html{
     background-color: #0056b3; /* Цвет фона кнопки при наведении */
 }
 
-.mainWrapper{
-    padding: 20px;
-    height: 100%;
-    width: 80%;
-    max-width: 900px;
+.accordionMenu {
+    background: var(--amenu-background-color);
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    border-top: solid 0 #777777;
 
+    display: none;
+    height: 0;
+    overflow: hidden;
+    transition: height ease 500ms, border-top-width linear 100ms;
 }
-.patentsList{
+
+.accordionMenu > * {
+    border-bottom: #777777 1px solid;
+    color: var(--primary-text-color);
+    transition: border-right-width linear 50ms;
+}
+
+.accordionMenu > *:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    border-right-width: 25px;
+    border-right-style: solid;
+}
+
+
+.mainWrapper {
+    padding: 20px;
+    /*height: 100%;*/
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
+    /*width: 80%;*/
+    /*max-width: 900px;*/
+
+}
+
+.patentsList {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 10px;
 }
-.patent{
-    display: flex;
-    flex-direction: column;
-    border: solid var(--border-color) 1px;
-    border-radius: 10px;
 
+.patent {
+    display: flex;
+    width: calc(50% - 5px);
+    flex-direction: column;
+    /*border: solid var(--border-color) 1px;*/
+    border-radius: 10px;
+    padding: 2px;
+
+    background: var(--cards-back-color) var(--cards-mouse-gradient);
+    background-size: 600px 600px;
+    background-position: -600px 0, 0 0;
+    box-shadow: var(--cards-shadow);
+    box-sizing: border-box;
 }
-.patentName{
-    font: 25px var(--patent-header-text-color);
-    font-family: "fantasy", sans-serif;
+
+.patentName {
+    font-size: 22px;
+    color: var(--patent-header-text-color);
+    /*font-family: "fantasy", sans-serif;*/
     word-break: break-all;
 }
-.patentDate{
 
-    font: 18px var(--patent-date-text-color);
-    font-family: "Segoe UI", sans-serif;
+.patentDate {
+
+    font-size: 20px;
+    color: var(--patent-date-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
 
     margin-left: 25px;
 }
-.patentDescription{
-    font: 20px var(--patent-descriprion-text-color);
-    font-family: "Segoe UI", sans-serif;
+
+.patentDescription {
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
     padding: 10px;
     word-break: break-all;
     white-space: pre-wrap
 }
-.patentHeader{
+
+.patentHeader {
     padding: 10px;
     text-decoration: none;
     color: CanvasText;
+    background: var(--cards-front-color);
+    border-radius: 8px 8px 0 0;
 }
-.patentBody{
-    border-top: solid 1px var(--border-color);
+
+.patentBody {
+    /*border-top: solid 1px var(--border-color);*/
+    margin-top: 2px;
+    background: var(--cards-front-color);
+    border-radius: 0 0 8px 8px;
+    height: 100%;
 }
-.patentId{
-    font: 18px sans-serif;
-    color: #007BFF;
+
+/*.patent:hover>.patentBody, .patent:hover>.patentHeader{*/
+/*    background: var(--cards-front-hovered);*/
+/*}*/
+
+.patentId {
+    font-size: 22px;
+    color: var(--patent-id-color);
+
 }
-.patentAuthor{
+
+.patentAuthor {
     padding: 10px;
-    font: 20px var(--patent-descriprion-text-color);
-    font-family: "Roboto", sans-serif;
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Roboto", sans-serif;*/
 }
-.patentAuthor::before{
-    font: 18px var(--patent-descriprion-text-color);
+
+.patentAuthor::before {
+    font-size: 18px;
+    color: var(--patent-descriprion-text-color);
     content: "Владелец патента: ";
-    font-family: "Roboto", sans-serif;
+    /*font-family: "Roboto", sans-serif;*/
 
 }
 
-.notification{
+.notification {
     padding: 10px;
     margin: 5px;
     min-width: 70px;
-    font: 20px Roboto;
+    font-size: 20px;
     background-color: #EEEE00;
     border: 4px solid #CCCC00;
     border-radius: 10px;
     transition: opacity 500ms;
 }
-.notificationHidden{
+
+.notificationHidden {
     opacity: 0;
 }
-.notificationList{
+
+.notificationList {
     position: fixed;
     bottom: 50px;
     right: 50px;
@@ -250,177 +465,220 @@ html{
     flex-direction: column-reverse;
     justify-content: right;
 }
-.path{
-    font: 25px bold Roboto;
-    margin-left: 20px;
-}
-.path::before{
-    font: 25px bold Roboto;
-    margin-left: 20px;
-    content: "/";
-}
-.path>span::after{
-    font: 25px bold Roboto;
-    content: "/";
-}
-.path>span:hover{
-    text-decoration: underline var(--border-color);
-    cursor: pointer;
-}
 
-.patentFullList{
+.patentFullList {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     gap: 10px;
 }
-.update{
+
+.update {
     display: flex;
     flex-direction: column;
-    border: solid var(--border-color) 1px;
+    /*border: solid var(--border-color) 1px;*/
     border-radius: 10px;
+    padding: 2px;
 
+    background: var(--cards-back-color) var(--cards-mouse-gradient);
+    background-size: 600px 600px;
+    background-position: -600px 0, 0 0;
+    box-shadow: var(--cards-shadow);
+    box-sizing: border-box;
 }
-.updateName{
-    font: 25px var(--patent-header-text-color);
-    font-family: "fantasy", sans-serif;
-}
-.updateDate{
 
-    font: 18px var(--patent-date-text-color);
-    font-family: "Segoe UI", sans-serif;
+.updateName {
+    font-size: 22px;
+    color: var(--patent-header-text-color);
+    /*font-family: "fantasy", sans-serif;*/
+}
+
+.updateDate {
+
+    font-size: 18px;
+    color: var(--patent-date-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
 
     margin-left: 25px;
 }
-.updateDescription{
-    font: 20px var(--patent-descriprion-text-color);
-    font-family: "Segoe UI", sans-serif;
+
+.updateDescription {
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
     padding: 10px;
 }
-.updateHeader{
+
+.updateHeader {
     padding: 10px;
+    text-decoration: none;
+    color: CanvasText;
+    background: var(--cards-front-color);
+    border-radius: 8px 8px 0 0;
 }
-.updateHeader::before{
-    font: 18px var(--patent-descriprion-text-color);
-    font-family: "Roboto", sans-serif;
+
+
+.updateHeader::before {
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Roboto", sans-serif;*/
     content: "Обновление";
 }
-.updateBody{
+
+.updateBody {
     border-top: solid 1px var(--border-color);
+    margin-top: 2px;
+    background: var(--cards-front-color);
+    border-radius: 0 0 8px 8px;
+    height: 100%;
 }
-.updateId{
-    font: 18px sans-serif;
-    color: #007BFF;
+
+form > .updateBody {
+    height: inherit;
 }
-.updateAuthor{
+
+.updateId {
+    font-size: 20px;
+    color: var(--patent-id-color);
+}
+
+.updateAuthor {
     padding: 10px;
-    font: 20px var(--patent-descriprion-text-color);
-    font-family: "Roboto", sans-serif;
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Roboto", sans-serif;*/
 }
-.updateAuthor::before{
-    font: 18px var(--patent-descriprion-text-color);
+
+.updateAuthor::before {
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
     content: "Владелец патента: ";
-    font-family: "Roboto", sans-serif;
+    /*font-family: "Roboto", sans-serif;*/
 
 }
-.newUpdateButton{
+
+.newUpdateButton {
     background-color: var(--patent-date-text-color);
     border: none;
     width: 50px;
     height: 50px;
     border-radius: 50px;
-    font: bold 30px sans;
+    font-size: 30px;
+    font-weight: bold;
     color: white;
     align-self: center;
-    transition: all 500ms ease ;
+    transition: all 500ms ease;
 }
-.newUpdateButton:hover{
+
+.newUpdateButton:hover {
     background-color: var(--border-color);
     cursor: pointer;
 }
-.newUpdateButton:active{
+
+.newUpdateButton:active {
     background-color: darkolivegreen;
 }
-.buttonForClose{
+
+.buttonForClose {
     background-color: darkred;
     transform: rotate(135deg);
 }
-.buttonForClose:hover{
+
+.buttonForClose:hover {
     background-color: crimson;
     cursor: pointer;
 }
 
-.updateHeaderEdit{
+.updateHeaderEdit {
     padding: 10px;
-    font: 25px var(--patent-descriprion-text-color);
-    font-family: "Roboto", sans-serif;
+    font-size: 25px;
+    text-decoration: none;
+    background: var(--cards-front-color);
+    border-radius: 8px 8px 0 0;
+    color: var(--patent-descriprion-text-color);
+
+    /*font-family: "Roboto", sans-serif;*/
 }
-.updateHeaderEdit>label{
+
+.updateHeaderEdit > label {
     font-size: 20px;
 }
-.updateHeaderEdit>input[type="text"]{
+
+.updateHeaderEdit > input[type="text"] {
     font-size: 20px;
     width: calc(100% - 20px);
     padding: 5px;
 }
-.updateDescriptionEdit{
-    font: 20px var(--patent-descriprion-text-color);
-    font-family: "Segoe UI", sans-serif;
+
+.updateDescriptionEdit {
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
     padding: 10px;
 }
-.updateDescriptionEdit>textarea{
-    font: 20px var(--patent-descriprion-text-color);
-    font-family: "Segoe UI", sans-serif;
+
+.updateDescriptionEdit > textarea {
+    font-size: 20px;
+    color: var(--patent-descriprion-text-color);
+    /*font-family: "Segoe UI", sans-serif;*/
     width: calc(100% - 10px);
     height: 300px;
     resize: none;
 }
-.updateDescriptionEdit>input[type="submit"]{
-    font: 15px var(--patent-descriprion-text-color);
-    font-family: "Segoe UI", sans-serif;
+
+.updateDescriptionEdit > input[type="submit"] {
+    font-size: 15px;
+    color: black;
+    /*font-family: "Segoe UI", sans-serif;*/
     width: 150px;
     height: 40px;
     background-color: chartreuse;
 }
-.updateDescriptionEdit>input[type="submit"]:hover{
+
+.updateDescriptionEdit > input[type="submit"]:hover {
 
     background-color: green;
     cursor: pointer;
 }
-#uElement{
-    transition: all 500ms ease;
+
+#uElement {
+    transition: height 500ms ease;
     overflow: hidden;
 }
-.updateHiding{
 
-    height: 10px;
+.uCollapsed {
+    height: 0;
 }
-.updateHidden{
+
+
+.updateHidden {
     display: none;
 }
-.username::before{
+
+.username::before {
     content: "Здравствуйте, ";
 }
-.username{
-    font: 20px SansSerif sans-serif;
+
+.username {
+    /*font: 20px SansSerif sans-serif;*/
     text-align: right;
-    padding: 20px;
-    width: 80%;
-    max-width: 900px;
+    padding: 20px 200px 20px 20px;
+    /*width: 80%;*/
+    /*max-width: 900px;*/
     height: fit-content;
 }
 
 .username-without-before {
-    font: 20px SansSerif sans-serif;
+    /*font: 20px SansSerif sans-serif;*/
     text-align: right;
     padding: 20px;
-    width: 80%;
+    /*width: 80%;*/
     max-width: 900px;
     height: fit-content;
 }
 
-.loginForm{
-    font: 20px SansSerif sans-serif;
+.loginForm {
+    font-size: 18px;
     padding: 10px;
     border: solid 1px;
     height: fit-content;
@@ -430,67 +688,80 @@ html{
     align-self: center;
     margin-top: 90px
 }
-.loginForm>input[type="text"], .loginForm>input[type="password"]{
+
+.loginForm > input[type="text"], .loginForm > input[type="password"], .loginForm > input[type="email"] {
     height: 30px;
     width: calc(100% - 10px);
     border-radius: 5px;
     font: 20px Georgia;
 }
-.loginForm>label>input[type="checkbox"]{
+
+.loginForm > label > input[type="checkbox"] {
     zoom: 1.6;
 
 }
-.loginForm>label{
+
+.loginForm > label {
     display: inline-flex;
     align-items: center;
     margin-top: 10px;
 }
-.loginForm>input[type="submit"]{
+
+.loginForm > input[type="submit"] {
     height: 40px;
     width: 200px;
     font-size: 18px;
     border: none;
     border-radius: 5px;
     background-color: #009AFF;
-
+    color: black;
 }
-.loginForm>input[type="submit"]:hover{
+
+.loginForm > input[type="submit"]:hover {
     background-color: #0065a8;
     cursor: pointer;
 }
-.loginForm>input.registerButton{
-    background-color: #00ff0b;
-}.loginForm>input.registerButton:hover{
-     background-color: #00af0a;
-     cursor: pointer;
- }
- .deleteUserButton{
-    background-color: #ffbf80;
 
- }
- .deleteUserButton:hover{
+.loginForm > input.registerButton {
+    background-color: #00ff0b;
+}
+
+.loginForm > input.registerButton:hover {
+    background-color: #00af0a;
+    cursor: pointer;
+}
+
+.deleteUserButton {
     background-color: darkred;
+
+}
+
+.deleteUserButton:hover {
+    background-color: brown;
     cursor: pointer;
     color: #fff;
- }
- .saveEdited{
-     border: 1px solid #777;
-     padding: 8px;
-     margin-top: 10px;
- }
- .saveEdited:hover{
-     background-color: #AAA;
-     cursor: pointer;
- }
+}
 
- .adminLink{
-     padding: 10px;
-     background-color: azure;
-     border-radius: 5px;
-     text-decoration: none;
-     color: CanvasText;
- }
-.adminLink:hover{
+.saveEdited {
+    border: 1px solid #777;
+    padding: 8px;
+    margin-top: 10px;
+}
+
+.saveEdited:hover {
+    background-color: #AAA;
+    cursor: pointer;
+}
+
+.adminLink {
+    padding: 10px;
+    background-color: azure;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+.adminLink:hover {
     background-color: cadetblue;
 }
 
@@ -499,4 +770,73 @@ html{
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+}
+
+.pages {
+    margin: 40px 20px 20px;
+    /*border: var(--border-color) 1px solid;*/
+    border-radius: 10px;
+    border-collapse: collapse;
+    background-color: var(--amenu-background-color);
+    align-self: center;
+}
+
+.pageUnit {
+    padding: 10px;
+    border-right: #777777 1px solid;
+    /*border: white 1px solid;*/
+}
+
+.pageUnit:hover {
+    background-color: #77777750;
+}
+
+.pageUnit:last-child {
+    border-right: none;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.pageUnit:first-child {
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.mainColumn {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.mainColumn > .patentFullList {
+    width: 50%;
+}
+
+
+.updateElementFollowing {
+    position: sticky;
+    top: 20px;
+}
+@media (max-width: 1024px) {
+    .mainColumn {
+        flex-direction: column;
+    }
+
+    .mainColumn > .patentFullList {
+        width: 100%;
+    }
+    .updateElementFollowing {
+        position: static;
+    }
+}
+.editProfileButton:hover{
+    background-color: #777777;
+    cursor: pointer;
+}
+.editProfileButton{
+    border:none;
+    border-radius: 4px;
+
 }

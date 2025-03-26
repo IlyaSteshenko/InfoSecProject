@@ -76,7 +76,7 @@ public class AuthController {
 //        signUpRequest.setPassword(user.getPassword());
 //        signUpRequest.setEmail(user.getEmail());
 //
-//        securityContextService.authorizeUser(user, request, response);
+        securityContextService.authorizeUser(user, request, response);
 
         return "redirect:/";
     }

@@ -1,5 +1,6 @@
 package com.informationsecurity.PasteBinService.controllers;
 
+import com.informationsecurity.PasteBinService.models.Paste;
 import com.informationsecurity.PasteBinService.models.Role;
 import com.informationsecurity.PasteBinService.models.UserEntity;
 import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
@@ -17,13 +18,25 @@ import java.util.List;
 public class AdminController {
 
     private final UserEntityDetailsService userEntityDetailsService;
-    private final SecurityContextService contextService;
+    private final SecurityContextService securityContextService;
 
     @GetMapping
     private String showAdminPanel(Model model) {
-        List<UserEntity> usersList = userEntityDetailsService.allUsers();
-        model.addAttribute("users", usersList);
-        model.addAttribute("adminName", contextService.getUsername());
+        List<UserEntity> usersList = userEntityDetailsService.findAllWithUserAuthorities();
+        String userName = securityContextService.getUsername();
+
+        model
+                .addAttribute("users", usersList)
+                .addAttribute("adminName", securityContextService.getUsername())
+                .addAttribute("paste", new Paste())
+                .addAttribute("authorities", securityContextService.getAuthorities())
+                .addAttribute("userName", userName);
+
+        if (!userName.equals("anonymousUser")) {
+            model.addAttribute(
+                    "user",
+                    userEntityDetailsService.loadUserByUsername(userName));
+        }
         return "admin_panel";
     }
 

@@ -32,6 +32,10 @@ public class UserEntityDetailsService implements UserDetailsService {
         return userEntityRepository.findAll();
     }
 
+    public List<UserEntity> findAllWithUserAuthorities() {
+        return userEntityRepository.findAllWithUserAuthorities();
+    }
+
     public boolean saveUser(UserEntity user, boolean asAdmin) {
         UserEntity customUser = userEntityRepository.findUserByUsername(user.getUsername());
         if (customUser != null) return false;
@@ -40,6 +44,7 @@ public class UserEntityDetailsService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole(role);
         user.setAccountLocked(false);
+        user.setDescription(user.getDescription());
         userEntityRepository.save(user);
         return true;
     }
@@ -50,6 +55,10 @@ public class UserEntityDetailsService implements UserDetailsService {
 
     public UserEntity findById(Long id) {
         return userEntityRepository.findUserById(id);
+    }
+
+    public UserEntity findByName(String name) {
+        return userEntityRepository.findUserByUsername(name);
     }
 
     public boolean deleteById(Long id) {

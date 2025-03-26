@@ -27,4 +27,7 @@ public class Paste {
     @Column(name = "author")
     private String author;
 
+    @Column(name = "authorid")
+    private long authorId;
+
 }
