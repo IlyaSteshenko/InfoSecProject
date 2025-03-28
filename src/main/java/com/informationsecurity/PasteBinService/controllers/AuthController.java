@@ -90,4 +90,9 @@ public class AuthController {
         return "redirect:/";
     }
 
+    @GetMapping("/recover_password")
+    public String recoverPassword() {
+        return "recover_password";
+    }
+
 }

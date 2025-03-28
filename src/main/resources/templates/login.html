@@ -22,22 +22,29 @@
   <input type="password" name="password" id="password" th:field="*{password}"><br>
   <p>Нет учетной записи? <a th:href="@{/registration}">Зарегистрироваться</a></p>
 
-  <a th:href="@{/}"><-- Back Home</a>
+  <input class="btn" type="submit" value="Войти">
 
-  <input type="submit" value="Войти">
+  <div class="wrapper">
+    <a class="btn" th:href="@{/}">
+      <div><-- На главную</div>
+    </a>
+    <a class="btn" th:href="@{/recover_password}">
+      <div>Восстановить пароль</div>
+    </a>
+  </div>
 </form>
 
 <div th:if="${param.error}">
   <script type="module">
     import Notifications from "../js/notifications.js"
-    Notifications.notifyUser("Invalid login or password!")
+    Notifications.notifyUser("Введён неправильный логин или пароль!")
   </script>
 </div>
 
 <div th:if="${param.logout}">
   <script type="module">
     import Notifications from "../js/notifications.js"
-    Notifications.notifyUser("You are have been successfully logged out")
+    Notifications.notifyUser("Вы успешно вышли из аккаунта =)")
   </script>
 </div>
 

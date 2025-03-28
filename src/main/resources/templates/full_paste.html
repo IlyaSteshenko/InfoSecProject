@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <div class="notificationList"></div>
@@ -46,96 +46,112 @@
 
   </div>
 </div>
+<div class="accordionMenu">
+</div>
 
 <div class="mainWrapper">
 
   <div class="top-line">
-    <a th:href="@{/}"><-- Back Home</a>
-    <div th:if="${not userName.equals('anonymousUser')}" class="username" th:text="${userName}">
-      <a th:href="@{/login}">Войти в аккаунт</a>
-    </div>
-<!--    <div th:if="${userName.equals('anonymousUser')}" class="username-without-before">-->
+    <a th:href="@{/}"><-- На главную</a>
+<!--    <div th:if="${not userName.equals('anonymousUser')}" class="username" th:text="${userName}">-->
 <!--      <a th:href="@{/login}">Войти в аккаунт</a>-->
 <!--    </div>-->
   </div>
 
+  <div class="username" th:if="${not userName.equals('anonymousUser')}" th:text="${userName}">
+
+    rise
+  </div>
+
   <h1>Описание патента</h1>
-  <div class="patentFullList">
-    <div class="patent" id="002">
-      <div class="patentHeader">
-        <span class="patentName" th:text="${paste.getTitle()}">Метод лечения диабета 2 типа</span>
-        <span class="patentId" th:text="'#' + ${paste.getId()}">#002</span>
+  <div class="mainColumn">
+    <div class="patentFullList">
+      <div class="patent" id="002">
+        <div class="patentHeader">
+          <span class="patentName" th:text="${paste.getTitle()}">Устройство для автоматического полива растений с использованием датчиков влажности и солнечной энергии</span>
+          <span class="patentId" th:text="'#' + ${paste.getId()}">#1</span>
+        </div>
+        <div class="patentBody">
+          <div class="patentAuthor" th:text="${paste.getAuthor()}">rise</div>
+          <div class="patentDate" th:text="${pasteTime}">13 марта 2025, 02:45</div>
+          <div class="patentDescription" th:text="${paste.getText()}">Область техники:
+            Настоящее изобретение относится к системам автоматического полива растений и может быть использовано в сельском хозяйстве, садоводстве и в домашних условиях для ухода за растениями.
+
+            Предпосылки:
+            Существующие системы полива часто требуют ручного контроля и настройки, что может привести к недостаточному или избыточному поливу, а также к неэффективному использованию ресурсов. В связи с этим существует необходимость в автоматизированной системе, которая могла бы оптимизировать процесс полива.
+
+            Суть изобретения:
+            Предлагаемое устройство включает в себя датчики влажности почвы, которые измеряют уровень влажности в реальном времени, и солнечные панели для обеспечения автономного питания системы. Датчики подключены к контроллеру, который обрабатывает данные и управляет насосом для подачи воды в зависимости от уровня влажности.
+
+            Система также может быть оснащена модулем Wi-Fi для удаленного мониторинга и управления через мобильное приложение. Пользователь может настраивать параметры полива, получать уведомления о состоянии растений и изменениях в погодных условиях.
+
+            Преимущества:
+
+            Автоматизация процесса полива: Устранение необходимости в ручном поливе.
+            Экономия ресурсов: Оптимизация использования воды за счет точного контроля уровня влажности.
+            Экологичность: Использование солнечной энергии для питания устройства.
+            Удаленный доступ: Возможность управления и мониторинга через мобильное приложение.
+            Заключение:
+            Данное изобретение представляет собой эффективное решение для автоматизации полива растений, что способствует улучшению ухода за растениями и снижению затрат на ресурсы.</div>
+        </div>
+
       </div>
-      <div class="patentBody">
-        <div class="patentAuthor" th:text="${paste.getAuthor()}">Мария Петрова</div>
-        <div class="patentDate" th:text="${pasteTime}">2023-02-20</div>
-        <div class="patentDescription" th:text="${paste.getText()}">Патент на новый метод лечения диабета 2 типа
-          с использованием натуральных экстрактов.
+
+      <div th:each="add, state : ${additions}">
+        <div class="update" id="002-1">
+
+          <div class="updateHeader">
+            <span class="updateId" th:text="'#' + ${paste.getId()} + '-' + ${state.count}">#1-1</span>
+            <span class="updateDate" th:text="${timeFormater.getTimeFormat(add.getAdditionDate())}">24 марта 2025, 04:33</span>
+            <div class="updateName" th:text="${add.getUpdateName()}">Гооооооооол</div>
+          </div>
+          <div class="updateBody">
+            <div class="updateDescription" th:text="${add.getUpdateText()}">ДААААААААААААААААААА</div>
+          </div>
         </div>
       </div>
 
     </div>
-
-    <!--        Дополнения-->
-    <div th:each="add, state : ${additions}">
-      <div class="update" id="002-1">
-
-        <div class="updateHeader">
-          <span class="updateId" th:text="'#' + ${paste.getId()} + '-' + ${state.count}">#002-1</span>
-          <span class="updateDate" th:text="${addTime.getTimeFormat(add.getAdditionDate())}">
-                        2023-02-25
-                    </span>
-          <div class="updateName" th:text="${add.getUpdateName()}">
-            Обновление метода лечения диабета 2 типа
+    <div class="patentFullList updateElementFollowing">
+      <!--Форма для дополнения-->
+      <div class="update updateHidden uCollapsed" id="uElement" th:if="${paste.getAuthor().equals(userName)}">
+        <form id="uForm" th:action="@{/paste/{id}(id=${paste.getId()})}" th:object="${addition}" th:method="post">
+          <div class="updateHeaderEdit">
+            <div>Добавить дополнение к патенту</div>
+            <label for="uName">Заголовок дополнения</label><br>
+            <input th:field="*{updateName}" type="text" id="uName" name="updateName" value="">
           </div>
-        </div>
-        <div class="updateBody">
-          <div class="updateDescription" th:text="${add.getUpdateText()}">
-            Уточнены дозировки и добавлены новые компоненты для повышения эффективности лечения.
+          <div class="updateBody">
+            <div class="updateDescriptionEdit">
+              <label for="uDesk">Описание дополнения</label><br>
+              <textarea th:field="*{updateText}" id="uDesk" name="updateText"></textarea>
+              <input type="submit" value="Опубликовать" id="uSubmit">
+            </div>
           </div>
-        </div>
+
+        </form>
       </div>
+      <button class="newUpdateButton" th:if="${paste.getAuthor().equals(userName)}">+</button>
     </div>
 
-    <!--        Форма для дополнения-->
-    <div class="update updateHidden updateHiding" id="uElement" th:if="${paste.getAuthor().equals(userName)}">
-      <form id="uForm" th:action="@{/paste/{id}(id=${paste.getId()})}" th:object="${addition}" th:method="post">
-        <div class="updateHeaderEdit">
-          <div>Добавить дополнение к патенту</div>
-          <label for="uName">Заголовок дополнения</label><br>
-          <input th:field="*{updateName}" type="text" id="uName">
-        </div>
-        <div class="updateBody">
-          <div class="updateDescriptionEdit">
-            <label for="uDesk">Описание дополнения</label><br>
-            <textarea th:field="*{updateText}" id="uDesk"></textarea>
-            <input type="submit" value="Опубликовать" id="uSubmit">
-          </div>
-        </div>
-
-      </form>
-    </div>
-    <button class="newUpdateButton" th:if="${paste.getAuthor().equals(userName)}">+</button>
   </div>
 </div>
-
 <script th:if="${paste.getAuthor().equals(userName)}">
   function buttonMentality(buttonElement, mainElement) {
-          if (!buttonElement.classList.contains("buttonForClose")) {
-              buttonElement.classList.add("buttonForClose");
-              mainElement.classList.remove("updateHidden")
-              setTimeout(() => mainElement.classList.remove("updateHiding")
-                  , 500)
-          } else {
-              buttonElement.classList.remove("buttonForClose");
-              mainElement.classList.add("updateHiding")
-              setTimeout(() => mainElement.classList.add("updateHidden")
-                  , 500)
-          }
+      if (!buttonElement.classList.contains("buttonForClose")) {
+          buttonElement.classList.add("buttonForClose");
+          mainElement.classList.remove("updateHidden");
+          mainElement.style.height = mainElement.scrollHeight+'px';
+      } else {
+          buttonElement.classList.remove("buttonForClose");
+          mainElement.style.removeProperty("height")
+          setTimeout(() => mainElement.classList.add("updateHidden")
+              , 500)
       }
-      let button = document.querySelector(".newUpdateButton");
-      let mainElement = document.getElementById("uElement");
-      button.addEventListener("click", () => buttonMentality(button,mainElement))
+  }
+  let button = document.querySelector(".newUpdateButton");
+  let mainElement = document.getElementById("uElement");
+  button.addEventListener("click", () => buttonMentality(button,mainElement))
 </script>
 <script src="../js/mainPageMenuAndPatents.js"></script>
 </body>

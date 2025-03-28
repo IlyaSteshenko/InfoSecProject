@@ -23,9 +23,17 @@
   <input type="email" name="email" id="email" th:field="*{email}"><br>
   <p>Есть учетная запись? <a th:href="@{/login}">Авторизоваться</a></p>
 
-  <a th:href="@{/}"><-- Back Home</a>
+<!--  <a th:href="@{/}"><&#45;&#45; На главную</a>-->
 
-  <input type="submit" class="registerButton" value="Зарегистрироваться">
+  <input type="submit" class="registerButton btn" value="Зарегистрироваться">
+  <div class="wrapper">
+    <a class="registerButton btn" th:href="@{/}">
+      <div><-- На главную</div>
+    </a>
+    <a class="btn registerButton" th:href="@{/recover_password}">
+      <div>Восстановить пароль</div>
+    </a>
+  </div>
 </form>
 <script>
   let form = document.querySelector(".loginForm")

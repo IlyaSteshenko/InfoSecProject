@@ -707,6 +707,7 @@ form > .updateBody {
     margin-top: 10px;
 }
 
+/*
 .loginForm > input[type="submit"] {
     height: 40px;
     width: 200px;
@@ -721,6 +722,44 @@ form > .updateBody {
     background-color: #0065a8;
     cursor: pointer;
 }
+*/
+
+.btn {
+    height: 40px;
+    width: 100%;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    background-color: #009AFF;
+    color: black;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    text-align: center;
+
+    padding: 0 5px;
+    border-sizing: border-box;
+}
+
+.btn:hover {
+    background-color: #0065a8;
+    cursor: pointer;
+}
+
+.wrapper {
+    width: 100%;
+    height: fit-content;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper > a.btn {
+    width: calc(50% - 15px);
+    margin-top: 10px;
+}
 
 .loginForm > input.registerButton {
     background-color: #00ff0b;
@@ -729,6 +768,15 @@ form > .updateBody {
 .loginForm > input.registerButton:hover {
     background-color: #00af0a;
     cursor: pointer;
+}
+
+.wrapper > a.registerButton {
+    background-color: #00ff0b;
+}
+
+.wrapper > a.registerButton:hover {
+    background-color: #00af0a;
+    cursor: pointer
 }
 
 .deleteUserButton {

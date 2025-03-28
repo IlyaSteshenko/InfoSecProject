@@ -155,7 +155,7 @@ public class MainPageController {
                 .addAttribute("authorities", contextService.getAuthorities())
                 .addAttribute("addition", new Addition())
                 .addAttribute("additions", additions)
-                .addAttribute("addTime", timeFormatService)
+                .addAttribute("timeFormater", timeFormatService)
                 .addAttribute("index", 1);
 
         if (!userName.equals("anonymousUser")) {

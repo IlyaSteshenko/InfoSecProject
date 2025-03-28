@@ -23,6 +23,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 
 import java.util.List;
 
@@ -98,5 +99,12 @@ public class SecurityConfig {
                 new HttpSessionSecurityContextRepository()
         );
     }
+
+//    @Bean
+//    public void addResourceHandler(ResourceHandlerRegistry registry) {
+//        registry
+//                .addResourceHandler("/")
+//                .addResourceLocations("")
+//    }
 
 }
