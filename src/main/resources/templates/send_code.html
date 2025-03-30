@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2>Введите код для восстановления пароля</h2>
+    <h3 th:if="${not error.isEmpty()}" th:text="${error}" style="color: red; word-break: break-all; white-space: pre-wrap;"></h3>
+    <a th:if="${not error.isEmpty()}" th:href="@{/recover_password}">Получить новый код</a>
+    <form th:action="@{/send_code}" th:method="post" th:object="${mainCode}" style="padding-top: 20px;">
+        <input type="text" th:field="*{code}">
+        <input type="submit" value="Отправить">
+    </form>
+</body>
+</html>

@@ -1,12 +1,11 @@
 package com.informationsecurity.PasteBinService.controllers;
 
 import com.informationsecurity.PasteBinService.models.UserEntity;
-import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
+import com.informationsecurity.PasteBinService.services.UserEntityDetailsService;
 import com.informationsecurity.PasteBinService.services.PasteService;
 import com.informationsecurity.PasteBinService.services.SecurityContextService;
 import com.informationsecurity.PasteBinService.services.TextFormatService;
 import com.informationsecurity.PasteBinService.services.TimeFormatService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

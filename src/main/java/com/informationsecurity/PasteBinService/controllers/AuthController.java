@@ -1,7 +1,7 @@
 package com.informationsecurity.PasteBinService.controllers;
 
 import com.informationsecurity.PasteBinService.models.UserEntity;
-import com.informationsecurity.PasteBinService.models.UserEntityDetailsService;
+import com.informationsecurity.PasteBinService.services.UserEntityDetailsService;
 import com.informationsecurity.PasteBinService.services.SecurityContextService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -89,10 +89,4 @@ public class AuthController {
 
         return "redirect:/";
     }
-
-    @GetMapping("/recover_password")
-    public String recoverPassword() {
-        return "recover_password";
-    }
-
 }

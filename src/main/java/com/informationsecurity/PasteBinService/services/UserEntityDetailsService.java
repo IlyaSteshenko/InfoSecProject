@@ -1,5 +1,7 @@
-package com.informationsecurity.PasteBinService.models;
+package com.informationsecurity.PasteBinService.services;
 
+import com.informationsecurity.PasteBinService.models.Role;
+import com.informationsecurity.PasteBinService.models.UserEntity;
 import com.informationsecurity.PasteBinService.repositories.UserEntityRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -67,5 +69,9 @@ public class UserEntityDetailsService implements UserDetailsService {
             return true;
         }
         return false;
+    }
+
+    public UserEntity findUserByEmail(String email) {
+        return userEntityRepository.findUserByEmail(email);
     }
 }

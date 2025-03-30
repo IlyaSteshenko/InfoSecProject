@@ -14,4 +14,6 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
 
     @Query("SELECT u FROM UserEntity u WHERE u.role = 'USER'")
     List<UserEntity> findAllWithUserAuthorities();
+
+    UserEntity findUserByEmail(String email);
 }
