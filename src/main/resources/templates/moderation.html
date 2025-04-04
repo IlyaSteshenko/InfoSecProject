@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Написать в поддержку</title>
+</head>
+<body>
+    <h2>Написать в поддержку</h2>
+    <form th:action="@{/write_to_moderator}" th:method="post" th:object="${message}">
+        <div>Введите ваш email</div>
+        <input type="text" th:field="*{recipient}">
+        <div>Введите ваше обращение</div>
+        <textarea th:field="*{message}" style="width: 1000px; height: 550px;"></textarea>
+
+        <input type="submit" value="Отправить обращение">
+    </form>
+</body>
+</html>

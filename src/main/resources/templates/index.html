@@ -12,6 +12,7 @@
         <div class="logoFirst">Патентное бюро</div>
         <div class="logoSecond">Победа</div>
     </a>
+    <a th:href="@{/write_to_moderator}">Написать в поддержку</a>
     <div class="controls">
         <div th:if="${authorities.equals('[ADMIN]')}">
             <a th:href="@{/admin}" class="adminLink">Управление аккаунтами</a>

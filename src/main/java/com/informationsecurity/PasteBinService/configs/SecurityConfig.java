@@ -10,6 +10,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +20,8 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
@@ -48,9 +51,20 @@ public class SecurityConfig {
                         return corsConfiguration;
                 }))
                 .authorizeHttpRequests((request) -> {
-                    request.requestMatchers("/create_new_paste", "/new_password").hasAnyAuthority("USER", "ADMIN");
-                    request.requestMatchers("/admin/**", "/registration_admin").hasAuthority("ADMIN");
-                    request.requestMatchers("/registration", "/**", "/profile/**").permitAll();
+                    request.requestMatchers(
+                            "/create_new_paste",
+                            "/new_password",
+                            "/change_principals"
+                    ).hasAnyAuthority("USER", "ADMIN");
+                    request.requestMatchers(
+                            "/admin/**",
+                            "/registration_admin"
+                    ).hasAuthority("ADMIN");
+                    request.requestMatchers(
+                            "/registration",
+                            "/**",
+                            "/profile/**"
+                    ).permitAll();
                     request.requestMatchers(
                             "/resources/**",
                             "/static/**",
@@ -99,7 +113,7 @@ public class SecurityConfig {
 //    public void addResourceHandler(ResourceHandlerRegistry registry) {
 //        registry
 //                .addResourceHandler("/")
-//                .addResourceLocations("")
+//                .addResourceLocations("");
 //    }
 
 }

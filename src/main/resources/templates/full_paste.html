@@ -71,7 +71,7 @@
           <span class="patentId" th:text="'#' + ${paste.getId()}">#1</span>
         </div>
         <div class="patentBody">
-          <div class="patentAuthor" th:text="${paste.getAuthor()}">rise</div>
+          <a class="patentAuthor" th:href="@{/profile/{id}(id=${paste.getAuthorId()})}" th:text="${paste.getAuthor()}">rise</a>
           <div class="patentDate" th:text="${pasteTime}">13 марта 2025, 02:45</div>
           <div class="patentDescription" th:text="${paste.getText()}">Область техники:
             Настоящее изобретение относится к системам автоматического полива растений и может быть использовано в сельском хозяйстве, садоводстве и в домашних условиях для ухода за растениями.

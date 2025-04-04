@@ -41,6 +41,7 @@ public class SecurityContextService {
                         user.getAuthorities()
                 )
         );
+
         securityContextHolderStrategy.setContext(context);
         securityContextRepository.saveContext(context, request, response);
     }

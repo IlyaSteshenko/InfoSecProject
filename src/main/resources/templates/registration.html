@@ -13,6 +13,7 @@
   </div>
 </div>
 
+<p th:text="${error}" style="color: red; font-size: 20px;"></p>
 <form class="loginForm" th:action="@{/registration}" th:method="post" th:object="${user}">
   <h1>Регистрация</h1>
   <label for="user">Новый логин</label><br>
@@ -30,9 +31,9 @@
     <a class="registerButton btn" th:href="@{/}">
       <div><-- На главную</div>
     </a>
-    <a class="btn registerButton" th:href="@{/recover_password}">
-      <div>Восстановить пароль</div>
-    </a>
+<!--    <a class="btn registerButton" th:href="@{/recover_password}">-->
+<!--      <div>Восстановить пароль</div>-->
+<!--    </a>-->
   </div>
 </form>
 <script>

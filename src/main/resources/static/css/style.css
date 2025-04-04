@@ -756,13 +756,14 @@ form > .updateBody {
     justify-content: space-between;
 }
 
-.wrapper > a.btn {
+.wrapper > a.loginFormBtn {
     width: calc(50% - 15px);
     margin-top: 10px;
 }
 
 .loginForm > input.registerButton {
     background-color: #00ff0b;
+    margin-bottom: 10px;
 }
 
 .loginForm > input.registerButton:hover {
@@ -773,6 +774,8 @@ form > .updateBody {
 .wrapper > a.registerButton {
     background-color: #00ff0b;
 }
+
+
 
 .wrapper > a.registerButton:hover {
     background-color: #00af0a;

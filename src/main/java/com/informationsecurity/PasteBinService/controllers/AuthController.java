@@ -6,6 +6,7 @@ import com.informationsecurity.PasteBinService.services.SecurityContextService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,9 @@ public class AuthController {
 
     @GetMapping("/registration")
     public String registration(Model model) {
-        model.addAttribute("user", new UserEntity());
+        model
+                .addAttribute("user", new UserEntity())
+                .addAttribute("error", "");
 
         return "registration";
     }
@@ -31,28 +34,6 @@ public class AuthController {
         model.addAttribute("user", new UserEntity());
         return "login";
     }
-
-//    @PostMapping("/login")
-//    public String login(
-//            @ModelAttribute("user") UserEntity user,
-//            HttpServletRequest request,
-//            HttpServletResponse response
-//    ) {
-//
-//        if (response.getStatus() == 403) {
-//            return "redirect:/login";
-//        }
-//
-//        UserEntity authorizedUser = (UserEntity) userEntityDetailsService.loadUserByUsername(user.getUsername());
-//
-//        SignInRequest signInRequest = new SignInRequest();
-//        signInRequest.setUsername(user.getUsername());
-//        signInRequest.setPassword(user.getPassword());
-//
-//        securityContextService.authorizeUser(authorizedUser, request, response);
-//
-//        return "redirect:/";
-//    }
 
     @GetMapping("/registration_admin")
     public String regAdmin(Model model) {
@@ -65,17 +46,26 @@ public class AuthController {
     public String registration(
             @ModelAttribute("user") UserEntity user,
             HttpServletRequest request,
-            HttpServletResponse response
+            HttpServletResponse response,
+            Model model
     ) {
+
+//        String pattern = "[^!+=;&%$#@*()~{},. ]";
+//        if (!(
+//                user.getPassword().matches(pattern) &&
+//                user.getPassword().length() >= 7
+//        )) {
+//            model.addAttribute(
+//                    "error",
+//                    "Вы ввели некорректный пароль. Пароль должен содержать не менее 7 символов и не содержать символы [!,+,=,;,&,%,$,#,@,*,(,),~,{,}], точки, запятые и пробелы"
+//            );
+//            return "registration";
+//        }
+
         if (!userEntityDetailsService.saveUser(user, false)) {
             return "registration";
         }
 
-//        SignUpRequest signUpRequest = new SignUpRequest();
-//        signUpRequest.setUsername(user.getUsername());
-//        signUpRequest.setPassword(user.getPassword());
-//        signUpRequest.setEmail(user.getEmail());
-//
         securityContextService.authorizeUser(user, request, response);
 
         return "redirect:/";
