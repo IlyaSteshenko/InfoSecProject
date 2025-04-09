@@ -22,6 +22,9 @@ public class CodeStorage {
     public boolean isCodeExists(Code code) {
         return codes.contains(code);
     }
+    public boolean isCodeExists(String email) {
+        return codes.get(email) != null;
+    }
 
     public void removeCode(String email) {
         codes.remove(email);

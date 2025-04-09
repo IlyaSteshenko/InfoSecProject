@@ -98,17 +98,27 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PostMapping("/search")
-    public String searchUser(@RequestBody String searchString) {
-//        List<UserEntity> userEntityList = userEntityDetailsService.allUsers();
-//        List<UserEntity> resultList = new ArrayList<>();
-//        for (UserEntity user : userEntityList) {
-//            if (user.getUsername().contains(searchString)) {
-//                resultList.add(user);
-//            }
-//        }
-        System.out.println(searchString);
-        return "redirect:/admin";
+    @GetMapping("/search")
+    public String searchUser(
+            @RequestParam("search") String searchString,
+            Model model
+    ) {
+
+        List<UserEntity> usersList = userEntityDetailsService.findUsers(searchString);
+        String userName = securityContextService.getUsername();
+        model
+                .addAttribute("users", usersList)
+                .addAttribute("adminName", securityContextService.getUsername())
+                .addAttribute("paste", new Paste())
+                .addAttribute("authorities", securityContextService.getAuthorities())
+                .addAttribute("userName", userName);
+
+        if (!userName.equals("anonymousUser")) {
+            model.addAttribute(
+                    "user",
+                    userEntityDetailsService.loadUserByUsername(userName));
+        }
+        return "admin_panel";
     }
 
 }

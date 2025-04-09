@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ПБП Админ</title>
-    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
     <style>
         table.users {
             width: 100%;
@@ -107,9 +107,9 @@
 <div class="mainWrapper">
 
     <h1 id="DataHeader">Список пользователей</h1>
-    <form style="justify-self: right; margin-bottom: 5px" method="post" action="https://192.168.0.103:4000/admin/search">
+    <form style="justify-self: right; margin-bottom: 5px" method="get" th:action="@{/admin/search}">
         <label for="usersSearch">Искать по логину</label><br>
-        <input type="text" name="usersSearch" id="usersSearch">
+        <input type="text" name="search" id="usersSearch">
         <input type="submit" class="btn-default" value="Искать">
     </form>
 

@@ -74,4 +74,8 @@ public class UserEntityDetailsService implements UserDetailsService {
     public UserEntity findUserByEmail(String email) {
         return userEntityRepository.findUserByEmail(email);
     }
+
+    public List<UserEntity> findUsers(String userSearch) {
+        return userEntityRepository.findUsers(userSearch);
+    }
 }

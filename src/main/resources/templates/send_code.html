@@ -12,5 +12,10 @@
         <input type="text" th:field="*{code}">
         <input type="submit" value="Отправить">
     </form>
+
+    <form th:action="@{/send_code_again}" th:method="post">
+        <div>Если ваш код не пришёл, нажмите на эту кнопку</div>
+        <input type="submit" value="Получить новый код">
+    </form>
 </body>
 </html>

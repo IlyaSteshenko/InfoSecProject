@@ -58,6 +58,15 @@ public class RecoverPasswordController {
             Model model
     ) {
 
+        // Вот тут проверка на работоспособность сервера почты
+//        if ()
+
+        // Вот тут проверка на существование кода
+        if (codeStorage.isCodeExists(email.getRecipient())) {
+            model.addAttribute("error", "Код для этой почты уже отправлен. ");
+            return "/recover_password";
+        }
+
         if (userEntityDetailsService.findUserByEmail(email.getRecipient()) == null) {
             model.addAttribute("error", "Пользователя с такой почтой не существует =(");
             return "recover_password";
@@ -113,6 +122,12 @@ public class RecoverPasswordController {
             model.addAttribute("error", "Ваш код доступа истёк.\nПолучите новый код по этой ссылке: ");
             return "send_code";
         }
+    }
+
+    @PostMapping("/send_code_again")
+    public String sendCodeAgain() {
+        // Тут надо дописать
+        return "redirect:/send_code";
     }
 
     @GetMapping("/new_password")

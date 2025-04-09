@@ -3,6 +3,7 @@ package com.informationsecurity.PasteBinService.repositories;
 import com.informationsecurity.PasteBinService.models.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
     List<UserEntity> findAllWithUserAuthorities();
 
     UserEntity findUserByEmail(String email);
+
+    @Query("SELECT u FROM UserEntity u WHERE u.username LIKE %:userSearch%" +
+            " OR u.email LIKE %:userSearch%")
+    List<UserEntity> findUsers(@Param("userSearch") String userSearch);
 }
