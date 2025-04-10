@@ -8,11 +8,14 @@ const Controls = document.querySelector(".controls");
 const ControlsContent = document.querySelectorAll(".controls>a, .controls>.search-container");
 const ExcludeReplacing = document.querySelectorAll(".settings")
 const SMenuContent = document.querySelectorAll(".sideMenu>*");
+const RESIZE_WIDTH = 1024; // порог между сменой компоновки на компактную
+// Еще есть константа в CSS коде styles.css [@media (max-width: 1250px)]
+
 const switchMenuFunc = () => {
-    if (window.innerWidth < 1024 && mode !== "compact") {
+    if (window.innerWidth < RESIZE_WIDTH && mode !== "compact") {
         AMenu.replaceChildren(...ControlsContent, ...SMenuContent);
         mode = "compact";
-    } else if (window.innerWidth >= 1024 && mode !== "full") {
+    } else if (window.innerWidth >= RESIZE_WIDTH && mode !== "full") {
         SideMenu.replaceChildren(...SMenuContent);
         Controls.replaceChildren(...ControlsContent, ...ExcludeReplacing)
         mode = "full";

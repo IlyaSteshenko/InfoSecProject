@@ -4,34 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ПБП Админ</title>
-    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
     <style>
         table.users {
             width: 100%;
             border-collapse: collapse;
         }
-        .users>thead>tr>th, .users>tbody>tr>td {
+
+        .users > thead > tr > th, .users > tbody > tr > td {
             border: 1px solid #ddd8;
             padding: 8px;
             text-align: left;
 
         }
-        .users>thead>tr>th {
+
+        .users > thead > tr > th {
             cursor: pointer; /* Указатель при наведении на заголовок */
             background-color: #f2f2f280;
         }
-        .users>thead>tr>th:hover {
+
+        .users > thead > tr > th:hover {
             background-color: #ddd6; /* Изменение цвета при наведении */
         }
-        .btn-default:hover{
+
+        .btn-default:hover {
             background-color: #777777;
             cursor: pointer;
         }
-        .btn-default{
-            border:none;
+
+        .btn-default {
+            border: none;
             border-radius: 4px;
 
         }
+
         .sort-arrow {
 
         }
@@ -43,19 +49,23 @@
         .sort-arrow.down::before {
             content: '↓';
         }
-        .fill{
+
+        .fill {
             height: 100%;
             width: 100%;
         }
-        input[type="checkbox"]:checked::after{
+
+        input[type="checkbox"]:checked::after {
             content: "(да)";
             margin-left: 15px;
         }
-        input[type="checkbox"]::after{
+
+        input[type="checkbox"]::after {
             content: "(нет)";
             margin-left: 15px;
         }
-        .users>tbody>tr:hover{
+
+        .users > tbody > tr:hover {
             background: #EEE3;
         }
     </style>
@@ -85,7 +95,8 @@
         <div class="settings" tabindex="-1">
             <img src="../img/settings.svg" alt="">
             <div class="sideMenu">
-                <a class="sideMenuItem rbm" th:href="@{/profile/{id}(id=${user.getId()})}" th:if="${not userName.equals('anonymousUser')}">
+                <a class="sideMenuItem rbm" th:href="@{/profile/{id}(id=${user.getId()})}"
+                   th:if="${not userName.equals('anonymousUser')}">
                     <img src="../img/profile.svg" alt="">
                     <span>Профиль</span>
                 </a>
@@ -115,63 +126,68 @@
 
     <table id="userListTable" class="users">
         <thead>
-            <tr>
-                <th onclick="sortTable(0)" class="sort-arrow up">Логин</th>
-                <th onclick="sortTable(1)" class="sort-arrow">Почта</th>
-                <th>Заблокирован?</th>
-                <th>Администратор?</th>
-                <th>Удаление пользователя (опасно)</th>
-            </tr>
+        <tr>
+            <th onclick="sortTable(0)" class="sort-arrow up">Логин</th>
+            <th onclick="sortTable(1)" class="sort-arrow">Почта</th>
+            <th>Заблокирован?</th>
+            <th>Администратор?</th>
+            <th>Удаление пользователя (опасно)</th>
+        </tr>
         </thead>
         <tbody>
-            <tr th:each="user : ${users}">
-                <td th:text="${user.getUsername()}">rise</td>
-                <td th:text="${user.getEmail()}">qwerty</td>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.getUsername()}">rise</td>
+            <td th:text="${user.getEmail()}">qwerty</td>
 
-                <td>
-                    <div th:if="${not user.isAccountLocked()}">
-                        <form th:object="${user}" th:action="@{/admin/user/{id}/ban(id=${user.getId()})}" th:method="post">
-                            <!--                                <label for="4535_Banned" class="fill">-->
-                            <!--                                    <input type="submit" th:value="${user.isAccountLocked()}">-->
-                            <input type="submit" name="4535_Banned" id="4535_Banned" th:value="${user.isAccountLocked()}">
-                            <!--                                </label>-->
-                        </form>
-                    </div>
-
-                    <div th:if="${user.isAccountLocked()}">
-                        <form th:object="${user}" th:action="@{/admin/user/{id}/unban(id=${user.getId()})}" th:method="post">
-                            <!--                                <label for="4536_Banned" class="fill">-->
-                            <!--                                    <input type="submit" name="4536_Banned" id="4536_Banned" th:value="${user.isAccountLocked()}">-->
-                            <input type="submit" th:value="${user.isAccountLocked()}">
-                            <!--                                </label>-->
-                        </form>
-                    </div>
-                </td>
-
-                <td>
-                    <div th:if="${not user.isAdmin()}">
-                        <form th:object="${user}" th:action="@{/admin/user/{id}/change_to_admin(id=${user.getId()})}" th:method="post">
-                            <label for="4535_Admin" class="fill">
-                                <input type="submit" name="4535_Admin" id="4535_Admin" th:value="${user.isAdmin()}">
-                            </label>
-                        </form>
-                    </div>
-
-                    <div th:if="${user.isAdmin()}">
-                        <form th:object="${user}" th:action="@{/admin/user/{id}/change_to_user(id=${user.getId()})}" th:method="post">
-                            <label for="4535_Admin" class="fill">
-                                <input type="submit" name="4535_Admin" id="4536_Admin" th:value="${user.isAdmin()}">
-                            </label>
-                        </form>
-                    </div>
-                </td>
-
-                <td>
-                    <form th:object="${user}" th:method="post" th:action="@{/admin/user/{id}/delete(id=${user.getId()})}">
-                        <input type="submit" class="deleteUserButton" value="Удалить Пользователя">
+            <td>
+                <div th:if="${not user.isAccountLocked()}">
+                    <form th:object="${user}" th:action="@{/admin/user/{id}/ban(id=${user.getId()})}" th:method="post">
+                                                        <label th:for="${user.getId()} + '_Banned'" class="fill">
+                        <!--                                    <input type="submit" th:value="${user.isAccountLocked()}">-->
+                        <input type="submit" th:name="${user.getId()} + '_Banned'" class="btn-default" th:id="${user.getId()} + '_Banned'"
+                               th:value="${user.isAccountLocked()}">
+                                                        </label>
                     </form>
-                </td>
-            </tr>
+                </div>
+
+                <div th:if="${user.isAccountLocked()}">
+                    <form th:object="${user}" th:action="@{/admin/user/{id}/unban(id=${user.getId()})}"
+                          th:method="post">
+                        <label th:for="${user.getId()}  + '_Banned'" class="fill">
+                            <!--                                    <input type="submit" name="4536_Banned" id="4536_Banned" th:value="${user.isAccountLocked()}">-->
+                            <input type="submit" th:name="${user.getId()} + '_Banned'" class="btn-default" th:id="${user.getId()} + '_Banned'"
+                                   th:value="${user.isAccountLocked()}">
+                        </label>
+                    </form>
+                </div>
+            </td>
+
+            <td>
+                <div th:if="${not user.isAdmin()}">
+                    <form th:object="${user}" th:action="@{/admin/user/{id}/change_to_admin(id=${user.getId()})}"
+                          th:method="post">
+                        <label th:for="${user.getId()} + '_Admin'" class="fill">
+                            <input type="submit" th:name="${user.getId()} + '_Admin'" class="btn-default" th:id="${user.getId()}+'_Admin'" th:value="${user.isAdmin()}">
+                        </label>
+                    </form>
+                </div>
+
+                <div th:if="${user.isAdmin()}">
+                    <form th:object="${user}" th:action="@{/admin/user/{id}/change_to_user(id=${user.getId()})}"
+                          th:method="post">
+                        <label th:for="${user.getId()}+'_Admin'" class="fill">
+                            <input type="submit" th:name="${user.getId()}+'_Admin'" class="btn-default" th:id="${user.getId()}+'_Admin'" th:value="${user.isAdmin()}">
+                        </label>
+                    </form>
+                </div>
+            </td>
+
+            <td>
+                <form th:object="${user}" th:method="post" th:action="@{/admin/user/{id}/delete(id=${user.getId()})}">
+                    <input type="submit" class="btn-default deleteUserButton" value="Удалить Пользователя">
+                </form>
+            </td>
+        </tr>
 
         </tbody>
     </table>
@@ -185,12 +201,12 @@
 
             // Переключение стрелочек
             const headers = Array.from(table.tHead.rows.item(0).cells);
-            headers.forEach((element)=>{
-                element.classList.remove("sort-arrow","up","down");
+            headers.forEach((element) => {
+                element.classList.remove("sort-arrow", "up", "down");
             });
 
-            if (isAscending) headers[columnIndex].classList.add("sort-arrow","up");
-            else headers[columnIndex].classList.add("sort-arrow","down");
+            if (isAscending) headers[columnIndex].classList.add("sort-arrow", "up");
+            else headers[columnIndex].classList.add("sort-arrow", "down");
 
             // Сортировка строк
             rows.sort((a, b) => {

@@ -90,6 +90,7 @@ html {
 }
 
 .logo {
+    flex: none;
     padding-left: 10px;
     padding-right: 10px;
     height: 100%;
@@ -176,13 +177,15 @@ html {
         display: none !important;
     }
 
-    .accordionMenu > .adminLink {
+    .accordionMenu > .adminLink, .accordionMenu > .supportLink{
+        text-align: unset;
+        flex: none;
         border-radius: 0;
         background: none;
         color: var(--primary-text-color);
     }
 
-    .accordionMenu > .adminLink:hover {
+    .accordionMenu > .adminLink:hover, .accordionMenu > .supportLink:hover {
         background-color: rgba(0, 0, 0, 0.2);
     }
 
@@ -232,6 +235,11 @@ html {
         border-right-color: red;
     }
 
+
+    .rbs{
+        border-right-color: springgreen;
+    }
+
     .search-form > .search-button {
         border-radius: 0;
     }
@@ -268,6 +276,7 @@ html {
 }
 
 .create {
+    flex: none;
     background: lawngreen;
     padding: 8px;
     border-radius: 1000px;
@@ -285,9 +294,11 @@ html {
     display: inline-flex;
     gap: 10px;
     align-items: center;
+    justify-content: end;
 }
 
 .search-container {
+    flex: none;
     display: flex; /* Используем Flexbox для выравнивания */
     justify-content: center; /* Центрируем содержимое */
     margin: 20px; /* Отступы вокруг контейнера */
@@ -689,11 +700,44 @@ form > .updateBody {
     margin-top: 90px
 }
 
-.loginForm > input[type="text"], .loginForm > input[type="password"], .loginForm > input[type="email"] {
+/*.loginForm > input[type="text"], .loginForm > input[type="password"], .loginForm > input[type="email"] {*/
+/*    height: 30px;*/
+/*    width: calc(100% - 10px);*/
+/*    border-radius: 5px;*/
+/*    font: 20px Georgia;*/
+/*} !* Вот это устарело, теперь мета вешать классы loginField *!*/
+
+.loginField {
     height: 30px;
     width: calc(100% - 10px);
     border-radius: 5px;
     font: 20px Georgia;
+}
+
+.inputContainer {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.passwordView {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    right: 10px;
+    background: url("/img/view.svg") no-repeat;
+    background-size: contain;
+}
+
+.passwordView.peeked {
+    background: url("/img/no-view.svg") no-repeat;
+    background-size: contain;
+}
+
+.passwordView:hover {
+    cursor: pointer;
 }
 
 .loginForm > label > input[type="checkbox"] {
@@ -776,7 +820,6 @@ form > .updateBody {
 }
 
 
-
 .wrapper > a.registerButton:hover {
     background-color: #00af0a;
     cursor: pointer
@@ -816,6 +859,25 @@ form > .updateBody {
     background-color: cadetblue;
 }
 
+@media (max-width: 1240px) {
+    .adminLink, .supportLink {
+        flex: 0 0 100px;
+        text-align: center;
+    }
+}
+
+.supportLink {
+    padding: 10px;
+    /*background-color: azure;*/
+    border-radius: 5px;
+    text-decoration: none;
+    /*color: black;*/
+}
+
+.supportLink:hover {
+    background-color: #22222280;
+}
+
 .top-line {
     display: flex;
     flex-direction: row;
@@ -830,13 +892,18 @@ form > .updateBody {
     border-collapse: collapse;
     background-color: var(--amenu-background-color);
     align-self: center;
+    min-height: 42px;
 }
 
 .pageUnit {
-    padding: 10px;
+    min-height: 42px;
     border-right: #777777 1px solid;
-    /*border: white 1px solid;*/
 }
+
+.pageLink {
+    padding: 10px;
+}
+
 
 .pageUnit:hover {
     background-color: #77777750;
@@ -870,6 +937,7 @@ form > .updateBody {
     position: sticky;
     top: 20px;
 }
+
 @media (max-width: 1024px) {
     .mainColumn {
         flex-direction: column;
@@ -878,16 +946,19 @@ form > .updateBody {
     .mainColumn > .patentFullList {
         width: 100%;
     }
+
     .updateElementFollowing {
         position: static;
     }
 }
-.editProfileButton:hover{
+
+.editProfileButton:hover {
     background-color: #777777;
     cursor: pointer;
 }
-.editProfileButton{
-    border:none;
+
+.editProfileButton {
+    border: none;
     border-radius: 4px;
 
 }

@@ -1,68 +1,92 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>"Победа" Авторизация</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
-<!--  <script type="module" th:src="@{/js/notifications.js}"></script>-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"Победа" Авторизация</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 </head>
 <body>
 <div class="head">
-  <div class="logo">
-    <div class="logoFirst">Патентное бюро</div>
-    <div class="logoSecond">Победа</div>
-  </div>
+    <div class="logo">
+        <div class="logoFirst">Патентное бюро</div>
+        <div class="logoSecond">Победа</div>
+    </div>
 </div>
 
 <form class="loginForm" th:action="@{/login}" th:method="post" th:object="${user}">
-  <h1>Авторизация</h1>
-  <label for="user">Логин</label><br>
-  <input type="text" name="username" id="user" th:field="*{username}"><br>
-  <label for="password">Пароль</label><br>
-  <input type="password" name="password" id="password" th:field="*{password}"><br>
-  <p>Нет учетной записи? <a th:href="@{/registration}">Зарегистрироваться</a></p>
+    <h1>Авторизация</h1>
+    <label for="user">Логин</label><br>
+    <div class="inputContainer">
+        <input type="text" name="username" class="loginField" id="user" th:field="*{username}">
+    </div>
+    <label for="password">Пароль</label><br>
+    <div class="inputContainer">
+        <input type="password" name="password" class="loginField exposing" id="password" th:field="*{password}">
+        <a class="passwordView"></a>
+    </div>
 
-  <input class="btn" type="submit" value="Войти">
+    <p>Нет учетной записи? <a th:href="@{/registration}">Зарегистрироваться</a></p>
 
-  <div class="wrapper">
-    <a class="loginFormBtn btn" th:href="@{/}">
-      <div><-- На главную</div>
-    </a>
-    <a class="loginFormBtn btn" th:href="@{/recover_password}">
-      <div>Восстановить пароль</div>
-    </a>
-  </div>
+    <input class="btn" type="submit" value="Войти">
+
+    <div class="wrapper">
+        <a class="loginFormBtn btn" th:href="@{/}">
+            <div><-- На главную</div>
+        </a>
+        <a class="loginFormBtn btn" th:href="@{/recover_password}">
+            <div>Восстановить пароль</div>
+        </a>
+    </div>
 </form>
 
 <div th:if="${param.error}">
-  <script type="module">
-    import Notifications from "../js/notifications.js"
-    Notifications.notifyUser("Введён неправильный логин или пароль!")
-  </script>
+    <script type="module">
+        import Notifications from "../js/notifications.js"
+
+        Notifications.notifyUser("Введён неправильный логин или пароль!")
+    </script>
 </div>
 
 <div th:if="${param.logout}">
-  <script type="module">
-    import Notifications from "../js/notifications.js"
-    Notifications.notifyUser("Вы успешно вышли из аккаунта =)")
-  </script>
+    <script type="module">
+        import Notifications from "../js/notifications.js"
+
+        Notifications.notifyUser("Вы успешно вышли из аккаунта =)")
+    </script>
 </div>
 
 <script>
-  let form = document.querySelector(".loginForm")
-  document.addEventListener("mousemove", (event)=>{
-      let coords = form.getClientRects().item(0)
+    let passwordFields = document.querySelectorAll(".exposing")
+    document.querySelectorAll(".passwordView").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (btn.classList.contains("peeked")) {
+                btn.classList.remove("peeked");
+                passwordFields.forEach((passwordField) => {
+                    passwordField.setAttribute("type", "password")
+                });
+            } else {
+                btn.classList.add("peeked");
+                passwordFields.forEach((passwordField) => {
+                    passwordField.setAttribute("type", "text")
+                });
+            }
+        }, passive = true)
+    })
 
-      let centerX = coords.x + coords.width/2;
-      let centerY = coords.y + coords.height/2;
-      let diffX = centerX - event.x;
-      let diffY = centerY - event.y;
-      diffX = 20+10*Math.tanh(diffX/200)
-      diffY = 20+10*Math.tanh(diffY/200)
-      form.style.boxShadow = `#444 ${diffX}px ${diffY}px`
-  })
+    let form = document.querySelector(".loginForm")
+    document.addEventListener("mousemove", (event) => {
+        let coords = form.getClientRects().item(0)
+
+        let centerX = coords.x + coords.width / 2;
+        let centerY = coords.y + coords.height / 2;
+        let diffX = centerX - event.x;
+        let diffY = centerY - event.y;
+        diffX = 20 + 10 * Math.tanh(diffX / 200)
+        diffY = 20 + 10 * Math.tanh(diffY / 200)
+        form.style.boxShadow = `#444 ${diffX}px ${diffY}px`
+    })
 </script>
 </body>
 </html>

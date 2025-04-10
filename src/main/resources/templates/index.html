@@ -14,11 +14,9 @@
         <div class="logoFirst">Патентное бюро</div>
         <div class="logoSecond">Победа</div>
     </a>
-    <a th:href="@{/write_to_moderator}">Написать в поддержку</a>
     <div class="controls">
-        <div th:if="${authorities.equals('[ADMIN]')}">
-            <a th:href="@{/admin}" class="adminLink">Управление аккаунтами</a>
-        </div>
+        <a th:href="@{/write_to_moderator}" class="supportLink rbs">Написать в поддержку</a>
+        <a th:if="${authorities.equals('[ADMIN]')}" th:href="@{/admin}" class="adminLink rbb">Управление аккаунтами</a>
         <div class="search-container">
             <form th:action="@{/search}" method="get" class="search-form">
 
@@ -32,7 +30,8 @@
         <div class="settings" tabindex="-1">
             <img src="../img/settings.svg" alt="">
             <div class="sideMenu">
-                <a class="sideMenuItem rbm" th:href="@{/profile/{id}(id=${user.getId()})}" th:if="${not userName.equals('anonymousUser')}">
+                <a class="sideMenuItem rbm" th:href="@{/profile/{id}(id=${user.getId()})}"
+                   th:if="${not userName.equals('anonymousUser')}">
                     <img src="../img/profile.svg" alt="">
                     <span>Профиль</span>
                 </a>
@@ -65,9 +64,13 @@
                 <span class="patentId" th:text="'#' + ${paste.getId()}">2</span>
             </a>
             <div class="patentBody">
-                <a th:href="@{/profile/{id}(id=${paste.getAuthorId()})}" class="patentAuthor" th:text="${paste.getAuthor()}">rise</a>
-                <div class="patentDate" th:text="${pasteTime.getTimeFormat(paste.getExpirationTime())}">13 марта 2025, 05:30</div>
-                <div class="patentDescription" th:text="${textFormater.format(paste.getText())}">PostgreSQL Elephant Logo
+                <a th:href="@{/profile/{id}(id=${paste.getAuthorId()})}" class="patentAuthor"
+                   th:text="${paste.getAuthor()}">rise</a>
+                <div class="patentDate" th:text="${pasteTime.getTimeFormat(paste.getExpirationTime())}">13 марта 2025,
+                    05:30
+                </div>
+                <div class="patentDescription" th:text="${textFormater.format(paste.getText())}">PostgreSQL Elephant
+                    Logo
                     Home
                     About
                     Download
@@ -80,11 +83,12 @@
         <tbody>
         <tr>
             <td class="pageUnit"><a th:href="@{/page?q=1}" class="pageLink">В начало</a></td>
-            <td class="pageUnit"><a th:href="@{/page?q=prev}" class="pageLink"><<</a></td>
+            <td class="pageUnit"><a th:href="@{/page?q=prev}" class="pageLink"><</a></td>
 
-            <td class="pageUnit" th:each="page : ${pages}"><a th:href="@{/page?q={num}(num=${page})}" class="pageLink" th:text="${page}">1</a></td>
+            <td class="pageUnit" th:each="page : ${pages}"><a th:href="@{/page?q={num}(num=${page})}" class="pageLink"
+                                                              th:text="${page}">1</a></td>
 
-            <td class="pageUnit"><a th:href="@{/page?q=next}" class="pageLink">>></a></td>
+            <td class="pageUnit"><a th:href="@{/page?q=next}" class="pageLink">></a></td>
             <td class="pageUnit">
                 <a th:href="@{/page?q={num}(num=${pages.[pages.length - 1]})}" class="pageLink">В конец</a>
             </td>

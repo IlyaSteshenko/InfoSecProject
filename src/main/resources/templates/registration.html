@@ -1,56 +1,80 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>"Победа" Регистрация</title>
-  <link rel="stylesheet" th:href="@{/css/style.css}">
-  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"Победа" Регистрация</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
 </head>
 <body>
 <div class="head">
-  <div class="logo">
-    <div class="logoFirst">Патентное бюро</div>
-    <div class="logoSecond">Победа</div>
-  </div>
+    <div class="logo">
+        <div class="logoFirst">Патентное бюро</div>
+        <div class="logoSecond">Победа</div>
+    </div>
 </div>
 
 <p th:text="${error}" style="color: red; font-size: 20px;"></p>
 <form class="loginForm" th:action="@{/registration}" th:method="post" th:object="${user}">
-  <h1>Регистрация</h1>
-  <label for="user">Новый логин</label><br>
-  <input type="text" name="user" id="user" th:field="*{username}"><br>
-  <label for="password">Новый пароль</label><br>
-  <input type="password" name="password" id="password" th:field="*{password}"><br>
-  <label for="email">Электронная почта</label><br>
-  <input type="email" name="email" id="email" th:field="*{email}"><br>
-  <p>Есть учетная запись? <a th:href="@{/login}">Авторизоваться</a></p>
+    <h1>Регистрация</h1>
+    <label for="user">Новый логин</label><br>
+    <div class="inputContainer">
+        <input type="text" name="user" class="loginField" id="user" th:field="*{username}">
+    </div>
+    <label for="password">Новый пароль</label><br>
+    <div class="inputContainer">
+        <input type="password" name="password" class="loginField exposing" id="password" th:field="*{password}">
+        <a class="passwordView"></a>
+    </div>
+    <label for="email">Электронная почта</label><br>
+    <div class="inputContainer">
+        <input type="email" name="email" class="loginField" id="email" th:field="*{email}">
+    </div>
+    <p>Есть учетная запись? <a th:href="@{/login}">Авторизоваться</a></p>
 
-<!--  <a th:href="@{/}"><&#45;&#45; На главную</a>-->
+    <!--  <a th:href="@{/}"><&#45;&#45; На главную</a>-->
 
-  <input type="submit" class="registerButton btn" value="Зарегистрироваться">
-  <div class="wrapper">
-    <a class="registerButton btn" th:href="@{/}">
-      <div><-- На главную</div>
-    </a>
-<!--    <a class="btn registerButton" th:href="@{/recover_password}">-->
-<!--      <div>Восстановить пароль</div>-->
-<!--    </a>-->
-  </div>
+    <input type="submit" class="registerButton btn" value="Зарегистрироваться">
+    <div class="wrapper">
+        <a class="registerButton btn" th:href="@{/}">
+            <div><-- На главную</div>
+        </a>
+        <!--    <a class="btn registerButton" th:href="@{/recover_password}">-->
+        <!--      <div>Восстановить пароль</div>-->
+        <!--    </a>-->
+    </div>
 </form>
 <script>
-  let form = document.querySelector(".loginForm")
-  document.addEventListener("mousemove", (event)=>{
-      let coords = form.getClientRects().item(0)
+    let passwordFields = document.querySelectorAll(".exposing")
+    document.querySelectorAll(".passwordView").forEach((btn) => {
+        btn.addEventListener("click", () => {
+            if (btn.classList.contains("peeked")) {
+                btn.classList.remove("peeked");
+                passwordFields.forEach((passwordField) => {
+                    passwordField.setAttribute("type", "password")
+                });
+            } else {
+                btn.classList.add("peeked");
+                passwordFields.forEach((passwordField) => {
+                    passwordField.setAttribute("type", "text")
+                });
+            }
+        }, passive = true)
+    })
 
-      let centerX = coords.x + coords.width/2;
-      let centerY = coords.y + coords.height/2;
-      let diffX = centerX - event.x;
-      let diffY = centerY - event.y;
-      diffX = 20+10*Math.tanh(diffX/200)
-      diffY = 20+10*Math.tanh(diffY/200)
-      form.style.boxShadow = `#444 ${diffX}px ${diffY}px`
-  })
+    let form = document.querySelector(".loginForm")
+    document.addEventListener("mousemove", (event) => {
+        let coords = form.getClientRects().item(0)
+
+        let centerX = coords.x + coords.width / 2;
+        let centerY = coords.y + coords.height / 2;
+        let diffX = centerX - event.x;
+        let diffY = centerY - event.y;
+        diffX = 20 + 10 * Math.tanh(diffX / 200)
+        diffY = 20 + 10 * Math.tanh(diffY / 200)
+        form.style.boxShadow = `#444 ${diffX}px ${diffY}px`
+    })
 </script>
 <script src="../js/mainPageMenuAndPatents.js"></script>
 </body>
