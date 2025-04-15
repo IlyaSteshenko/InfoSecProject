@@ -830,7 +830,7 @@ form > .updateBody {
 
 }
 
-.deleteUserButton:hover {
+.deleteUserButton:hover:not([disabled]) {
     background-color: brown;
     cursor: pointer;
     color: #fff;
