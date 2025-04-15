@@ -27,7 +27,7 @@
             background-color: #ddd6; /* Изменение цвета при наведении */
         }
 
-        .btn-default:hover {
+        .btn-default:hover:not([disabled]) {
             background-color: #777777;
             cursor: pointer;
         }
@@ -72,48 +72,7 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-<div class="notificationList"></div>
-<div class="head">
-    <a class="logo" th:href="@{/}">
-        <div class="logoFirst">Патентное бюро</div>
-        <div class="logoSecond">Победа</div>
-    </a>
-    <div class="controls">
-        <div th:if="${authorities.equals('[ADMIN]')}">
-            <a th:href="@{/admin}" class="adminLink">Управление аккаунтами</a>
-        </div>
-        <div class="search-container">
-            <form th:action="@{/search}" method="get" class="search-form">
-
-
-                <input name="query" type="text" class="search-input" placeholder="Введите запрос...">
-
-                <button class="search-button" type="submit">Искать</button>
-            </form>
-        </div>
-        <a class="create rbg" th:href="@{/create_new_paste}">Новый патент</a>
-        <div class="settings" tabindex="-1">
-            <img src="../img/settings.svg" alt="">
-            <div class="sideMenu">
-                <a class="sideMenuItem rbm" th:href="@{/profile/{id}(id=${user.getId()})}"
-                   th:if="${not userName.equals('anonymousUser')}">
-                    <img src="../img/profile.svg" alt="">
-                    <span>Профиль</span>
-                </a>
-                <a class="sideMenuItem rbr" th:href="@{/logout}" th:if="${not userName.equals('anonymousUser')}">
-                    <img src="../img/logout.svg" alt="">
-                    <span>Выйти</span>
-                </a>
-                <a class="sideMenuItem rbr" th:href="@{/login}" th:if="${userName.equals('anonymousUser')}">
-                    <img src="../img/login.svg" alt="">
-                    <span>Войти</span>
-                </a>
-            </div>
-        </div>
-
-    </div>
-</div>
-<div class="accordionMenu"></div>
+<div th:replace="~{index.html::controlPanel}"></div>
 <div class="username" th:text="${userName}">rise</div>
 <div class="mainWrapper">
 
@@ -140,51 +99,30 @@
             <td th:text="${user.getEmail()}">qwerty</td>
 
             <td>
-                <div th:if="${not user.isAccountLocked()}">
-                    <form th:object="${user}" th:action="@{/admin/user/{id}/ban(id=${user.getId()})}" th:method="post">
+                <div th:with="locked=${not user.isAccountLocked()}">
+                    <form th:object="${user}" th:action="@{/admin/user/{id}/{func}(id=${user.getId()},func=${locked ? 'ban' : 'unban'})}" th:method="post">
                                                         <label th:for="${user.getId()} + '_Banned'" class="fill">
                         <!--                                    <input type="submit" th:value="${user.isAccountLocked()}">-->
                         <input type="submit" th:name="${user.getId()} + '_Banned'" class="btn-default" th:id="${user.getId()} + '_Banned'"
-                               th:value="${user.isAccountLocked()}">
+                               th:value="${user.isAccountLocked()}" th:disabled="${user.isAdmin()}">
                                                         </label>
                     </form>
                 </div>
-
-                <div th:if="${user.isAccountLocked()}">
-                    <form th:object="${user}" th:action="@{/admin/user/{id}/unban(id=${user.getId()})}"
-                          th:method="post">
-                        <label th:for="${user.getId()}  + '_Banned'" class="fill">
-                            <!--                                    <input type="submit" name="4536_Banned" id="4536_Banned" th:value="${user.isAccountLocked()}">-->
-                            <input type="submit" th:name="${user.getId()} + '_Banned'" class="btn-default" th:id="${user.getId()} + '_Banned'"
-                                   th:value="${user.isAccountLocked()}">
-                        </label>
-                    </form>
-                </div>
             </td>
 
             <td>
-                <div th:if="${not user.isAdmin()}">
-                    <form th:object="${user}" th:action="@{/admin/user/{id}/change_to_admin(id=${user.getId()})}"
+                <div th:with="isUser=${not user.isAdmin()}">
+                    <form th:object="${user}" th:action="@{/admin/user/{id}/{func}(id=${user.getId()}, func=${isUser ? 'change_to_admin' : 'change_to_user'})}"
                           th:method="post">
                         <label th:for="${user.getId()} + '_Admin'" class="fill">
-                            <input type="submit" th:name="${user.getId()} + '_Admin'" class="btn-default" th:id="${user.getId()}+'_Admin'" th:value="${user.isAdmin()}">
-                        </label>
-                    </form>
-                </div>
-
-                <div th:if="${user.isAdmin()}">
-                    <form th:object="${user}" th:action="@{/admin/user/{id}/change_to_user(id=${user.getId()})}"
-                          th:method="post">
-                        <label th:for="${user.getId()}+'_Admin'" class="fill">
-                            <input type="submit" th:name="${user.getId()}+'_Admin'" class="btn-default" th:id="${user.getId()}+'_Admin'" th:value="${user.isAdmin()}">
+                            <input type="submit" th:name="${user.getId()} + '_Admin'" class="btn-default" th:id="${user.getId()}+'_Admin'" th:value="${user.isAdmin()}" th:disabled="${user.isAdmin()}">
                         </label>
                     </form>
                 </div>
             </td>
-
             <td>
                 <form th:object="${user}" th:method="post" th:action="@{/admin/user/{id}/delete(id=${user.getId()})}">
-                    <input type="submit" class="btn-default deleteUserButton" value="Удалить Пользователя">
+                    <input type="submit" class="btn-default deleteUserButton" value="Удалить Пользователя" th:disabled="${user.isAdmin()}">
                 </form>
             </td>
         </tr>
