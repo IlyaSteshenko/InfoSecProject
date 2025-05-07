@@ -828,7 +828,7 @@ form > .updateBody {
     text-align: center;
 
     padding: 0 5px;
-    border-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .btn:hover {
@@ -864,10 +864,21 @@ input.registerButton {
     margin-bottom: 10px;
 }
 
-input.registerButton:hover {
+input.registerButton:hover:not([disabled]) {
     background-color: #00af0a;
     cursor: pointer;
 }
+.btn:disabled{
+    background-color: #0056b3;
+    cursor: default;
+}
+.registerButton:disabled {
+    background-color: #008005 !important;
+    color: #171717 !important;
+    margin-bottom: 10px;
+    cursor: wait;
+}
+
 
 .wrapper > a.registerButton {
     background-color: #00ff0b;
