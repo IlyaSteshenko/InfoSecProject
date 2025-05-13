@@ -29,7 +29,7 @@ public class RecoverPasswordController {
 
     private String email;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    private Code tempCode;
+//    private Code tempCode;
 
     @Autowired
     public RecoverPasswordController(
@@ -60,9 +60,9 @@ public class RecoverPasswordController {
                     .body("Email not found");
         }
 
-        this.tempCode = uniqueCodeGeneratorService.generateCode();
+        Code tempCode = uniqueCodeGeneratorService.generateCode();
 
-        String text = this.tempCode.getCode() +
+        String text = tempCode.getCode() +
                 " - ваш код для восстановления пароля";
 
         Email email = new Email();
@@ -71,7 +71,7 @@ public class RecoverPasswordController {
         email.setTitle("Код подтверждения");
         email.setMessage(text);
 
-        codeStorage.add(email.getRecipient(), this.tempCode);
+        codeStorage.add(email.getRecipient(), tempCode);
         emailSenderService.sendVerificationEmail(email);
 
         this.email = email.getRecipient();
@@ -91,10 +91,9 @@ public class RecoverPasswordController {
         JSONObject jsonObject = new JSONObject(json);
         Code code = new Code(
                 jsonObject.getString("code"),
-                LocalDateTime.now()
+                LocalDateTime.now().plusSeconds(90)
         );
 
-        code.setExpirationTime(this.tempCode.getExpirationTime());
         if (codeStorage.checkCode(this.email, code)) {
             contextService.authorizeUser(
                     userEntityDetailsService.findUserByEmail(email),
@@ -108,24 +107,6 @@ public class RecoverPasswordController {
                 .status(HttpStatus.BAD_REQUEST)
                 .build();
     }
-
-//    @PostMapping("/send_code_again")
-//    public String sendCodeAgain() {
-//        // Тут надо дописать
-//        return "redirect:/send_code";
-//    }
-
-//    @GetMapping("/new_password")
-//    public String newPassword(Model model) {
-//        model
-//                .addAttribute("user", new UserEntity())
-//                .addAttribute(
-//                        "userName",
-//                        userEntityDetailsService.findUserByEmail(email).getUsername()
-//                );
-//
-//        return "new_password";
-//    }
 
     /// На этот эндпоинт делай post-запрос
     /// с кодом в виде json
