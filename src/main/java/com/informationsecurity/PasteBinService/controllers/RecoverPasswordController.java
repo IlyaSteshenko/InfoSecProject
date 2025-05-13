@@ -6,15 +6,19 @@ import com.informationsecurity.PasteBinService.models.UserEntity;
 import com.informationsecurity.PasteBinService.services.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.time.LocalDateTime;
+
+@RestController
+@RequestMapping("/api")
 public class RecoverPasswordController {
 
     private final EmailSenderService emailSenderService;
@@ -42,111 +46,102 @@ public class RecoverPasswordController {
         this.contextService = contextService;
     }
 
-    @GetMapping("/recover_password")
-    public String recoverPassword(Model model) {
-
-        model
-                .addAttribute("email", new Email())
-                .addAttribute("error", "");
-
-        return "recover_password";
-    }
-
+    /// На этот эндпоинт делай post-запрос
+    /// с почтой в виде json
+    /// с ключом email
     @PostMapping("/recover_password")
-    public String recoverPassword(
-            @ModelAttribute("email") Email email,
-            Model model
-    ) {
+    public ResponseEntity<String> recoverPassword(String json) {
+        JSONObject jsonObject = new JSONObject(json);
+        String mail = jsonObject.getString("email");
 
-        // Вот тут проверка на работоспособность сервера почты
-//        if ()
-
-        // Вот тут проверка на существование кода
-        if (codeStorage.isCodeExists(email.getRecipient())) {
-            model.addAttribute("error", "Код для этой почты уже отправлен. ");
-            return "/recover_password";
-        }
-
-        if (userEntityDetailsService.findUserByEmail(email.getRecipient()) == null) {
-            model.addAttribute("error", "Пользователя с такой почтой не существует =(");
-            return "recover_password";
+        if (userEntityDetailsService.findUserByEmail(mail) == null) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("Email not found");
         }
 
         this.tempCode = uniqueCodeGeneratorService.generateCode();
-        StringBuilder text = new StringBuilder();
 
-        text
-                .append(this.tempCode.getCode())
-                .append(" - ваш код для восстановления пароля");
+        String text = this.tempCode.getCode() +
+                " - ваш код для восстановления пароля";
 
+        Email email = new Email();
+        email.setRecipient(mail);
         email.setSubject("Восстановление пароля");
         email.setTitle("Код подтверждения");
-        email.setMessage(text.toString());
+        email.setMessage(text);
 
         codeStorage.add(email.getRecipient(), this.tempCode);
         emailSenderService.sendVerificationEmail(email);
 
         this.email = email.getRecipient();
 
-        return "redirect:/send_code";
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/send_code")
-    public String checkCode(Model model) {
-        model
-                .addAttribute("mainCode", new Code())
-                .addAttribute("error", "");
-        return "send_code";
-    }
-
+    /// На этот эндпоинт делай post-запрос
+    /// с кодом в виде json
+    /// с ключом code
     @PostMapping("/send_code")
-    public String checkCode(
-            @ModelAttribute("mainCode") Code code,
+    public ResponseEntity<String> checkCode(
+            @RequestBody String json,
             HttpServletRequest request,
-            HttpServletResponse response,
-            Model model
+            HttpServletResponse response
     ) {
+        JSONObject jsonObject = new JSONObject(json);
+        Code code = new Code(
+                jsonObject.getString("code"),
+                LocalDateTime.now()
+        );
+
         code.setExpirationTime(this.tempCode.getExpirationTime());
-        System.out.println(code.getCode());
-        System.out.println(code.getExpirationTime());
         if (codeStorage.checkCode(this.email, code)) {
-//            UserEntity user = userEntityDetailsService.findUserByEmail(email);
             contextService.authorizeUser(
                     userEntityDetailsService.findUserByEmail(email),
                     request, response
             );
 
             codeStorage.removeCode(this.email);
-            return "redirect:/new_password";
-        } else {
-            model.addAttribute("error", "Ваш код доступа истёк.\nПолучите новый код по этой ссылке: ");
-            return "send_code";
+            return ResponseEntity.ok().build();
         }
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .build();
     }
 
-    @PostMapping("/send_code_again")
-    public String sendCodeAgain() {
-        // Тут надо дописать
-        return "redirect:/send_code";
-    }
+//    @PostMapping("/send_code_again")
+//    public String sendCodeAgain() {
+//        // Тут надо дописать
+//        return "redirect:/send_code";
+//    }
 
-    @GetMapping("/new_password")
-    public String newPassword(Model model) {
-        model
-                .addAttribute("user", new UserEntity())
-                .addAttribute(
-                        "userName",
-                        userEntityDetailsService.findUserByEmail(email).getUsername()
-                );
+//    @GetMapping("/new_password")
+//    public String newPassword(Model model) {
+//        model
+//                .addAttribute("user", new UserEntity())
+//                .addAttribute(
+//                        "userName",
+//                        userEntityDetailsService.findUserByEmail(email).getUsername()
+//                );
+//
+//        return "new_password";
+//    }
 
-        return "new_password";
-    }
-
+    /// На этот эндпоинт делай post-запрос
+    /// с кодом в виде json
+    /// с ключом password
     @PostMapping("/new_password")
-    public String newPassword(@ModelAttribute("user") UserEntity user) {
+    public ResponseEntity<String> newPassword(@RequestBody String json) {
+
+        JSONObject jsonObject = new JSONObject(json);
+
+        String password = passwordEncoder.encode(
+                jsonObject.getString("password")
+        );
+
         UserEntity userWithNewPassword = userEntityDetailsService.findUserByEmail(email);
-        userWithNewPassword.setPassword(passwordEncoder.encode(user.getPassword()));
+        userWithNewPassword.setPassword(password);
         userEntityDetailsService.saveAsUser(userWithNewPassword);
-        return "redirect:/login";
+        return ResponseEntity.ok().build();
     }
 }

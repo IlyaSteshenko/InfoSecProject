@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ПБ Победа</title>
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="notificationList"></div>
+<div class="head">
+  <a class="logo" th:href="@{/}">
+    <div class="logoFirst">Патентное бюро</div>
+    <div class="logoSecond">Победа</div>
+  </a>
+  <a th:href="@{/write_to_moderator}">Написать в поддержку</a>
+  <div class="controls">
+    <div th:if="${authorities.equals('[ADMIN]')}">
+      <a th:href="@{/admin}" class="adminLink">Управление аккаунтами</a>
+    </div>
+    <div class="search-container">
+      <form th:action="@{/search}" method="get" class="search-form">
+
+
+        <input name="query" type="text" class="search-input" placeholder="Введите запрос..." required>
+
+        <button class="search-button" type="submit">Искать</button>
+      </form>
+    </div>
+    <a class="create rbg" th:href="@{/create_new_paste}">Новый патент</a>
+    <div class="settings" tabindex="-1">
+      <img src="../img/settings.svg" alt="">
+      <div class="sideMenu">
+        <a class="sideMenuItem rbm" th:href="@{/profile/{id}(id=${user.getId()})}" th:if="${not userName.equals('anonymousUser')}">
+          <img src="../img/profile.svg" alt="">
+          <span>Профиль</span>
+        </a>
+        <a class="sideMenuItem rbr" th:href="@{/logout}" th:if="${not userName.equals('anonymousUser')}">
+          <img src="../img/logout.svg" alt="">
+          <span>Выйти</span>
+        </a>
+        <a class="sideMenuItem rbr" th:href="@{/login}" th:if="${userName.equals('anonymousUser')}">
+          <img src="../img/login.svg" alt="">
+          <span>Войти</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="accordionMenu">
+</div>
+
+<div th:if="${not userName.equals('anonymousUser')}" class="username" th:text="${userName}">
+  <a th:href="@{login}">Войти в аккаунт</a>
+</div>
+
+<div class="mainWrapper">
+  <h1 id="DataHeader" class="NotoSans">Последние патенты (новые)</h1>
+  <div class="patentsList">
+    <div class="patent" th:each="paste : ${pasteList}">
+      <a th:href="@{/paste/{id}(id=${paste.getId()})}" class="patentHeader">
+        <span class="patentName" th:text="${paste.getTitle()}">падать</span>
+        <span class="patentId" th:text="'#' + ${paste.getId()}">2</span>
+      </a>
+      <div class="patentBody">
+        <a th:href="@{/profile/{id}(id=${paste.getAuthorId()})}" class="patentAuthor" th:text="${paste.getAuthor()}">rise</a>
+        <div class="patentDate" th:text="${pasteTime.getTimeFormat(paste.getExpirationTime())}">13 марта 2025, 05:30</div>
+        <div class="patentDescription" th:text="${textFormater.format(paste.getText())}">PostgreSQL Elephant Logo
+          Home
+          About
+          Download
+          Documentation
+        </div>
+      </div>
+    </div>
+  </div>
+  <table class="pages">
+    <tbody>
+    <tr>
+      <td class="pageUnit"><a th:href="@{/search?query={search}&page=1(search=${search})}" class="pageLink">В начало</a></td>
+      <td class="pageUnit"><a th:href="@{/search?query={search}&page=prev(search=${search})}" class="pageLink"><<</a></td>
+
+      <td class="pageUnit" th:each="page : ${pages}"><a th:href="@{/search?query={search}&page={num}(num=${page}, search=${search})}" class="pageLink" th:text="${page}">1</a></td>
+
+      <td class="pageUnit"><a th:href="@{/search?query={search}&page=next(search=${search})}" class="pageLink">>></a></td>
+      <td class="pageUnit">
+        <a th:href="@{/search?query={search}&page={num}(num=${pages.[pages.length - 1]}, search=${search})}" class="pageLink">В конец</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<script src="../js/mainPageMenuAndPatents.js"></script>
+</body>
+</html>
