@@ -50,7 +50,7 @@ public class RecoverPasswordController {
     /// с почтой в виде json
     /// с ключом email
     @PostMapping("/recover_password")
-    public ResponseEntity<String> recoverPassword(String json) {
+    public ResponseEntity<String> recoverPassword(@RequestBody String json) {
         JSONObject jsonObject = new JSONObject(json);
         String mail = jsonObject.getString("email");
 
