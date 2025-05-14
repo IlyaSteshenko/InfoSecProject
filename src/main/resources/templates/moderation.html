@@ -1,18 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Написать в поддержку</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПБП Редактор</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+    <!--    <script src="scripts/PatentOpen.js" type="module"></script>-->
 </head>
 <body>
-    <h2>Написать в поддержку</h2>
-    <form th:action="@{/write_to_moderator}" th:method="post" th:object="${message}">
-        <div>Введите ваш email</div>
-        <input type="text" th:field="*{recipient}">
-        <div>Введите ваше обращение</div>
-        <textarea th:field="*{message}" style="width: 1000px; height: 550px;"></textarea>
+<th:block th:replace="~{index :: controlPanel}">
+<div class="head">
+    <a class="logo" th:href="@{/}">
+        <div class="logoFirst">Патентное бюро</div>
+        <div class="logoSecond">Победа</div>
+    </a>
+    <div class="controls">
+        <!--        <div th:if="${authorities.equals('[ADMIN]')}">-->
+        <!--            <a th:href="@{/admin}" class="adminLink">Управление аккаунтами</a>-->
+        <!--        </div>-->
+        <div class="search-container">
+            <form th:action="@{/search}" method="get" class="search-form">
 
-        <input type="submit" value="Отправить обращение">
-    </form>
+
+                <input name="query" type="text" class="search-input" placeholder="Введите запрос...">
+
+                <button class="search-button" type="submit">Искать</button>
+            </form>
+        </div>
+        <a class="create rbg" th:href="@{/create_new_paste}">Новый патент</a>
+        <div class="settings" tabindex="-1">
+            <img src="../img/settings.svg" alt="">
+            <div class="sideMenu">
+                <a class="sideMenuItem rbm" th:href="@{/profile/{id}(id=${user.getId()})}" th:if="${not userName.equals('anonymousUser')}">
+                    <img src="../img/profile.svg" alt="">
+                    <span>Профиль</span>
+                </a>
+                <a class="sideMenuItem rbr" th:href="@{/logout}" th:if="${not userName.equals('anonymousUser')}">
+                    <img src="../img/logout.svg" alt="">
+                    <span>Выйти</span>
+                </a>
+                <a class="sideMenuItem rbr" th:href="@{/login}" th:if="${userName.equals('anonymousUser')}">
+                    <img src="../img/login.svg" alt="">
+                    <span>Войти</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="accordionMenu"></div>
+</th:block>
+<div class="mainWrapper">
+
+    <h1>Написать в поддержку</h1>
+
+
+    <div class="patentFullList">
+        <div class="update" id="uElement">
+
+            <form id="uForm" th:object="${message}" th:method="post" th:action="@{/write_to_moderator}">
+                <div class="updateHeaderEdit">
+                    <label for="uName">Введите ваш email для обратной связи</label><br>
+
+                    <input type="email" name="uName" id="uName" placeholder="" th:field="*{recipient}" required>
+                </div>
+                <div class="updateBody">
+                    <div class="updateDescriptionEdit">
+                        <label for="uDesk">Текст обращения</label><br>
+                        <textarea name="uDesk" id="uDesk" th:field="*{message}" required></textarea>
+                        <input type="submit" value="Оправить" id="uSubmit">
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+<script src="../js/mainPageMenuAndPatents.js"></script>
 </body>
 </html>
+
