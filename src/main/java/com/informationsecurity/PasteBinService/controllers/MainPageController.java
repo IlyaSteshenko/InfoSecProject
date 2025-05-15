@@ -1,5 +1,6 @@
 package com.informationsecurity.PasteBinService.controllers;
 
+import com.informationsecurity.PasteBinService.exceptions.UnauthorizedException;
 import com.informationsecurity.PasteBinService.models.*;
 import com.informationsecurity.PasteBinService.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -178,7 +179,7 @@ public class MainPageController {
 
         String pasteUpdateUsername = pasteService.findById((long) id).getAuthor();
         if (!securityContextService.getUsername().equals(pasteUpdateUsername)) {
-            return "Иди нахуй отсюда, чёрт ебаный!";
+            throw new UnauthorizedException("Атата, не пройдет!");
         }
 
         Addition newAddition = new Addition();
