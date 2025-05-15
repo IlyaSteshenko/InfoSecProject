@@ -12,7 +12,7 @@ public class ModelContextProviderService {
     private final SecurityContextService securityContextService;
     private final UserEntityDetailsService userEntityDetailsService;
 
-    public void addHeaderDependencies(Model model){
+    public void addAttributesToModel(Model model) {
         String userName = securityContextService.getUsername();
         model
                 .addAttribute("authorities", securityContextService.getAuthorities())

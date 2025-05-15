@@ -4,8 +4,6 @@ import com.informationsecurity.PasteBinService.models.Email;
 import com.informationsecurity.PasteBinService.services.EmailSenderService;
 import com.informationsecurity.PasteBinService.services.ModelContextProviderService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +22,7 @@ public class ModerationController {
     @GetMapping
     public String writeToModerator(Model model) {
         model.addAttribute("message", new Email());
-        modelContextProviderService.addHeaderDependencies(model);
+        modelContextProviderService.addAttributesToModel(model);
         return "moderation";
     }
 

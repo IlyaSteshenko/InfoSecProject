@@ -64,25 +64,6 @@ public class MainPageController {
             pagesArray[i] = i + 1;
         }
 
-//        // Вот эту хуйню я писал в пол первого ночи, поэтому
-//        // просьба не хуесосить меня за этот кусок кода =).
-//
-//        // Если вкратце, этот код делит все посты по страницам,
-//        // каждая страница содержит максимум 10 постов
-//        /* //=================== |< Шедеврокод >| ===================// */
-//        /**/ int pagesCount = pastes.size() / 10 + 1;                  /**/
-//        /**/ int counter = 0;                                         /**/
-//        /**/ for (int i = 1; i <= pagesCount; i++) {                  /**/
-//        /**/     List<Paste> pagePastes = new ArrayList<>();          /**/
-//        /**/     int iterator = Math.min(pastes.size() - counter, 10); /**/
-//        /**/     for (int j = 0; j < iterator; j++) {                 /**/
-//        /**/         pagePastes.add(pastes.get(counter));             /**/
-//        /**/         counter++;                                       /**/
-//        /**/     }                                                    /**/
-//        /**/     pastesMap.put(i, pagePastes);                        /**/
-//        /**/ }                                                        /**/
-//        /* //=================== |< Шедеврокод >| ===================// */
-
         model
                 .addAttribute("pasteList", getDividedPastes(1))
                 .addAttribute("userName", userName)
