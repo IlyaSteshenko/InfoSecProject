@@ -30,6 +30,7 @@ public class RecoverPasswordController {
     private String email;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 //    private Code tempCode;
+    private boolean isCodeChecked = false;
 
     @Autowired
     public RecoverPasswordController(
@@ -59,6 +60,8 @@ public class RecoverPasswordController {
                     .status(HttpStatus.NOT_FOUND)
                     .body("Email not found");
         }
+
+        contextService.unauthorizeUser();
 
         Code tempCode = uniqueCodeGeneratorService.generateCode();
 
@@ -100,6 +103,8 @@ public class RecoverPasswordController {
                     request, response
             );
 
+            isCodeChecked = true;
+
             codeStorage.removeCode(this.email);
             return ResponseEntity.ok().build();
         }
@@ -114,6 +119,12 @@ public class RecoverPasswordController {
     @PostMapping("/new_password")
     public ResponseEntity<String> newPassword(@RequestBody String json) {
 
+        if (!isCodeChecked) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_ACCEPTABLE)
+                    .build();
+        }
+
         JSONObject jsonObject = new JSONObject(json);
 
         String password = passwordEncoder.encode(
@@ -123,6 +134,7 @@ public class RecoverPasswordController {
         UserEntity userWithNewPassword = userEntityDetailsService.findUserByEmail(email);
         userWithNewPassword.setPassword(password);
         userEntityDetailsService.saveAsUser(userWithNewPassword);
+        isCodeChecked = false;
         return ResponseEntity.ok().build();
     }
 }

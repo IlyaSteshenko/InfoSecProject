@@ -46,4 +46,8 @@ public class SecurityContextService {
         securityContextRepository.saveContext(context, request, response);
     }
 
+    public void unauthorizeUser() {
+        SecurityContextHolder.getContext().setAuthentication(null);
+    }
+
 }

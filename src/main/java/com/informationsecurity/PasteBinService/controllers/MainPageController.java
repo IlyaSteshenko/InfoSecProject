@@ -210,6 +210,11 @@ public class MainPageController {
         return "index";
     }
 
+    @GetMapping("rec_password")
+    public String recPassword() {
+        return "recover_password";
+    }
+
     private boolean isDigit(String s) {
         try {
             Integer.parseInt(s);
