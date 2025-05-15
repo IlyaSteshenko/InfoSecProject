@@ -29,7 +29,6 @@ public class RecoverPasswordController {
 
     private String email;
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//    private Code tempCode;
     private boolean isCodeChecked = false;
 
     @Autowired
