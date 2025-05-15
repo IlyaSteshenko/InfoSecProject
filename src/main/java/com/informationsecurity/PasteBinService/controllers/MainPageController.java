@@ -23,6 +23,7 @@ public class MainPageController {
     private final UserEntityDetailsService userEntityDetailsService;
     private final TimeFormatService timeFormatService;
     private final TextFormatService textFormatService;
+    private final SecurityContextService securityContextService;
 
     // Вот тут объявлять не бины
     private int currentPage = 1;
@@ -36,14 +37,15 @@ public class MainPageController {
             AdditionService additionService,
             UserEntityDetailsService userEntityDetailsService,
             TimeFormatService timeFormatService,
-            TextFormatService textFormatService
-    ) {
+            TextFormatService textFormatService,
+            SecurityContextService securityContextService) {
         this.pasteService = pasteService;
         this.contextService = contextService;
         this.additionService = additionService;
         this.userEntityDetailsService = userEntityDetailsService;
         this.timeFormatService = timeFormatService;
         this.textFormatService = textFormatService;
+        this.securityContextService = securityContextService;
     }
 
     @GetMapping("/")
@@ -173,6 +175,11 @@ public class MainPageController {
             @ModelAttribute("addition") Addition addition,
             @PathVariable("id") int id
     ) {
+
+        String pasteUpdateUsername = pasteService.findById((long) id).getAuthor();
+        if (!securityContextService.getUsername().equals(pasteUpdateUsername)) {
+            return "Иди нахуй отсюда, чёрт ебаный!";
+        }
 
         Addition newAddition = new Addition();
         newAddition.setPasteId(id);
