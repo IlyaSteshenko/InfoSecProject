@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ПБП Ошибка</title>
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <link rel="icon" type="image/svg+xml" href="../static/img/favicon.svg" th:href="@{/img/favicon.svg}">
+    <style>
+        body{
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+<div class="head">
+    <a class="logo" href="index.html" th:href="@{/}">
+        <div class="logoFirst">Патентное бюро</div>
+        <div class="logoSecond">Победа</div>
+    </a>
+</div>
+
+<div class="errorContainer">
+    <div class="errorContent">
+        <strong class="errorCode" th:text="${errorCode}">
+            569
+        </strong>
+        <div class="errorText">
+            <strong class="errorName" th:text="${errorMessage}">Внутренняя ошибка сервера</strong>
+            <div class="errorDescription" th:text="${errorDescription}">
+                Земля плоская на самом деле
+            </div>
+
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="errorAfterword">Проект подготовлен двумя студентами</div>
+
+</div>
+
+</body>
+</html>

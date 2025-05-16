@@ -9,10 +9,10 @@
 </head>
 <body>
 <div class="head">
-    <div class="logo">
+    <a class="logo" href="index.html" th:href="@{/}">
         <div class="logoFirst">Патентное бюро</div>
         <div class="logoSecond">Победа</div>
-    </div>
+    </a>
 </div>
 
 <form class="loginForm" th:action="@{/login}" th:method="post" th:object="${user}">
@@ -35,7 +35,7 @@
         <a class="loginFormBtn btn" th:href="@{/}">
             <div><-- На главную</div>
         </a>
-        <a class="loginFormBtn btn" th:href="@{/recover_password}">
+        <a class="loginFormBtn btn" th:href="@{/rec_password}">
             <div>Восстановить пароль</div>
         </a>
     </div>

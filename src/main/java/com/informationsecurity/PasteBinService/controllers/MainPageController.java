@@ -1,8 +1,10 @@
 package com.informationsecurity.PasteBinService.controllers;
 
+import com.informationsecurity.PasteBinService.exceptions.UnauthorizedException;
 import com.informationsecurity.PasteBinService.models.*;
 import com.informationsecurity.PasteBinService.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +24,7 @@ public class MainPageController {
     private final UserEntityDetailsService userEntityDetailsService;
     private final TimeFormatService timeFormatService;
     private final TextFormatService textFormatService;
+    private final SecurityContextService securityContextService;
 
     // Вот тут объявлять не бины
     private int currentPage = 1;
@@ -35,14 +38,15 @@ public class MainPageController {
             AdditionService additionService,
             UserEntityDetailsService userEntityDetailsService,
             TimeFormatService timeFormatService,
-            TextFormatService textFormatService
-    ) {
+            TextFormatService textFormatService,
+            SecurityContextService securityContextService) {
         this.pasteService = pasteService;
         this.contextService = contextService;
         this.additionService = additionService;
         this.userEntityDetailsService = userEntityDetailsService;
         this.timeFormatService = timeFormatService;
         this.textFormatService = textFormatService;
+        this.securityContextService = securityContextService;
     }
 
     @GetMapping("/")
@@ -59,25 +63,6 @@ public class MainPageController {
         for (int i = 0; i < pagesArray.length; i++) {
             pagesArray[i] = i + 1;
         }
-
-//        // Вот эту хуйню я писал в пол первого ночи, поэтому
-//        // просьба не хуесосить меня за этот кусок кода =).
-//
-//        // Если вкратце, этот код делит все посты по страницам,
-//        // каждая страница содержит максимум 10 постов
-//        /* //=================== |< Шедеврокод >| ===================// */
-//        /**/ int pagesCount = pastes.size() / 10 + 1;                  /**/
-//        /**/ int counter = 0;                                         /**/
-//        /**/ for (int i = 1; i <= pagesCount; i++) {                  /**/
-//        /**/     List<Paste> pagePastes = new ArrayList<>();          /**/
-//        /**/     int iterator = Math.min(pastes.size() - counter, 10); /**/
-//        /**/     for (int j = 0; j < iterator; j++) {                 /**/
-//        /**/         pagePastes.add(pastes.get(counter));             /**/
-//        /**/         counter++;                                       /**/
-//        /**/     }                                                    /**/
-//        /**/     pastesMap.put(i, pagePastes);                        /**/
-//        /**/ }                                                        /**/
-//        /* //=================== |< Шедеврокод >| ===================// */
 
         model
                 .addAttribute("pasteList", getDividedPastes(1))
@@ -167,10 +152,16 @@ public class MainPageController {
     }
 
     @PostMapping("/paste/{id}")
+    @PreAuthorize("hasAnyAuthority(\"USER\", \"ADMIN\")")
     public String addUpdate(
             @ModelAttribute("addition") Addition addition,
             @PathVariable("id") int id
     ) {
+
+        String pasteUpdateUsername = pasteService.findById((long) id).getAuthor();
+        if (!securityContextService.getUsername().equals(pasteUpdateUsername)) {
+            throw new UnauthorizedException("Атата, не пройдет!");
+        }
 
         Addition newAddition = new Addition();
         newAddition.setPasteId(id);
@@ -208,6 +199,11 @@ public class MainPageController {
         }
 
         return "index";
+    }
+
+    @GetMapping("rec_password")
+    public String recPassword() {
+        return "recover_password";
     }
 
     private boolean isDigit(String s) {
