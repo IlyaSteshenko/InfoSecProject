@@ -34,6 +34,7 @@ public class SecurityConfig {
 
     private final UserEntityDetailsService userEntityDetailsService;
     private final UserEntityDetailsService userService;
+    private final LoginFailureHandler loginFailureHandler;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -78,6 +79,7 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/")
+                        .failureHandler(loginFailureHandler)
                         .permitAll()
                 )
                 .sessionManagement(manager -> manager
