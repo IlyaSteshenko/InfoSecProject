@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @ControllerAdvice
 public class ErrorController implements org.springframework.boot.web.servlet.error.ErrorController {
-    private final String EXCEPTION_NAME = "requestException";
+    public static final String EXCEPTION_NAME = "requestException";
 
     @RequestMapping(path = "/error")
     public ModelAndView defaultErrorMapping(HttpServletRequest request){
@@ -35,6 +35,7 @@ public class ErrorController implements org.springframework.boot.web.servlet.err
                     case 401 -> "Неавторизован";
                     case 403 -> "Доступ запрещен";
                     case 404 -> "Не найдено";
+                    case 429 -> "Превышен лимит запросов";
                     case 500 -> "Внутренняя ошибка сервера";
                     case 502 -> "Плохой шлюз";
                     case 503 -> "Сервис недоступен";

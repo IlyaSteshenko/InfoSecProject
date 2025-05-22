@@ -2,6 +2,7 @@ package com.informationsecurity.PasteBinService.configs;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.informationsecurity.PasteBinService.exceptions.LoginAttemptsExceededException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
+import static com.informationsecurity.PasteBinService.controllers.ErrorController.EXCEPTION_NAME;
 
 @Component
 public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
@@ -30,8 +33,10 @@ public class LoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
         loginAttemptsCache.put(ip, attempts);
 
         if (attempts >= 5) { // Блокировка после 5 попыток
-            response.setStatus(429); // Too Many Requests
-            response.getWriter().write("Too many login attempts. Try later.");
+            // Too Many Requests
+            request.setAttribute(EXCEPTION_NAME,
+                    new LoginAttemptsExceededException("Слишком много попыток входа, попробуйте позже"));
+            response.sendError(429);
         } else {
             response.setStatus(401); // Unauthorized
             response.sendRedirect(request.getContextPath() + "/login?error");
