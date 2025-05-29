@@ -14,7 +14,7 @@ on:
       - '*'
 
 jobs:
-  build:
+  build-and-upload:
 
     runs-on: ubuntu-latest
 
@@ -26,15 +26,22 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+      # Шаг 3: Сборка проекта
     - name: Build with Maven
       run: ./mvnw clean package -DskipTests
-    - name: upload
-      run: mkdir upload && mv target/*.jar upload
-    - uses: actions/upload-artifact@v4
-      with:
-        name: Package
-        path: upload
 
+      # Шаг 4: Запуск тестов
+    - name: Run Tests
+      run: ./mvnw test
+        
+      # Шаг 5: Выгрузка артефактов (если сборка и тесты прошли успешно)
+    - name: Upload Artifact
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: Pobeda
+        path: target/dist/*.zip
+        compression-level: 0
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     #- name: Update dependency graph
     #  uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6

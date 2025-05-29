@@ -16,10 +16,13 @@ import org.springframework.security.config.annotation.web.configurers.CsrfConfig
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.context.DelegatingSecurityContextRepository;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
+import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -39,9 +42,15 @@ public class SecurityConfig {
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Bean
+    public HttpSessionRequestCache requestCache() {
+        return new HttpSessionRequestCache();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity httpSecurity,
-            SecurityContextRepository securityContextRepository
+            SecurityContextRepository securityContextRepository,
+            RequestCache requestCache
     ) throws Exception {
         httpSecurity
                 .csrf(CsrfConfigurer::disable)
@@ -78,7 +87,7 @@ public class SecurityConfig {
                 })
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .defaultSuccessUrl("/")
+                        .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
                         .failureHandler(loginFailureHandler)
                         .permitAll()
                 )
@@ -86,7 +95,8 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .securityContext(context -> context
-                        .securityContextRepository(securityContextRepository));
+                        .securityContextRepository(securityContextRepository))
+                .requestCache(cache -> cache.requestCache(requestCache));
 
         return httpSecurity.build();
     }
